@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lU0-ti-Ges">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="1Xd-Oo-GuM">
+            <objects>
+                <viewController id="lU0-ti-Ges" customClass="ViewController" customModule="TChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AgA-qs-HuQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYa-9j-evO">
+                                <rect key="frame" x="20" y="25" width="280" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pdf-UI-ia5">
+                                <rect key="frame" x="20" y="86" width="280" height="50"/>
+                                <color key="backgroundColor" name="AccentColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Psw-lw-6NG"/>
+                                </constraints>
+                                <state key="normal" title="Sign in with Facebook">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Plx-Ye-IEs">
+                                <rect key="frame" x="20" y="161" width="280" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.2283697553" blue="0.0048431705669999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="OFk-UI-RWs"/>
+                                </constraints>
+                                <state key="normal" title="Sign in with Google">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjG-Xk-YCu">
+                                <rect key="frame" x="20" y="282" width="280" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="qmH-QB-RI5"/>
+                                </constraints>
+                                <state key="normal" title="Create a new account">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFD-yh-Pt8">
+                                <rect key="frame" x="0.0" y="236" width="320" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms of service" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PG3-qg-EBd">
+                                <rect key="frame" x="20" y="357" width="280" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="J4X-L0-tvq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="J4X-L0-tvq" firstAttribute="trailing" secondItem="JFD-yh-Pt8" secondAttribute="trailing" id="1mz-A7-vTe"/>
+                            <constraint firstItem="EYa-9j-evO" firstAttribute="leading" secondItem="J4X-L0-tvq" secondAttribute="leading" constant="20" id="5c1-wb-CMk"/>
+                            <constraint firstItem="J4X-L0-tvq" firstAttribute="trailing" secondItem="PG3-qg-EBd" secondAttribute="trailing" constant="20" id="F5a-55-ixQ"/>
+                            <constraint firstItem="VjG-Xk-YCu" firstAttribute="leading" secondItem="J4X-L0-tvq" secondAttribute="leading" constant="20" id="L88-OE-vaT"/>
+                            <constraint firstItem="Plx-Ye-IEs" firstAttribute="top" secondItem="pdf-UI-ia5" secondAttribute="bottom" constant="25" id="Z1h-fe-pCB"/>
+                            <constraint firstItem="PG3-qg-EBd" firstAttribute="leading" secondItem="J4X-L0-tvq" secondAttribute="leading" constant="20" id="aP7-dQ-ITW"/>
+                            <constraint firstItem="PG3-qg-EBd" firstAttribute="top" secondItem="VjG-Xk-YCu" secondAttribute="bottom" constant="25" id="d98-hl-viX"/>
+                            <constraint firstItem="pdf-UI-ia5" firstAttribute="top" secondItem="EYa-9j-evO" secondAttribute="bottom" constant="40" id="eAy-LF-jwG"/>
+                            <constraint firstItem="VjG-Xk-YCu" firstAttribute="top" secondItem="JFD-yh-Pt8" secondAttribute="bottom" constant="25" id="fQX-5J-GHU"/>
+                            <constraint firstItem="JFD-yh-Pt8" firstAttribute="leading" secondItem="J4X-L0-tvq" secondAttribute="leading" id="ggg-Z9-rNe"/>
+                            <constraint firstItem="Plx-Ye-IEs" firstAttribute="leading" secondItem="J4X-L0-tvq" secondAttribute="leading" constant="20" id="hxw-Q6-axa"/>
+                            <constraint firstItem="J4X-L0-tvq" firstAttribute="trailing" secondItem="VjG-Xk-YCu" secondAttribute="trailing" constant="20" id="ix8-ZW-4Zm"/>
+                            <constraint firstItem="EYa-9j-evO" firstAttribute="top" secondItem="J4X-L0-tvq" secondAttribute="top" constant="25" id="jcV-Jr-LWe"/>
+                            <constraint firstItem="JFD-yh-Pt8" firstAttribute="top" secondItem="Plx-Ye-IEs" secondAttribute="bottom" constant="25" id="kmr-xM-FvR"/>
+                            <constraint firstItem="pdf-UI-ia5" firstAttribute="leading" secondItem="J4X-L0-tvq" secondAttribute="leading" constant="20" id="m09-G6-aSx"/>
+                            <constraint firstItem="J4X-L0-tvq" firstAttribute="trailing" secondItem="pdf-UI-ia5" secondAttribute="trailing" constant="20" id="mn0-U3-2KP"/>
+                            <constraint firstItem="J4X-L0-tvq" firstAttribute="trailing" secondItem="EYa-9j-evO" secondAttribute="trailing" constant="20" id="wL0-Ix-IBE"/>
+                            <constraint firstItem="J4X-L0-tvq" firstAttribute="trailing" secondItem="Plx-Ye-IEs" secondAttribute="trailing" constant="20" id="wM5-0I-zV5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="createAccountButton" destination="VjG-Xk-YCu" id="Fjc-rf-Zg4"/>
+                        <outlet property="orLabel" destination="JFD-yh-Pt8" id="D9L-Y1-iZT"/>
+                        <outlet property="signInFacebookButton" destination="pdf-UI-ia5" id="dng-OW-vSl"/>
+                        <outlet property="signInGoogleButton" destination="Plx-Ye-IEs" id="DP7-2y-VRI"/>
+                        <outlet property="termsOfServiceLabel" destination="PG3-qg-EBd" id="OUF-d9-kdy"/>
+                        <outlet property="titleLabel" destination="EYa-9j-evO" id="VTk-fZ-OQh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TcZ-wx-Hbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-217.5" y="111.97183098591549"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
