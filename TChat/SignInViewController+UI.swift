@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension SignInViewController{
+extension SignInViewController {
     
     func setupTitleLabel(){
         

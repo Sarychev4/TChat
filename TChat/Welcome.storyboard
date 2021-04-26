@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7Cq-UF-N1H">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wak-zw-wzO">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -370,6 +370,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VHd-0Y-xN3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1213" y="112"/>
+        </scene>
+        <!--Forgot Password View Controller-->
+        <scene sceneID="0Kl-nu-rXK">
+            <objects>
+                <viewController id="wak-zw-wzO" customClass="ForgotPasswordViewController" customModule="TChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lRD-xB-h0Z">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0o-u2-rxR">
+                                <rect key="frame" x="20" y="20" width="15.666666666666664" height="18"/>
+                                <state key="normal" backgroundImage="close"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UpM-Eq-Vzq">
+                                <rect key="frame" x="20" y="78" width="374" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3xR-By-YIY">
+                                        <rect key="frame" x="20" y="5" width="354" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="ABP-dW-xdv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="3xR-By-YIY" firstAttribute="leading" secondItem="UpM-Eq-Vzq" secondAttribute="leading" constant="20" id="9bq-yS-D9T"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="N4B-Op-8rJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="3xR-By-YIY" secondAttribute="trailing" id="S9G-6b-Fuz"/>
+                                    <constraint firstItem="3xR-By-YIY" firstAttribute="top" secondItem="UpM-Eq-Vzq" secondAttribute="top" constant="5" id="aNA-5I-nRq"/>
+                                    <constraint firstAttribute="height" constant="50" id="u0z-tt-cQk"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6eq-Nj-Khf">
+                                <rect key="frame" x="20" y="158" width="374" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="hYQ-B0-ZcR"/>
+                                </constraints>
+                                <state key="normal" title="Reset My Password"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tsj-J7-bjf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="t0o-u2-rxR" firstAttribute="leading" secondItem="tsj-J7-bjf" secondAttribute="leading" constant="20" id="1CQ-Si-EGH"/>
+                            <constraint firstItem="tsj-J7-bjf" firstAttribute="trailing" secondItem="UpM-Eq-Vzq" secondAttribute="trailing" constant="20" id="7cQ-pH-jPM"/>
+                            <constraint firstItem="6eq-Nj-Khf" firstAttribute="leading" secondItem="tsj-J7-bjf" secondAttribute="leading" constant="20" id="EWE-Fd-Wkp"/>
+                            <constraint firstItem="t0o-u2-rxR" firstAttribute="top" secondItem="tsj-J7-bjf" secondAttribute="top" constant="20" id="GHY-uH-daj"/>
+                            <constraint firstItem="6eq-Nj-Khf" firstAttribute="top" secondItem="UpM-Eq-Vzq" secondAttribute="bottom" constant="30" id="Huq-up-hzj"/>
+                            <constraint firstItem="UpM-Eq-Vzq" firstAttribute="top" secondItem="t0o-u2-rxR" secondAttribute="bottom" constant="40" id="O9t-dC-RRn"/>
+                            <constraint firstItem="UpM-Eq-Vzq" firstAttribute="leading" secondItem="tsj-J7-bjf" secondAttribute="leading" constant="20" id="klI-5B-TUS"/>
+                            <constraint firstItem="tsj-J7-bjf" firstAttribute="trailing" secondItem="6eq-Nj-Khf" secondAttribute="trailing" constant="20" id="xcD-jl-0iC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emailContainerView" destination="UpM-Eq-Vzq" id="jkx-lH-FLL"/>
+                        <outlet property="emailTextField" destination="3xR-By-YIY" id="N2u-KP-h9c"/>
+                        <outlet property="resetButton" destination="6eq-Nj-Khf" id="98S-u1-fFH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2KO-qh-77C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1974" y="112"/>
         </scene>
     </scenes>
     <resources>
