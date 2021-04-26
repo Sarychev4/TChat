@@ -15,6 +15,7 @@
 		DD90A3BE2636BE6700EAD20B /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */; };
 		DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */; };
 		DD90A3C526375B4900EAD20B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3C426375B4900EAD20B /* SignUpViewController.swift */; };
+		DD90A3C8263765E000EAD20B /* SignUpViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Welcome.storyboard; sourceTree = "<group>"; };
 		DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+UI.swift"; sourceTree = "<group>"; };
 		DD90A3C426375B4900EAD20B /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignUpViewController+UI.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */,
 				DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */,
 				DD90A3C426375B4900EAD20B /* SignUpViewController.swift */,
+				DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */,
 				DD90A3B12636B82800EAD20B /* Assets.xcassets */,
 				DD90A3B32636B82800EAD20B /* LaunchScreen.storyboard */,
 				DD90A3B62636B82800EAD20B /* Info.plist */,
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD90A3C8263765E000EAD20B /* SignUpViewController+UI.swift in Sources */,
 				DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */,
 				DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */,
 				DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */,
