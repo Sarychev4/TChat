@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class SignUpViewController: UIViewController {
 
@@ -47,4 +49,31 @@ class SignUpViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    //MARK: - Auth with FireBase
+    @IBAction func signUpButtonDidTapped(_ sender: Any) {
+        Auth.auth().createUser(withEmail: "test2@gmail.com", password: "123456") { (authDataResult, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                return
+            }
+            if let authData = authDataResult {
+                print(authData.user.email ?? "Empty")
+                let dict: Dictionary<String, Any> = [
+                    "uid": authData.user.uid,
+                    "email": authData.user.email ?? "Empty",
+                    "profileImageUrl": "",
+                    "status": "Default status"
+                ]
+                
+                Database.database().reference().child("users")
+                    .child(authData.user.uid)
+                    .updateChildValues(dict, withCompletionBlock: {
+                        (error, ref) in
+                        if error == nil {
+                            print("Done")
+                        }
+                    })
+            }
+        }
+    }
 }
