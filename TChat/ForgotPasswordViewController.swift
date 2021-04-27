@@ -22,11 +22,13 @@ class ForgotPasswordViewController: UIViewController {
     
     func setupUI(){
         
-        
         setupEmailTextField()
         setupResetButton()
 
     }
 
-
+    @IBAction func dismissAction(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
 }

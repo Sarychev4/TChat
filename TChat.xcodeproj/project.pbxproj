@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2FBABE95F79330DCD9BFBA46 /* Pods_TChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F452B6B44151C122C9BD03D /* Pods_TChat.framework */; };
 		DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3A82636B82600EAD20B /* AppDelegate.swift */; };
 		DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */; };
 		DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AC2636B82600EAD20B /* ViewController.swift */; };
@@ -20,9 +21,13 @@
 		DD90A3CF263772A000EAD20B /* SignInViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3CE263772A000EAD20B /* SignInViewController+UI.swift */; };
 		DD90A3D22637759700EAD20B /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3D12637759700EAD20B /* ForgotPasswordViewController.swift */; };
 		DD90A3D5263775A600EAD20B /* ForgotPasswordViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */; };
+		DD90A3D926377FAA00EAD20B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD90A3D826377FAA00EAD20B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A9A07EDD3425645816349AF /* Pods-TChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TChat.release.xcconfig"; path = "Target Support Files/Pods-TChat/Pods-TChat.release.xcconfig"; sourceTree = "<group>"; };
+		7534665AF7FC61F8921C7D37 /* Pods-TChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TChat.debug.xcconfig"; path = "Target Support Files/Pods-TChat/Pods-TChat.debug.xcconfig"; sourceTree = "<group>"; };
+		9F452B6B44151C122C9BD03D /* Pods_TChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD90A3A52636B82600EAD20B /* TChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD90A3A82636B82600EAD20B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +43,7 @@
 		DD90A3CE263772A000EAD20B /* SignInViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignInViewController+UI.swift"; sourceTree = "<group>"; };
 		DD90A3D12637759700EAD20B /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ForgotPasswordViewController+UI.swift"; sourceTree = "<group>"; };
+		DD90A3D826377FAA00EAD20B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,17 +51,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FBABE95F79330DCD9BFBA46 /* Pods_TChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C1DCFCF3C06C7E71D5A2A90C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7534665AF7FC61F8921C7D37 /* Pods-TChat.debug.xcconfig */,
+				6A9A07EDD3425645816349AF /* Pods-TChat.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C811AF0DD809E7AD14EC2E2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9F452B6B44151C122C9BD03D /* Pods_TChat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DD90A39C2636B82600EAD20B = {
 			isa = PBXGroup;
 			children = (
 				DD90A3A72636B82600EAD20B /* TChat */,
 				DD90A3A62636B82600EAD20B /* Products */,
+				C1DCFCF3C06C7E71D5A2A90C /* Pods */,
+				C811AF0DD809E7AD14EC2E2D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +110,7 @@
 				DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */,
 				DD90A3B12636B82800EAD20B /* Assets.xcassets */,
 				DD90A3B32636B82800EAD20B /* LaunchScreen.storyboard */,
+				DD90A3D826377FAA00EAD20B /* GoogleService-Info.plist */,
 				DD90A3B62636B82800EAD20B /* Info.plist */,
 			);
 			path = TChat;
@@ -95,9 +123,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD90A3B92636B82800EAD20B /* Build configuration list for PBXNativeTarget "TChat" */;
 			buildPhases = (
+				C293B6C5806D00BFA7F69C64 /* [CP] Check Pods Manifest.lock */,
 				DD90A3A12636B82600EAD20B /* Sources */,
 				DD90A3A22636B82600EAD20B /* Frameworks */,
 				DD90A3A32636B82600EAD20B /* Resources */,
+				3D54CA0030A5914272C40EEF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -146,12 +176,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD90A3B52636B82800EAD20B /* LaunchScreen.storyboard in Resources */,
+				DD90A3D926377FAA00EAD20B /* GoogleService-Info.plist in Resources */,
 				DD90A3BE2636BE6700EAD20B /* Welcome.storyboard in Resources */,
 				DD90A3B22636B82800EAD20B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3D54CA0030A5914272C40EEF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TChat/Pods-TChat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TChat/Pods-TChat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TChat/Pods-TChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C293B6C5806D00BFA7F69C64 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TChat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DD90A3A12636B82600EAD20B /* Sources */ = {
@@ -303,6 +376,7 @@
 		};
 		DD90A3BA2636B82800EAD20B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7534665AF7FC61F8921C7D37 /* Pods-TChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -322,6 +396,7 @@
 		};
 		DD90A3BB2636B82800EAD20B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A9A07EDD3425645816349AF /* Pods-TChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
