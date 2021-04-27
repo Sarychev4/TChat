@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import ProgressHUD
 
 class SignUpViewController: UIViewController {
     
@@ -48,15 +49,37 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func dissmissAction(_ sender: Any) {
-        
         navigationController?.popViewController(animated: true)
+    }
+    
+    func validateFields(){
+        guard let username = self.fullnameTextField.text, !username.isEmpty else {
+            ProgressHUD.showError("Please enter an username")
+            return
+        }
+        
+        guard let email = self.emailTextField.text, !email.isEmpty else {
+            ProgressHUD.showError("Please enter an email address")
+            return
+        }
+        
+        guard let password = self.passwordTextField.text, !password.isEmpty else {
+            ProgressHUD.showError("Please enter a password")
+            return
+        }
     }
     
     //MARK: - Auth with FireBase
     @IBAction func signUpButtonDidTapped(_ sender: Any) {
         
+        //Dismiss keyboard when user touch view
+        self.view.endEditing(true)
+        
+        self.validateFields()
+        
         guard let imageSelected = self.image else {
             print("Avatar is nil")
+            ProgressHUD.showError("Please choose your profile image")
             return
         }
         //Convert data
@@ -64,9 +87,9 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        Auth.auth().createUser(withEmail: "test5@gmail.com", password: "123456") { (authDataResult, error) in
+        Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (authDataResult, error) in
             if error != nil {
-                print(error!.localizedDescription)
+                ProgressHUD.showError(error!.localizedDescription)
                 return
             }
             if let authData = authDataResult {
@@ -74,6 +97,7 @@ class SignUpViewController: UIViewController {
                 var dict: Dictionary<String, Any> = [
                     "uid": authData.user.uid,
                     "email": authData.user.email ?? "Empty",
+                    "username": self.fullnameTextField.text,
                     "profileImageUrl": "",
                     "status": "Default status"
                 ]
