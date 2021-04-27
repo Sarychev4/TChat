@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,8 @@
 		DD90A3D22637759700EAD20B /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3D12637759700EAD20B /* ForgotPasswordViewController.swift */; };
 		DD90A3D5263775A600EAD20B /* ForgotPasswordViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */; };
 		DD90A3D926377FAA00EAD20B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD90A3D826377FAA00EAD20B /* GoogleService-Info.plist */; };
+		DD90A40B26384CAB00EAD20B /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A40A26384CAB00EAD20B /* Api.swift */; };
+		DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A40D26384D4700EAD20B /* UserApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		DD90A3D12637759700EAD20B /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ForgotPasswordViewController+UI.swift"; sourceTree = "<group>"; };
 		DD90A3D826377FAA00EAD20B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DD90A40A26384CAB00EAD20B /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		DD90A40D26384D4700EAD20B /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +68,6 @@
 				7534665AF7FC61F8921C7D37 /* Pods-TChat.debug.xcconfig */,
 				6A9A07EDD3425645816349AF /* Pods-TChat.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -108,6 +111,8 @@
 				DD90A3CE263772A000EAD20B /* SignInViewController+UI.swift */,
 				DD90A3D12637759700EAD20B /* ForgotPasswordViewController.swift */,
 				DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */,
+				DD90A40A26384CAB00EAD20B /* Api.swift */,
+				DD90A40D26384D4700EAD20B /* UserApi.swift */,
 				DD90A3B12636B82800EAD20B /* Assets.xcassets */,
 				DD90A3B32636B82800EAD20B /* LaunchScreen.storyboard */,
 				DD90A3D826377FAA00EAD20B /* GoogleService-Info.plist */,
@@ -236,9 +241,11 @@
 				DD90A3C8263765E000EAD20B /* SignUpViewController+UI.swift in Sources */,
 				DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */,
 				DD90A3D5263775A600EAD20B /* ForgotPasswordViewController+UI.swift in Sources */,
+				DD90A40B26384CAB00EAD20B /* Api.swift in Sources */,
 				DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */,
 				DD90A3D22637759700EAD20B /* ForgotPasswordViewController.swift in Sources */,
 				DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */,
+				DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */,
 				DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */,
 				DD90A3C526375B4900EAD20B /* SignUpViewController.swift in Sources */,
 			);
