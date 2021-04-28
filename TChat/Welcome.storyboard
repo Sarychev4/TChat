@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9JX-Tx-bTt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kiV-Yf-qbJ">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -105,6 +105,73 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TcZ-wx-Hbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="617.39130434782612" y="111.68478260869566"/>
+        </scene>
+        <!--Users-->
+        <scene sceneID="hei-hc-6G3">
+            <objects>
+                <viewController id="hWw-1q-Cny" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QTj-Fu-O6q">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="tch-qS-UTY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Users" image="icon_users" id="tpm-f9-xgJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ASb-ii-e5o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="617" y="1630"/>
+        </scene>
+        <!--Me-->
+        <scene sceneID="fmQ-8y-aOW">
+            <objects>
+                <viewController id="Bk2-aQ-cDG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ftf-JX-bhz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="2YB-7E-ppV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Me" image="icon_profile" id="usF-VD-ZYF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lek-l1-kNx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="617" y="2274"/>
+        </scene>
+        <!--Messages-->
+        <scene sceneID="CTl-Tm-Pfs">
+            <objects>
+                <viewController id="6o0-18-cyi" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZBT-qs-CDk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="EhH-e5-ryy"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Messages" image="icon_messages" id="vQz-Gj-gsg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FOB-sa-xZx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="617" y="959"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="2aM-LC-yTc">
+            <objects>
+                <tabBarController id="kiV-Yf-qbJ" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="apU-ZA-2t1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="6o0-18-cyi" kind="relationship" relationship="viewControllers" id="2w0-zq-Wql"/>
+                        <segue destination="hWw-1q-Cny" kind="relationship" relationship="viewControllers" id="0SS-3N-hkg"/>
+                        <segue destination="Bk2-aQ-cDG" kind="relationship" relationship="viewControllers" id="vG0-oh-IfX"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Pm-OS-c1p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-290" y="1117"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="xvw-hI-Dqi">
@@ -489,6 +556,9 @@
     </scenes>
     <resources>
         <image name="close" width="15.5" height="15"/>
+        <image name="icon_messages" width="25" height="25"/>
+        <image name="icon_profile" width="28" height="28"/>
+        <image name="icon_users" width="30" height="30"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
