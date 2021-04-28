@@ -76,4 +76,17 @@ class UserApi {
         }
     }
     
+    func logOut(){
+        do {
+            try Auth.auth().signOut()
+        } catch{
+            ProgressHUD.showError(error.localizedDescription)
+            return
+        }
+        //MARK: - BACK TO REVIEW
+        //(UIApplication.shared.delegate as! SceneDelegate).configureInitialViewController()
+         (UIApplication.shared.connectedScenes
+             .first!.delegate as! SceneDelegate).configureInitialViewController()
+    }
+    
 }

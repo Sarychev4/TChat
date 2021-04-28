@@ -63,6 +63,9 @@ class SignUpViewController: UIViewController {
         self.validateFields()
         self.signUp(onSuccess: {
             //switch view
+            //(UIApplication.shared.delegate as! SceneDelegate).configureInitialViewController()
+             (UIApplication.shared.connectedScenes
+                 .first!.delegate as! SceneDelegate).configureInitialViewController()
         }) {
             (errorMessage) in
             ProgressHUD.showError(errorMessage)

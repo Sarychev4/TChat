@@ -26,6 +26,7 @@
 		DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A40D26384D4700EAD20B /* UserApi.swift */; };
 		DD90A4122638A85200EAD20B /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4112638A85200EAD20B /* StorageService.swift */; };
 		DD90A4152638B36300EAD20B /* Ref.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4142638B36300EAD20B /* Ref.swift */; };
+		DD90A4292639A65C00EAD20B /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		DD90A40D26384D4700EAD20B /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
 		DD90A4112638A85200EAD20B /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DD90A4142638B36300EAD20B /* Ref.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ref.swift; sourceTree = "<group>"; };
+		DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				DD90A3AC2636B82600EAD20B /* ViewController.swift */,
 				DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */,
 				DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */,
+				DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */,
 				DD90A3C426375B4900EAD20B /* SignUpViewController.swift */,
 				DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */,
 				DD90A3CA263770E100EAD20B /* SignInViewController.swift */,
@@ -252,6 +255,7 @@
 				DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */,
 				DD90A4122638A85200EAD20B /* StorageService.swift in Sources */,
 				DD90A3D22637759700EAD20B /* ForgotPasswordViewController.swift in Sources */,
+				DD90A4292639A65C00EAD20B /* MessagesTableViewController.swift in Sources */,
 				DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */,
 				DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */,
 				DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */,
