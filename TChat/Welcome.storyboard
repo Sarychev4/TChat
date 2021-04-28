@@ -330,6 +330,9 @@
                                     <constraint firstAttribute="height" constant="50" id="W6t-wy-cPv"/>
                                 </constraints>
                                 <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="signInButtonDidTapped:" destination="7Cq-UF-N1H" eventType="touchUpInside" id="9mD-We-nod"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NJc-Fa-eg2">
                                 <rect key="frame" x="20" y="316" width="374" height="30"/>
