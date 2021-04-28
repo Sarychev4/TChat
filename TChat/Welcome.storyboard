@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kiV-Yf-qbJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9JX-Tx-bTt">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -157,7 +157,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="2aM-LC-yTc">
             <objects>
-                <tabBarController id="kiV-Yf-qbJ" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarVC" id="kiV-Yf-qbJ" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="apU-ZA-2t1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -538,7 +538,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Kgz-JO-yAz">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="9JX-Tx-bTt" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="WelcomeVC" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="9JX-Tx-bTt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7oC-MJ-Yrz">
