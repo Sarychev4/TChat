@@ -62,10 +62,18 @@ class UserApi {
                 }, onError: { (errorMessage) in
                     onError(errorMessage)
                 })
-
-                
-                
             }
         }
     }
+    
+    func resetPassword(email: String, onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void){
+        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+            if error == nil{
+                onSuccess()
+            } else {
+                onError(error!.localizedDescription)
+            }
+        }
+    }
+    
 }

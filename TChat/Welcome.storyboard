@@ -439,6 +439,9 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="hYQ-B0-ZcR"/>
                                 </constraints>
                                 <state key="normal" title="Reset My Password"/>
+                                <connections>
+                                    <action selector="resetPasswordButtonDidTapped:" destination="wak-zw-wzO" eventType="touchUpInside" id="V36-N1-yID"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tsj-J7-bjf"/>

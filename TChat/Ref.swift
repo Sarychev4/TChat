@@ -22,6 +22,8 @@ let ERROR_EMPTY_PHOTO = "Please choose your profile image"
 let ERROR_EMPTY_EMAIL = "Please enter an email address"
 let ERROR_EMPTY_USERNAME = "Please enter an username"
 let ERROR_EMPTY_PASSWORD = "Please enter a password"
+let ERROR_EMPTY_EMAIL_RESET = "Please enter an email address for password reset"
+let SUCCES_EMAIL_RESET = "We  have just sent you a password reset email. Please check your inbox and follow the instuctions"
 
 class Ref {
     let databaseRoot: DatabaseReference = Database.database().reference()
