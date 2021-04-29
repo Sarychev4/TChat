@@ -89,4 +89,25 @@ class UserApi {
              .first!.delegate as! SceneDelegate).configureInitialViewController()
     }
     
+    func observeUsers(onSuccess: @escaping(UserCompletion)){
+        //        print(Ref().databaseRoot.ref.description())
+        //        print(Ref().databaseUsers.ref.description())
+        Ref().databaseUsers.observe(.childAdded) { (snaphot) in
+            //           print(snaphot.value)
+            if let dict = snaphot.value as? Dictionary<String, Any> {
+                //                let email = dict["email"] as! String
+                //                let username = dict["username"] as! String
+                //                print(email)
+                //                print(username)
+                if let user = User.transformUser(dict: dict){
+                    onSuccess(user)
+                   // self.users.append(user)
+                }
+               // self.tableView.reloadData() //reloads rows and sections
+            }
+        }
+    }
+    
 }
+
+typealias UserCompletion = (User) -> Void //used in observeUsers

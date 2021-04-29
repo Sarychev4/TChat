@@ -12,21 +12,17 @@ class PeopleTableViewController: UITableViewController {
     var users: [User] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(Ref().databaseRoot.ref.description())
-        print(Ref().databaseUsers.ref.description())
-        Ref().databaseUsers.observe(.childAdded) { (snaphot) in
-            //           print(snaphot.value)
-            if let dict = snaphot.value as? Dictionary<String, Any> {
-                //                let email = dict["email"] as! String
-                //                let username = dict["username"] as! String
-                //                print(email)
-                //                print(username)
-                if let user = User.transformUser(dict: dict){
-                    self.users.append(user)
-                }
-                self.tableView.reloadData() //reloads rows and sections
-            }
+        
+        observeUsers()
+        
+    }
+    
+    func observeUsers(){
+        Api.User.observeUsers { (user) in 
+            self.users.append(user)
+            self.tableView.reloadData()
         }
+        
     }
     // MARK: - Table view data source
     
