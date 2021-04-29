@@ -19,6 +19,13 @@ class UserTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    func loadData(_ user: User){
+        self.avatar.image = UIImage(named: "SarychevAvatar")
+        self.usernameLbl.text = user.username
+        self.statusLbl.text = user.status
+        
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

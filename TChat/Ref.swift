@@ -34,7 +34,7 @@ class Ref {
     let databaseRoot: DatabaseReference = Database.database().reference()
     
     var databaseUsers: DatabaseReference {
-        return databaseRoot.child("users")
+        return databaseRoot.child(REF_USER)
     }
     
     func databaseSpecificUser(uid: String) -> DatabaseReference {
