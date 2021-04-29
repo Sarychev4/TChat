@@ -26,13 +26,17 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search users..."
         searchController.searchBar.barTintColor = UIColor.white
+        definesPresentationContext = true //MARK: - research info
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
     }
     
     func setupNavigationBar(){
+        //navigationItem.backButtonTitle = "" //Hide back title in ChatVC
+        //navigationController?.navigationBar.backgroundColor = UIColor.blue
         navigationItem.title = "People"
         navigationController?.navigationBar.prefersLargeTitles = true
+      //  navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 5/255, green: 132/255, blue: 254/255, alpha: 1.0)]
     }
     
     func observeUsers(){
@@ -86,6 +90,15 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 95
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? UserTableViewCell{
+            let storyboard = UIStoryboard(name: "Welcome", bundle: nil)
+            let chatVC = storyboard.instantiateViewController(withIdentifier: IDENTIFIER_CHAT) as! ChatViewController
+            chatVC.imagePartner = cell.avatar.image
+            self.navigationController?.pushViewController(chatVC, animated: true)
+        }
     }
     
     
