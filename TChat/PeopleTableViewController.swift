@@ -46,8 +46,7 @@ class PeopleTableViewController: UITableViewController {
         // Configure the cell...
         let user = users[indexPath.row]
         cell.loadData(user)
-        cell.avatar.layer.cornerRadius = 30
-        cell.avatar.clipsToBounds = true
+        
         return cell
     }
     

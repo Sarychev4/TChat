@@ -11,6 +11,7 @@
 		DD463CA5263AEAFA00F37791 /* PeopleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */; };
 		DD463CA8263AF10500F37791 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CA7263AF10500F37791 /* UserTableViewCell.swift */; };
 		DD463CAB263B0B4100F37791 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CAA263B0B4100F37791 /* User.swift */; };
+		DD463CC1263B361800F37791 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CC0263B361800F37791 /* Extension.swift */; };
 		DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3A82636B82600EAD20B /* AppDelegate.swift */; };
 		DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */; };
 		DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AC2636B82600EAD20B /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 		DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewController.swift; sourceTree = "<group>"; };
 		DD463CA7263AF10500F37791 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		DD463CAA263B0B4100F37791 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DD463CC0263B361800F37791 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		DD90A3A52636B82600EAD20B /* TChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD90A3A82636B82600EAD20B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */,
 				DD463CAA263B0B4100F37791 /* User.swift */,
 				DD463CA7263AF10500F37791 /* UserTableViewCell.swift */,
+				DD463CC0263B361800F37791 /* Extension.swift */,
 				DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */,
 				DD90A3C426375B4900EAD20B /* SignUpViewController.swift */,
 				DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */,
@@ -267,6 +270,7 @@
 				DD90A3D22637759700EAD20B /* ForgotPasswordViewController.swift in Sources */,
 				DD90A4292639A65C00EAD20B /* MessagesTableViewController.swift in Sources */,
 				DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */,
+				DD463CC1263B361800F37791 /* Extension.swift in Sources */,
 				DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */,
 				DD463CAB263B0B4100F37791 /* User.swift in Sources */,
 				DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */,

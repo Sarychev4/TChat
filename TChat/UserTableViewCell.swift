@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class UserTableViewCell: UITableViewCell {
 
     @IBOutlet weak var avatar: UIImageView!
@@ -18,13 +19,14 @@ class UserTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        avatar.layer.cornerRadius = 30
+        avatar.clipsToBounds = true
     }
     
     func loadData(_ user: User){
-        self.avatar.image = UIImage(named: "SarychevAvatar")
+        self.avatar.loadImage(user.profileImageUrl)
         self.usernameLbl.text = user.username
         self.statusLbl.text = user.status
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
