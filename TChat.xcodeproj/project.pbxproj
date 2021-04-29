@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2FBABE95F79330DCD9BFBA46 /* Pods_TChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F452B6B44151C122C9BD03D /* Pods_TChat.framework */; };
+		DD463CA5263AEAFA00F37791 /* PeopleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */; };
+		DD463CA8263AF10500F37791 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CA7263AF10500F37791 /* UserTableViewCell.swift */; };
 		DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3A82636B82600EAD20B /* AppDelegate.swift */; };
 		DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */; };
 		DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AC2636B82600EAD20B /* ViewController.swift */; };
@@ -33,6 +35,8 @@
 		6A9A07EDD3425645816349AF /* Pods-TChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TChat.release.xcconfig"; path = "Target Support Files/Pods-TChat/Pods-TChat.release.xcconfig"; sourceTree = "<group>"; };
 		7534665AF7FC61F8921C7D37 /* Pods-TChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TChat.debug.xcconfig"; path = "Target Support Files/Pods-TChat/Pods-TChat.debug.xcconfig"; sourceTree = "<group>"; };
 		9F452B6B44151C122C9BD03D /* Pods_TChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewController.swift; sourceTree = "<group>"; };
+		DD463CA7263AF10500F37791 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		DD90A3A52636B82600EAD20B /* TChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD90A3A82636B82600EAD20B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 				DD90A3AC2636B82600EAD20B /* ViewController.swift */,
 				DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */,
 				DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */,
+				DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */,
+				DD463CA7263AF10500F37791 /* UserTableViewCell.swift */,
 				DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */,
 				DD90A3C426375B4900EAD20B /* SignUpViewController.swift */,
 				DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */,
@@ -251,6 +257,7 @@
 				DD90A3C8263765E000EAD20B /* SignUpViewController+UI.swift in Sources */,
 				DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */,
 				DD90A3D5263775A600EAD20B /* ForgotPasswordViewController+UI.swift in Sources */,
+				DD463CA5263AEAFA00F37791 /* PeopleTableViewController.swift in Sources */,
 				DD90A40B26384CAB00EAD20B /* Api.swift in Sources */,
 				DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */,
 				DD90A4122638A85200EAD20B /* StorageService.swift in Sources */,
@@ -259,6 +266,7 @@
 				DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */,
 				DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */,
 				DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */,
+				DD463CA8263AF10500F37791 /* UserTableViewCell.swift in Sources */,
 				DD90A3C526375B4900EAD20B /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
