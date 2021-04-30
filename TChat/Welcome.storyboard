@@ -228,6 +228,9 @@
                                         <state key="normal" title="Send">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="sendButtonDidTapped:" destination="0BD-Il-Spx" eventType="touchUpInside" id="8Rh-Cu-GXv"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -257,6 +260,12 @@
                             <constraint firstItem="rCM-tP-z2X" firstAttribute="leading" secondItem="ji2-Gc-K1P" secondAttribute="leading" id="tTB-V3-BjL"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="audioButton" destination="UNF-q6-rlp" id="3Zd-Ru-FQe"/>
+                        <outlet property="inputTextView" destination="7DQ-Az-Gwz" id="U5i-FC-m1c"/>
+                        <outlet property="mediaButton" destination="OO9-e2-8LU" id="FZZ-e0-JaO"/>
+                        <outlet property="sendButton" destination="6bC-7c-dEb" id="F0d-7B-x9f"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8UE-Aq-Y4G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
