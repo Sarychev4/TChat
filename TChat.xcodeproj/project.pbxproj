@@ -13,6 +13,7 @@
 		DD463CAB263B0B4100F37791 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CAA263B0B4100F37791 /* User.swift */; };
 		DD463CC1263B361800F37791 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CC0263B361800F37791 /* Extension.swift */; };
 		DD463CC4263B668C00F37791 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CC3263B668C00F37791 /* ChatViewController.swift */; };
+		DD463CDB263C57AD00F37791 /* MessageApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CDA263C57AD00F37791 /* MessageApi.swift */; };
 		DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3A82636B82600EAD20B /* AppDelegate.swift */; };
 		DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */; };
 		DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AC2636B82600EAD20B /* ViewController.swift */; };
@@ -43,6 +44,7 @@
 		DD463CAA263B0B4100F37791 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DD463CC0263B361800F37791 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		DD463CC3263B668C00F37791 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		DD463CDA263C57AD00F37791 /* MessageApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageApi.swift; sourceTree = "<group>"; };
 		DD90A3A52636B82600EAD20B /* TChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD90A3A82636B82600EAD20B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				DD90A3D12637759700EAD20B /* ForgotPasswordViewController.swift */,
 				DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */,
 				DD90A40A26384CAB00EAD20B /* Api.swift */,
+				DD463CDA263C57AD00F37791 /* MessageApi.swift */,
 				DD90A40D26384D4700EAD20B /* UserApi.swift */,
 				DD90A4142638B36300EAD20B /* Ref.swift */,
 				DD90A4112638A85200EAD20B /* StorageService.swift */,
@@ -267,6 +270,7 @@
 				DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */,
 				DD90A3D5263775A600EAD20B /* ForgotPasswordViewController+UI.swift in Sources */,
 				DD463CA5263AEAFA00F37791 /* PeopleTableViewController.swift in Sources */,
+				DD463CDB263C57AD00F37791 /* MessageApi.swift in Sources */,
 				DD90A40B26384CAB00EAD20B /* Api.swift in Sources */,
 				DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */,
 				DD90A4122638A85200EAD20B /* StorageService.swift in Sources */,

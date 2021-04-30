@@ -16,6 +16,8 @@ class UserTableViewCell: UITableViewCell {
     
     @IBOutlet weak var statusLbl: UILabel!
     
+    var user: User!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,6 +26,7 @@ class UserTableViewCell: UITableViewCell {
     }
     
     func loadData(_ user: User){
+        self.user = user
         self.avatar.loadImage(user.profileImageUrl)
         self.usernameLbl.text = user.username
         self.statusLbl.text = user.status

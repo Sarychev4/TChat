@@ -6,6 +6,7 @@
 //
 
 import UIKit
+//import FirebaseAuth
 
 class ChatViewController: UIViewController {
     
@@ -19,6 +20,7 @@ class ChatViewController: UIViewController {
     var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
     var topLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
     var partnerUsername: String!
+    var partnerId: String!
     var placeholderLbl = UILabel()
     
     override func viewDidLoad() {
@@ -106,6 +108,25 @@ class ChatViewController: UIViewController {
     }
 
     @IBAction func sendButtonDidTapped(_ sender: Any) {
+        if let text = inputTextView.text, text != "" {
+            inputTextView.text = ""
+            self.textViewDidChange(inputTextView)
+            sendToFirebase(dict:["text": text as Any])
+        }
+    }
+    
+    func sendToFirebase(dict: Dictionary<String, Any>){
+        let date: Double = Date().timeIntervalSince1970
+        var value = dict
+        value["from"] = Api.User.currentUserId
+        value["to"] = partnerId
+        value["date"] = date
+        value["read"] = true
+        
+        Api.Message.sendMessage(from: Api.User.currentUserId, to: partnerId, value: value)
+        
+        
+        
     }
     /*
     // MARK: - Navigation

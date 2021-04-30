@@ -14,6 +14,15 @@ import FirebaseDatabase
 
 class UserApi {
     
+    var currentUserId: String {
+//        if Auth.auth().currentUser != nil {
+//            return Auth.auth().currentUser!.uid
+//        } else {
+//            return ""
+//        }
+        return Auth.auth().currentUser != nil ? Auth.auth().currentUser!.uid : ""
+    }
+    
     func signIn(email: String, password: String, onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void){
         Auth.auth().signIn(withEmail: email, password: password) { (authData, error) in
             if error != nil{
