@@ -237,7 +237,8 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         }
         
         //save photo data
-        StorageService.savePhotoMessage(image: selectedImageFromPicker, id: Api.User.currentUserId, onSuccess: { (anyValue) in
+        let imageNameUnicId = NSUUID().uuidString
+        StorageService.savePhotoMessage(image: selectedImageFromPicker, id: imageNameUnicId, onSuccess: { (anyValue) in
             print(anyValue)
             if let dict = anyValue as? [String: Any] {
                 self.sendToFirebase(dict: dict)
@@ -245,6 +246,8 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         }) { (errorMessage) in
             
         }
+        
+        self.picker.dismiss(animated: true, completion: nil)
     }
     
 }
