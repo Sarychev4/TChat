@@ -188,14 +188,60 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rCM-tP-z2X">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="676"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" systemColor="systemTealColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLd-92-c3S">
                                 <rect key="frame" x="0.0" y="676" width="414" height="60"/>
-                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OO9-e2-8LU">
+                                        <rect key="frame" x="8" y="5" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="HGg-7i-w71"/>
+                                            <constraint firstAttribute="width" constant="32" id="jrI-6r-dtP"/>
+                                        </constraints>
+                                        <state key="normal" image="attachment_icon"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNF-q6-rlp">
+                                        <rect key="frame" x="48" y="5" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="Cyf-Rl-6D6"/>
+                                            <constraint firstAttribute="width" constant="32" id="Orp-s4-a5I"/>
+                                        </constraints>
+                                        <state key="normal" image="mic"/>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7DQ-Az-Gwz">
+                                        <rect key="frame" x="91" y="8" width="274" height="30"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="eer-Uq-3zA"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bC-7c-dEb">
+                                        <rect key="frame" x="373" y="8" width="36" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="oM4-Mi-ftn"/>
+                                        </constraints>
+                                        <state key="normal" title="Send">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="OO9-e2-8LU" firstAttribute="top" secondItem="kLd-92-c3S" secondAttribute="top" constant="5" id="Cob-hO-jPI"/>
                                     <constraint firstAttribute="height" constant="60" id="DDK-pe-X6g"/>
+                                    <constraint firstItem="6bC-7c-dEb" firstAttribute="top" secondItem="kLd-92-c3S" secondAttribute="top" constant="8" id="Hhg-bf-CJc"/>
+                                    <constraint firstItem="7DQ-Az-Gwz" firstAttribute="top" secondItem="kLd-92-c3S" secondAttribute="top" constant="8" id="KMd-rY-73x"/>
+                                    <constraint firstItem="OO9-e2-8LU" firstAttribute="leading" secondItem="kLd-92-c3S" secondAttribute="leading" constant="8" id="LvI-Ei-J2K"/>
+                                    <constraint firstItem="6bC-7c-dEb" firstAttribute="leading" secondItem="7DQ-Az-Gwz" secondAttribute="trailing" constant="5" id="OZv-29-gGE"/>
+                                    <constraint firstAttribute="trailing" secondItem="6bC-7c-dEb" secondAttribute="trailing" constant="5" id="W9v-HB-01V"/>
+                                    <constraint firstItem="UNF-q6-rlp" firstAttribute="leading" secondItem="OO9-e2-8LU" secondAttribute="trailing" constant="8" id="Xft-gu-EaK"/>
+                                    <constraint firstItem="UNF-q6-rlp" firstAttribute="top" secondItem="kLd-92-c3S" secondAttribute="top" constant="5" id="Zyg-Cf-kpg"/>
+                                    <constraint firstItem="7DQ-Az-Gwz" firstAttribute="leading" secondItem="kLd-92-c3S" secondAttribute="leading" constant="91" id="pmk-8L-sWV"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -706,14 +752,19 @@
         </scene>
     </scenes>
     <resources>
+        <image name="attachment_icon" width="32" height="32"/>
         <image name="close" width="15.5" height="15"/>
         <image name="icon-chat" width="24" height="24"/>
         <image name="icon_messages" width="25" height="25"/>
         <image name="icon_profile" width="28" height="28"/>
         <image name="icon_users" width="30" height="30"/>
+        <image name="mic" width="32" height="32"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

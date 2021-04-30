@@ -11,7 +11,9 @@ class ChatViewController: UIViewController {
     
     var imagePartner: UIImage! // image from users VC
     var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
-
+    var topLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+    var partnerUsername: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -31,6 +33,17 @@ class ChatViewController: UIViewController {
         self.navigationItem.leftItemsSupplementBackButton = true //not allow to overriding the natural back button
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
        // print(self.navigationItem.leftBarButtonItem)
+        
+        topLabel.textAlignment = .center
+        topLabel.numberOfLines = 0
+        
+        let attributed = NSMutableAttributedString(string: partnerUsername + "\n", attributes: [.font : UIFont.systemFont(ofSize: 17), .foregroundColor : UIColor.black])
+        
+        attributed.append(NSAttributedString(string: "Dummy Text", attributes: [.font : UIFont.systemFont(ofSize: 13), .foregroundColor : UIColor.green]))
+        topLabel.attributedText = attributed
+        
+        self.navigationItem.titleView = topLabel
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
