@@ -29,10 +29,15 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupPicker()
         setupNavigationBar()
         setupInputContainer()
         setupTableView()
         // Do any additional setup after loading the view.
+    }
+    
+    func setupPicker(){
+        picker.delegate = self
     }
     
     func setupTableView() {
@@ -203,4 +208,43 @@ extension ChatViewController: UITextViewDelegate {
             placeholderLbl.isHidden = false
         }
     }
+}
+
+
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+            handleVideoSelectedForUrl(videoUrl)
+        } else {
+            handleImageSelectedForInfo(info)
+        }
+    }
+    
+    func handleVideoSelectedForUrl(_ url: URL){
+        //save video data
+    }
+    
+    func handleImageSelectedForInfo(_ info: [UIImagePickerController.InfoKey : Any]){
+        var selectedImageFromPicker: UIImage?
+        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
+            selectedImageFromPicker = imageSelected
+         
+        }
+        
+        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            selectedImageFromPicker = imageOriginal
+        }
+        
+        //save photo data
+        StorageService.savePhotoMessage(image: selectedImageFromPicker, id: Api.User.currentUserId, onSuccess: { (anyValue) in
+            print(anyValue)
+            if let dict = anyValue as? [String: Any] {
+                self.sendToFirebase(dict: dict)
+            }
+        }) { (errorMessage) in
+            
+        }
+    }
+    
 }

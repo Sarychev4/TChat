@@ -12,6 +12,33 @@ import FirebaseAuth
 import ProgressHUD
 
 class StorageService {
+    
+    //MARK: - PUSH PHOTO TO FIREBASE
+    static func savePhotoMessage(image: UIImage?, id: String, onSuccess: @escaping(_ value: Any) -> Void, onError: @escaping(_ errorMessage: String) -> Void){
+        if let imagePhoto = image {
+            let ref = Ref().storageSpecificImageMessage(id: id)
+            if let data = imagePhoto.jpegData(compressionQuality: 0.5){
+                
+                ref.putData(data, metadata: nil) { (metadata, error) in
+                    if error != nil{
+                        onError(error!.localizedDescription)
+                    }
+                    ref.downloadURL(completion: {(url, error) in
+                        if let metaImageUrl = url?.absoluteString {
+                            let dict: Dictionary<String, Any> = [
+                                "imageUrl": metaImageUrl as Any,
+                                "height": imagePhoto.size.height as Any,
+                                "width": imagePhoto.size.width as Any,
+                                "text": "" as Any
+                            ]
+                            onSuccess(dict)
+                        }
+                    })
+                    
+                }
+            }
+        }
+    }
     static func savePhoto(username: String, uid: String, data: Data, metadata: StorageMetadata, storageProfileRef: StorageReference, dict: Dictionary<String, Any>,
                           onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
                             
