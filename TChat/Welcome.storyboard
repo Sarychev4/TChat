@@ -208,6 +208,9 @@
                                             <constraint firstAttribute="width" constant="32" id="jrI-6r-dtP"/>
                                         </constraints>
                                         <state key="normal" image="attachment_icon"/>
+                                        <connections>
+                                            <action selector="mediaButtonDidTapped:" destination="0BD-Il-Spx" eventType="touchUpInside" id="JsR-2p-umq"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNF-q6-rlp">
                                         <rect key="frame" x="48" y="5" width="32" height="32"/>
