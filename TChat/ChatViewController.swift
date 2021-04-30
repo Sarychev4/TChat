@@ -13,6 +13,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var audioButton: UIButton!
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
     
     var imagePartner: UIImage! // image from users VC
     var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
@@ -24,7 +25,12 @@ class ChatViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupInputContainer()
+        setupTableView()
         // Do any additional setup after loading the view.
+    }
+    
+    func setupTableView() {
+        tableView.tableFooterView = UIView() //Clear separate borders of messages??? //FOOTER VIEW FOR ALL TABLE
     }
     
     func setupInputContainer(){

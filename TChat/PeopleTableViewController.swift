@@ -17,8 +17,14 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
         super.viewDidLoad()
         setupSearchBarController()
         setupNavigationBar()
+        setupTableView()
         observeUsers()
         
+        
+    }
+    
+    func setupTableView() {
+        tableView.tableFooterView = UIView() //Clear separate borders of messages??? //FOOTER VIEW FOR ALL TABLE
     }
     
     func setupSearchBarController(){

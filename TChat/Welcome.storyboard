@@ -194,6 +194,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLd-92-c3S">
                                 <rect key="frame" x="0.0" y="676" width="414" height="60"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yo8-JY-Att">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                                        <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="0.69803921568627447" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="q0U-OJ-W2m"/>
+                                        </constraints>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OO9-e2-8LU">
                                         <rect key="frame" x="8" y="5" width="32" height="32"/>
                                         <constraints>
@@ -237,6 +244,7 @@
                                 <constraints>
                                     <constraint firstItem="OO9-e2-8LU" firstAttribute="top" secondItem="kLd-92-c3S" secondAttribute="top" constant="5" id="Cob-hO-jPI"/>
                                     <constraint firstAttribute="height" constant="60" id="DDK-pe-X6g"/>
+                                    <constraint firstAttribute="trailing" secondItem="Yo8-JY-Att" secondAttribute="trailing" id="DEN-tf-Zbk"/>
                                     <constraint firstItem="6bC-7c-dEb" firstAttribute="top" secondItem="kLd-92-c3S" secondAttribute="top" constant="8" id="Hhg-bf-CJc"/>
                                     <constraint firstItem="7DQ-Az-Gwz" firstAttribute="top" secondItem="kLd-92-c3S" secondAttribute="top" constant="8" id="KMd-rY-73x"/>
                                     <constraint firstItem="OO9-e2-8LU" firstAttribute="leading" secondItem="kLd-92-c3S" secondAttribute="leading" constant="8" id="LvI-Ei-J2K"/>
@@ -244,7 +252,9 @@
                                     <constraint firstAttribute="trailing" secondItem="6bC-7c-dEb" secondAttribute="trailing" constant="5" id="W9v-HB-01V"/>
                                     <constraint firstItem="UNF-q6-rlp" firstAttribute="leading" secondItem="OO9-e2-8LU" secondAttribute="trailing" constant="8" id="Xft-gu-EaK"/>
                                     <constraint firstItem="UNF-q6-rlp" firstAttribute="top" secondItem="kLd-92-c3S" secondAttribute="top" constant="5" id="Zyg-Cf-kpg"/>
+                                    <constraint firstItem="Yo8-JY-Att" firstAttribute="leading" secondItem="kLd-92-c3S" secondAttribute="leading" id="kxF-PX-TWj"/>
                                     <constraint firstItem="7DQ-Az-Gwz" firstAttribute="leading" secondItem="kLd-92-c3S" secondAttribute="leading" constant="91" id="pmk-8L-sWV"/>
+                                    <constraint firstItem="Yo8-JY-Att" firstAttribute="top" secondItem="kLd-92-c3S" secondAttribute="top" id="uNY-6k-e7I"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -265,6 +275,7 @@
                         <outlet property="inputTextView" destination="7DQ-Az-Gwz" id="U5i-FC-m1c"/>
                         <outlet property="mediaButton" destination="OO9-e2-8LU" id="FZZ-e0-JaO"/>
                         <outlet property="sendButton" destination="6bC-7c-dEb" id="F0d-7B-x9f"/>
+                        <outlet property="tableView" destination="rCM-tP-z2X" id="4kc-SZ-mdg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8UE-Aq-Y4G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
