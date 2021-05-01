@@ -15,6 +15,7 @@
 		DD463CC4263B668C00F37791 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CC3263B668C00F37791 /* ChatViewController.swift */; };
 		DD463CDB263C57AD00F37791 /* MessageApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CDA263C57AD00F37791 /* MessageApi.swift */; };
 		DD463CDE263CC2D600F37791 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CDD263CC2D600F37791 /* Message.swift */; };
+		DD463CE1263CCEEE00F37791 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CE0263CCEEE00F37791 /* MessageTableViewCell.swift */; };
 		DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3A82636B82600EAD20B /* AppDelegate.swift */; };
 		DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */; };
 		DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AC2636B82600EAD20B /* ViewController.swift */; };
@@ -47,6 +48,7 @@
 		DD463CC3263B668C00F37791 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		DD463CDA263C57AD00F37791 /* MessageApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageApi.swift; sourceTree = "<group>"; };
 		DD463CDD263CC2D600F37791 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		DD463CE0263CCEEE00F37791 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		DD90A3A52636B82600EAD20B /* TChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD90A3A82636B82600EAD20B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				DD90A3AC2636B82600EAD20B /* ViewController.swift */,
 				DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */,
 				DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */,
+				DD463CE0263CCEEE00F37791 /* MessageTableViewCell.swift */,
 				DD463CC3263B668C00F37791 /* ChatViewController.swift */,
 				DD463CDD263CC2D600F37791 /* Message.swift */,
 				DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */,
@@ -285,6 +288,7 @@
 				DD463CAB263B0B4100F37791 /* User.swift in Sources */,
 				DD463CDE263CC2D600F37791 /* Message.swift in Sources */,
 				DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */,
+				DD463CE1263CCEEE00F37791 /* MessageTableViewCell.swift in Sources */,
 				DD463CA8263AF10500F37791 /* UserTableViewCell.swift in Sources */,
 				DD463CC4263B668C00F37791 /* ChatViewController.swift in Sources */,
 				DD90A3C526375B4900EAD20B /* SignUpViewController.swift in Sources */,
