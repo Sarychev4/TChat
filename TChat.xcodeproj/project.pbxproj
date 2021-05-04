@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2FBABE95F79330DCD9BFBA46 /* Pods_TChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F452B6B44151C122C9BD03D /* Pods_TChat.framework */; };
 		DD02D60F26417F6800294E5B /* ChatViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02D60E26417F6800294E5B /* ChatViewController+Extension.swift */; };
+		DD02D612264183AB00294E5B /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02D611264183AB00294E5B /* Inbox.swift */; };
 		DD463CA5263AEAFA00F37791 /* PeopleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */; };
 		DD463CA8263AF10500F37791 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CA7263AF10500F37791 /* UserTableViewCell.swift */; };
 		DD463CAB263B0B4100F37791 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CAA263B0B4100F37791 /* User.swift */; };
@@ -43,6 +44,7 @@
 		7534665AF7FC61F8921C7D37 /* Pods-TChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TChat.debug.xcconfig"; path = "Target Support Files/Pods-TChat/Pods-TChat.debug.xcconfig"; sourceTree = "<group>"; };
 		9F452B6B44151C122C9BD03D /* Pods_TChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD02D60E26417F6800294E5B /* ChatViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Extension.swift"; sourceTree = "<group>"; };
+		DD02D611264183AB00294E5B /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewController.swift; sourceTree = "<group>"; };
 		DD463CA7263AF10500F37791 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		DD463CAA263B0B4100F37791 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */,
 				DD90A40A26384CAB00EAD20B /* Api.swift */,
 				DD463CDA263C57AD00F37791 /* MessageApi.swift */,
+				DD02D611264183AB00294E5B /* Inbox.swift */,
 				DD90A40D26384D4700EAD20B /* UserApi.swift */,
 				DD90A4142638B36300EAD20B /* Ref.swift */,
 				DD90A4112638A85200EAD20B /* StorageService.swift */,
@@ -290,6 +293,7 @@
 				DD463CC1263B361800F37791 /* Extension.swift in Sources */,
 				DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */,
 				DD463CAB263B0B4100F37791 /* User.swift in Sources */,
+				DD02D612264183AB00294E5B /* Inbox.swift in Sources */,
 				DD463CDE263CC2D600F37791 /* Message.swift in Sources */,
 				DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */,
 				DD463CE1263CCEEE00F37791 /* MessageTableViewCell.swift in Sources */,
