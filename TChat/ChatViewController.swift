@@ -71,10 +71,11 @@ class ChatViewController: UIViewController {
             }
         }
         
-        let library = UIAlertAction(title: "Choose an Image", style: UIAlertAction.Style.default) { (_) in
+        let library = UIAlertAction(title: "Choose an Image or Video", style: UIAlertAction.Style.default) { (_) in
             if  UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
                 self.picker.sourceType = .photoLibrary
-                self.picker.mediaTypes = [String(kUTTypeImage)]//, String(kUTTypeMovie)]
+                self.picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+               // self.picker.mediaTypes = [String(kUTTypeImage)]//, String(kUTTypeMovie)]
                 self.present(self.picker, animated: true, completion: nil)
             } else {
                 print("Unavailable")
