@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2FBABE95F79330DCD9BFBA46 /* Pods_TChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F452B6B44151C122C9BD03D /* Pods_TChat.framework */; };
+		DD02D60F26417F6800294E5B /* ChatViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02D60E26417F6800294E5B /* ChatViewController+Extension.swift */; };
 		DD463CA5263AEAFA00F37791 /* PeopleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */; };
 		DD463CA8263AF10500F37791 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CA7263AF10500F37791 /* UserTableViewCell.swift */; };
 		DD463CAB263B0B4100F37791 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CAA263B0B4100F37791 /* User.swift */; };
@@ -41,6 +42,7 @@
 		6A9A07EDD3425645816349AF /* Pods-TChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TChat.release.xcconfig"; path = "Target Support Files/Pods-TChat/Pods-TChat.release.xcconfig"; sourceTree = "<group>"; };
 		7534665AF7FC61F8921C7D37 /* Pods-TChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TChat.debug.xcconfig"; path = "Target Support Files/Pods-TChat/Pods-TChat.debug.xcconfig"; sourceTree = "<group>"; };
 		9F452B6B44151C122C9BD03D /* Pods_TChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD02D60E26417F6800294E5B /* ChatViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Extension.swift"; sourceTree = "<group>"; };
 		DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewController.swift; sourceTree = "<group>"; };
 		DD463CA7263AF10500F37791 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		DD463CAA263B0B4100F37791 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */,
 				DD463CE0263CCEEE00F37791 /* MessageTableViewCell.swift */,
 				DD463CC3263B668C00F37791 /* ChatViewController.swift */,
+				DD02D60E26417F6800294E5B /* ChatViewController+Extension.swift */,
 				DD463CDD263CC2D600F37791 /* Message.swift */,
 				DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */,
 				DD463CAA263B0B4100F37791 /* User.swift */,
@@ -273,6 +276,7 @@
 				DD90A4152638B36300EAD20B /* Ref.swift in Sources */,
 				DD90A3CB263770E100EAD20B /* SignInViewController.swift in Sources */,
 				DD90A3C8263765E000EAD20B /* SignUpViewController+UI.swift in Sources */,
+				DD02D60F26417F6800294E5B /* ChatViewController+Extension.swift in Sources */,
 				DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */,
 				DD90A3D5263775A600EAD20B /* ForgotPasswordViewController+UI.swift in Sources */,
 				DD463CA5263AEAFA00F37791 /* PeopleTableViewController.swift in Sources */,
