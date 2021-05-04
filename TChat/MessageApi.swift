@@ -19,12 +19,12 @@ class MessageApi {
             dict["height"] = nil
             dict["width"] = nil
         }
-        
+
         let refFrom = Ref().databaseInboxInfor(from: from, to: to)
-        refFrom.childByAutoId().updateChildValues(dict)
-        
+        refFrom.updateChildValues(dict)
+
         let refTo = Ref().databaseInboxInfor(from: to, to: from)
-        refTo.childByAutoId().updateChildValues(dict)
+        refTo.updateChildValues(dict)
     }
     
     func receiveMessage(from: String, to: String, onSucces: @escaping(Message) -> Void){

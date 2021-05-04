@@ -417,7 +417,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTableViewCell" rowHeight="95" id="nas-Q6-2BN" customClass="InboxTableViewCell" customModule="TChat" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InboxTableViewCell" rowHeight="95" id="nas-Q6-2BN" customClass="InboxTableViewCell" customModule="TChat" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="95"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nas-Q6-2BN" id="cE2-sa-PlX">
@@ -466,7 +466,6 @@
                                     <outlet property="avatar" destination="j8E-lr-NDA" id="x6l-6V-sdD"/>
                                     <outlet property="dateLbl" destination="cOB-x9-stM" id="wZK-5s-WcG"/>
                                     <outlet property="messageLbl" destination="kOl-lI-Eko" id="pLI-6v-cs0"/>
-                                    <outlet property="statusLbl" destination="kOl-lI-Eko" id="Ple-JZ-DG8"/>
                                     <outlet property="usernameLbl" destination="M1M-Gy-I8e" id="6A9-aR-n31"/>
                                 </connections>
                             </tableViewCell>

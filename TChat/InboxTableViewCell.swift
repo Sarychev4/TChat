@@ -17,6 +17,21 @@ class InboxTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    func configureCell(uid: String, inbox: Inbox){
+        avatar.loadImage(inbox.user.profileImageUrl)
+        usernameLbl.text = inbox.user.username
+        let date = Date(timeIntervalSince1970: inbox.date)
+        let dateString = timeAgoSinceDate(date, currentDate: Date(), numericDates: true)
+        dateLbl.text = dateString
+        
+        if !inbox.text.isEmpty {
+            messageLbl.text = inbox.text
+        } else {
+            messageLbl.text = "[MEDIA]"
+        }
+        
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
