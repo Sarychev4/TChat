@@ -162,10 +162,10 @@ class ChatViewController: UIViewController {
             }
         }
         
-        let library = UIAlertAction(title: "Choose an Image or a video", style: UIAlertAction.Style.default) { (_) in
+        let library = UIAlertAction(title: "Choose an Image", style: UIAlertAction.Style.default) { (_) in
             if  UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
                 self.picker.sourceType = .photoLibrary
-                self.picker.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
+                self.picker.mediaTypes = [String(kUTTypeImage)]//, String(kUTTypeMovie)]
                 self.present(self.picker, animated: true, completion: nil)
             } else {
                 print("Unavailable")
@@ -240,25 +240,26 @@ extension ChatViewController: UITextViewDelegate {
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
-            handleVideoSelectedForUrl(videoUrl)
-        } else {
-            handleImageSelectedForInfo(info)
-        }
+//        if let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+//            handleVideoSelectedForUrl(videoUrl)
+//        } else {
+//            handleImageSelectedForInfo(info)
+//        }
+        handleImageSelectedForInfo(info)
     }
     
-    func handleVideoSelectedForUrl(_ url: URL){
-        //save video data
-        let videoNameUnicId = NSUUID().uuidString
-        StorageService.saveVideoMessage(url: url, id: videoNameUnicId, onSuccess: { (anyValue) in
-            if let dict = anyValue as? [String: Any] {
-                self.sendToFirebase(dict: dict)
-            }
-        }) { (errorMessage) in
-            
-        }
-        self.picker.dismiss(animated: true, completion: nil)
-    }
+//    func handleVideoSelectedForUrl(_ url: URL){
+//        //save video data
+//        let videoNameUnicId = NSUUID().uuidString
+//        StorageService.saveVideoMessage(url: url, id: videoNameUnicId, onSuccess: { (anyValue) in
+//            if let dict = anyValue as? [String: Any] {
+//                self.sendToFirebase(dict: dict)
+//            }
+//        }) { (errorMessage) in
+//
+//        }
+//        self.picker.dismiss(animated: true, completion: nil)
+//    }
     
     func handleImageSelectedForInfo(_ info: [UIImagePickerController.InfoKey : Any]){
         var selectedImageFromPicker: UIImage?
