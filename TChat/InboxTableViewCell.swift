@@ -13,12 +13,17 @@ class InboxTableViewCell: UITableViewCell {
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var messageLbl: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
+    
+    var user: User!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        avatar.layer.cornerRadius = 30
+        avatar.clipsToBounds = true
     }
     
     func configureCell(uid: String, inbox: Inbox){
+        self.user = inbox.user
         avatar.loadImage(inbox.user.profileImageUrl)
         usernameLbl.text = inbox.user.username
         let date = Date(timeIntervalSince1970: inbox.date)

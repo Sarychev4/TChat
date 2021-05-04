@@ -67,6 +67,17 @@ class MessagesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 95
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? InboxTableViewCell{
+            let storyboard = UIStoryboard(name: "Welcome", bundle: nil)
+            let chatVC = storyboard.instantiateViewController(withIdentifier: IDENTIFIER_CHAT) as! ChatViewController
+            chatVC.imagePartner = cell.avatar.image
+            chatVC.partnerUsername = cell.usernameLbl.text
+            chatVC.partnerId = cell.user.uid
+            self.navigationController?.pushViewController(chatVC, animated: true)
+        }
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
