@@ -147,39 +147,40 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         } else {
             handleImageSelectedForInfo(info)
         }
-     //   handleImageSelectedForInfo(info)
+     
     }
     
     func handleVideoSelectedForUrl(_ url: URL){
         //save video data
         let videoNameUnicId = NSUUID().uuidString// + ".mov"
-        let ref = Ref().storageSpecificVideoMessage(id: videoNameUnicId)
-        
-        ref.putFile(from: url, metadata: nil) { (metadata, error) in
-            if error != nil {
-                print(error!)
-                return
-            }
-            
-            ref.downloadURL { (downloadUrl, error) in
-                if error != nil {
-                    print(error!)
-                    return
-                }
-                
-                if let videoUrl = downloadUrl?.absoluteString {
-                    print(videoUrl)
-                }
-                
-            }
-        }
-//        StorageService.saveVideoMessage(url: url, id: videoNameUnicId, onSuccess: { (anyValue) in
-//            if let dict = anyValue as? [String: Any] {
-//                self.sendToFirebase(dict: dict)
-//            }
-//        }) { (errorMessage) in
+//        let ref = Ref().storageSpecificVideoMessage(id: videoNameUnicId)
 //
+//        ref.putFile(from: url, metadata: nil) { (metadata, error) in
+//            if error != nil {
+//                print(error!)
+//                return
+//            }
+//
+//            ref.downloadURL { (downloadUrl, error) in
+//                if error != nil {
+//                    print(error!)
+//                    return
+//                }
+//
+//                if let videoUrl = downloadUrl?.absoluteString {
+//                    print(videoUrl)
+//                    print("okokok")
+//                }
+//
+//            }
 //        }
+        StorageService.saveVideoMessage(url: url, id: videoNameUnicId, onSuccess: { (anyValue) in
+            if let dict = anyValue as? [String: Any] {
+                self.sendToFirebase(dict: dict)
+            }
+        }) { (errorMessage) in
+
+        }
         self.picker.dismiss(animated: true, completion: nil)
     }
 //!!!!!!!!!!!!!
