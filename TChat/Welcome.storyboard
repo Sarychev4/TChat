@@ -208,9 +208,6 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHK-PN-Nv4">
                                                     <rect key="frame" x="55" y="12" width="351" height="95"/>
                                                     <subviews>
-                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="AZw-Xt-x2f">
-                                                            <rect key="frame" x="165.66666666666666" y="37.666666666666664" width="20" height="20"/>
-                                                        </activityIndicatorView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QvM-WG-YA6">
                                                             <rect key="frame" x="15" y="8" width="321" height="67"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -232,7 +229,13 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U3S-sO-RJF">
                                                             <rect key="frame" x="321" y="5" width="25" height="25"/>
                                                             <state key="normal" image="play"/>
+                                                            <connections>
+                                                                <action selector="playBtnDidTapped:" destination="Gbr-Gs-M5S" eventType="touchUpInside" id="kvs-yH-OyS"/>
+                                                            </connections>
                                                         </button>
+                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="AZw-Xt-x2f">
+                                                            <rect key="frame" x="165.66666666666666" y="37.666666666666664" width="20" height="20"/>
+                                                        </activityIndicatorView>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
