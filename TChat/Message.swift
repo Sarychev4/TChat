@@ -17,9 +17,10 @@ class Message {
     var height: Double
     var width: Double
     var videoUrl: String
+    var audioUrl: String
     
     
-    init(id: String, from: String, to: String, date: Double, text: String, imageUrl: String, height: Double, width: Double, videoUrl: String) {
+    init(id: String, from: String, to: String, date: Double, text: String, imageUrl: String, height: Double, width: Double, videoUrl: String, audioUrl: String) {
         self.id = id
         self.from = from
         self.to = to
@@ -29,6 +30,7 @@ class Message {
         self.height = height
         self.width = width
         self.videoUrl = videoUrl
+        self.audioUrl = audioUrl
     }
     
     static func transformMessage(dict: [String: Any], keyId: String) -> Message? {
@@ -48,9 +50,11 @@ class Message {
         let width = (dict["width"] as? Double) == nil ? 0 : (dict["width"]! as! Double)
 
         let videoUrl = (dict["videoUrl"] as? String) == nil ? "" : (dict["videoUrl"]! as! String)
+        
+        let audioUrl = (dict["audioUrl"] as? String) == nil ? "" : (dict["audioUrl"]! as! String)
 
         
-        let message = Message(id: keyId, from: from, to: to, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl)
+        let message = Message(id: keyId, from: from, to: to, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl, audioUrl: audioUrl)
         return message
     }
 }

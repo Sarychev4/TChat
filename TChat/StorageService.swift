@@ -13,6 +13,28 @@ import ProgressHUD
 import AVFoundation
 
 class StorageService {
+    //MARK: - PUSH AUDIO TO FIREBASE
+    static func saveAudioMessage(url: URL, id: String, onSuccess: @escaping(_ value: Any) -> Void, onError: @escaping(_ errorMessage: String) -> Void){
+        let ref = Ref().storageSpecificAudioMessage(id: id)
+        ref.putFile(from: url, metadata: nil) { (metadata, error) in
+            if error != nil{
+                //print("Error!")
+                onError(error!.localizedDescription)
+            }
+    
+            ref.downloadURL ( completion: { (downloadUrl, error) in
+                if let audioUrl = downloadUrl?.absoluteString {
+                    //print(audioUrl)
+                    let dict: Dictionary<String, Any> = [
+                        "audioUrl": audioUrl as Any,
+                        "text": "" as Any
+                    ]
+                    onSuccess(dict)
+                }
+            })
+        }
+
+    }
     //MARK: - PUSH VIDEO TO FIREBASE
     static func saveVideoMessage(url: URL, id: String, onSuccess: @escaping(_ value: Any) -> Void, onError: @escaping(_ errorMessage: String) -> Void){
         let ref = Ref().storageSpecificVideoMessage(id: id)
@@ -40,7 +62,7 @@ class StorageService {
             })
         }
     }
-  
+    
     
     static func thumbnailImageForFileUrl(_ url: URL) -> UIImage? {
         let asset = AVAsset(url: url) //ADD PARAMETER

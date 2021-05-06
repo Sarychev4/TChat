@@ -32,6 +32,7 @@ class MessageApi {
         ref.observe(.childAdded) { (snapshot) in
             if let dict = snapshot.value as? Dictionary<String, Any>{
                 if let message = Message.transformMessage(dict: dict, keyId: snapshot.key){
+                    
                     onSucces(message)
                 }
             }

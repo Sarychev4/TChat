@@ -13,13 +13,13 @@ extension ChatViewController {
     
     func observeMessages(){
         Api.Message.receiveMessage(from: Api.User.currentUserId, to: partnerId) { (message) in
-            //print(message.id)
+            print(message.id)
             self.messages.append(message)
             self.sortMessages()
         }
         
         Api.Message.receiveMessage(from: partnerId, to: Api.User.currentUserId) { (message) in
-            //print(message.id)
+            print(message.id)
             self.messages.append(message)
             self.sortMessages()
         }
@@ -154,27 +154,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     func handleVideoSelectedForUrl(_ url: URL){
         //save video data
         let videoNameUnicId = NSUUID().uuidString// + ".mov"
-        //        let ref = Ref().storageSpecificVideoMessage(id: videoNameUnicId)
-        //
-        //        ref.putFile(from: url, metadata: nil) { (metadata, error) in
-        //            if error != nil {
-        //                print(error!)
-        //                return
-        //            }
-        //
-        //            ref.downloadURL { (downloadUrl, error) in
-        //                if error != nil {
-        //                    print(error!)
-        //                    return
-        //                }
-        //
-        //                if let videoUrl = downloadUrl?.absoluteString {
-        //                    print(videoUrl)
-        //                    print("okokok")
-        //                }
-        //
-        //            }
-        //        }
+        
         StorageService.saveVideoMessage(url: url, id: videoNameUnicId, onSuccess: { (anyValue) in
             if let dict = anyValue as? [String: Any] {
                 self.sendToFirebase(dict: dict)
@@ -235,8 +215,10 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell") as! MessageTableViewCell
-        cell.playButton.isHidden = messages[indexPath.row].videoUrl == "" //hide play button if it is not video
+        cell.playButton.isHidden = messages[indexPath.row].text != "" //hide play button if it is not video or audio
+        
         cell.configureCell(uid: Api.User.currentUserId, message: messages[indexPath.row], image: imagePartner)
+        cell.handleAudioPlay()
         return cell
     }
     
@@ -244,17 +226,21 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
         var height: CGFloat = 0
         let message = messages[indexPath.row]
         let text = message.text
+        let audioUrlText = message.audioUrl
         if !text.isEmpty {
             height = text.estimateFrameForText(text).height + 60
-        }
-        
+        }else if text.isEmpty && !audioUrlText.isEmpty{
+            height = audioUrlText.estimateFrameForText(audioUrlText).height + 60
+    }
+
         let heightMessage = message.height
         let widthMessage = message.width
         if heightMessage != 0, widthMessage != 0 {
             height = CGFloat(heightMessage / widthMessage * 250)
         }
-        
+
         return height
+       // return 95
     }
     
     
@@ -274,9 +260,8 @@ extension ChatViewController: AVAudioRecorderDelegate {
     @objc func recordTapped(){
         
         if audioRecorder == nil {
-            let audioURL = startRecording()
-            print(audioURL)
-           // handleAudioSendWith(url: audioURL)
+            startRecording()
+            
         } else {
             
             finishRecording(success: true)
@@ -286,31 +271,30 @@ extension ChatViewController: AVAudioRecorderDelegate {
         }
     }
     
-    func startRecording() -> URL{
+    func startRecording(){
         let audioFileUrl = getAudioFileURL()
-
+        
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
-
+        
         do {
             
             audioRecorder = try AVAudioRecorder(url: audioFileUrl, settings: settings)
             audioRecorder.delegate = self
             audioRecorder.record()
             
-//            let micImgStop = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-//            recordButton.setImage(micImgStop, for: .normal)
+            //            let micImgStop = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+            //            recordButton.setImage(micImgStop, for: .normal)
             recordButton.tintColor = .red
             //recordButton.setTitle("Tap to Stop", for: .normal)
         } catch {
             finishRecording(success: false)
         }
         
-        return audioFileUrl
         
     }
     
@@ -328,9 +312,9 @@ extension ChatViewController: AVAudioRecorderDelegate {
         audioRecorder.stop()
         
         audioRecorder = nil
-
+        
         if success {
-           // recordButton.setTitle("Tap to Re-record", for: .normal)
+            // recordButton.setTitle("Tap to Re-record", for: .normal)
             recordButton.tintColor = .lightGray
         } else {
             //recordButton.setTitle("Tap to Record", for: .normal)
@@ -343,37 +327,19 @@ extension ChatViewController: AVAudioRecorderDelegate {
     
     //UPLoAD FILE TO FIREBASE STORAGE
     func handleAudioSendWith(url: URL) {
-//        guard let fileUrl = URL(string: url) else {
-//            return
-//        }
+        
         let fileName = NSUUID().uuidString + ".m4a"
-        let ref = Ref().storageSpecificAudioMessage(id: fileName)
-        ref.putFile(from: url, metadata: nil) { (metadata, error) in
-            if error != nil{
-                print("Error!")
+        StorageService.saveAudioMessage(url: url, id: fileName, onSuccess: {(anyValue) in
+            if let dict = anyValue as? [String: Any] {
+                self.sendToFirebase(dict: dict)
             }
+        }) { (errorMessage) in
             
-            ref.downloadURL { (downloadUrl, error) in
-                if let audioUrl = downloadUrl?.absoluteString {
-                    print(audioUrl)
-                    
-                }
-            }
-            
-                
-            }
         }
-//        FIRStorage.storage().reference().child("message_voice").child(fileName).putFile(fileUrl, metadata: nil) { (metadata, error) in
-//            if error != nil {
-//                print(error ?? "error")
-//            }
-//
-//            if let downloadUrl = metadata?.downloadURL()?.absoluteString {
-//                print(downloadUrl)
-//                let values: [String : Any] = ["audioUrl": downloadUrl]
-//                self.sendMessageWith(properties: values)
-//            }
-//        }
+        
+        
+    }
+    
     
     
     
