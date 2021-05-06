@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 extension ChatViewController {
     
@@ -47,9 +48,9 @@ extension ChatViewController {
         mediaButton.setImage(mediaImg, for: .normal)
         mediaButton.tintColor = .lightGray
         
-        let micImg = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        audioButton.setImage(micImg, for: .normal)
-        audioButton.tintColor = .lightGray
+        //        let micImg = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        //        recordButton.setImage(micImg, for: .normal)
+        //        recordButton.tintColor = .lightGray
         
         setupInputTextView()
     }
@@ -147,64 +148,64 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         } else {
             handleImageSelectedForInfo(info)
         }
-     
+        
     }
     
     func handleVideoSelectedForUrl(_ url: URL){
         //save video data
         let videoNameUnicId = NSUUID().uuidString// + ".mov"
-//        let ref = Ref().storageSpecificVideoMessage(id: videoNameUnicId)
-//
-//        ref.putFile(from: url, metadata: nil) { (metadata, error) in
-//            if error != nil {
-//                print(error!)
-//                return
-//            }
-//
-//            ref.downloadURL { (downloadUrl, error) in
-//                if error != nil {
-//                    print(error!)
-//                    return
-//                }
-//
-//                if let videoUrl = downloadUrl?.absoluteString {
-//                    print(videoUrl)
-//                    print("okokok")
-//                }
-//
-//            }
-//        }
+        //        let ref = Ref().storageSpecificVideoMessage(id: videoNameUnicId)
+        //
+        //        ref.putFile(from: url, metadata: nil) { (metadata, error) in
+        //            if error != nil {
+        //                print(error!)
+        //                return
+        //            }
+        //
+        //            ref.downloadURL { (downloadUrl, error) in
+        //                if error != nil {
+        //                    print(error!)
+        //                    return
+        //                }
+        //
+        //                if let videoUrl = downloadUrl?.absoluteString {
+        //                    print(videoUrl)
+        //                    print("okokok")
+        //                }
+        //
+        //            }
+        //        }
         StorageService.saveVideoMessage(url: url, id: videoNameUnicId, onSuccess: { (anyValue) in
             if let dict = anyValue as? [String: Any] {
                 self.sendToFirebase(dict: dict)
             }
         }) { (errorMessage) in
-
+            
         }
         self.picker.dismiss(animated: true, completion: nil)
     }
-//!!!!!!!!!!!!!
-     func createTemporaryURLforVideoFile(url: URL) -> URL {
-             /// Create the temporary directory.
-             let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-             /// create a temporary file for us to copy the video to.
-             let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(url.lastPathComponent ?? "")
-             /// Attempt the copy.
-             do {
-                 try FileManager().copyItem(at: url.absoluteURL, to: temporaryFileURL)
-             } catch {
-                 print("There was an error copying the video file to the temporary location.")
-             }
-
-             return temporaryFileURL as URL
-         }
-     
+    //!!!!!!!!!!!!!
+    func createTemporaryURLforVideoFile(url: URL) -> URL {
+        /// Create the temporary directory.
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        /// create a temporary file for us to copy the video to.
+        let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(url.lastPathComponent ?? "")
+        /// Attempt the copy.
+        do {
+            try FileManager().copyItem(at: url.absoluteURL, to: temporaryFileURL)
+        } catch {
+            print("There was an error copying the video file to the temporary location.")
+        }
+        
+        return temporaryFileURL as URL
+    }
+    
     
     func handleImageSelectedForInfo(_ info: [UIImagePickerController.InfoKey : Any]){
         var selectedImageFromPicker: UIImage?
         if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
             selectedImageFromPicker = imageSelected
-         
+            
         }
         
         if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
@@ -255,6 +256,125 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
         
         return height
     }
+    
+    
+}
+
+
+
+// MARK: AudioEXtension
+extension ChatViewController: AVAudioRecorderDelegate {
+    func loadRecordingUI() {
+        let micImg = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        recordButton.setImage(micImg, for: .normal)
+        recordButton.tintColor = .lightGray
+        recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
+    }
+    
+    @objc func recordTapped(){
+        
+        if audioRecorder == nil {
+            let audioURL = startRecording()
+            print(audioURL)
+           // handleAudioSendWith(url: audioURL)
+        } else {
+            
+            finishRecording(success: true)
+            let gg = getAudioFileURL()
+            handleAudioSendWith(url: gg)
+            //getAudioFileURL()
+        }
+    }
+    
+    func startRecording() -> URL{
+        let audioFileUrl = getAudioFileURL()
+
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+
+        do {
+            
+            audioRecorder = try AVAudioRecorder(url: audioFileUrl, settings: settings)
+            audioRecorder.delegate = self
+            audioRecorder.record()
+            
+//            let micImgStop = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+//            recordButton.setImage(micImgStop, for: .normal)
+            recordButton.tintColor = .red
+            //recordButton.setTitle("Tap to Stop", for: .normal)
+        } catch {
+            finishRecording(success: false)
+        }
+        
+        return audioFileUrl
+        
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func getAudioFileURL() -> URL {
+        return getDocumentsDirectory().appendingPathComponent("rec.m4a")
+    }
+    
+    func finishRecording(success: Bool) {
+        
+        audioRecorder.stop()
+        
+        audioRecorder = nil
+
+        if success {
+           // recordButton.setTitle("Tap to Re-record", for: .normal)
+            recordButton.tintColor = .lightGray
+        } else {
+            //recordButton.setTitle("Tap to Record", for: .normal)
+            // recording failed :(
+            recordButton.tintColor = .green
+            print("RECORDING FAIED")
+        }
+        
+    }
+    
+    //UPLoAD FILE TO FIREBASE STORAGE
+    func handleAudioSendWith(url: URL) {
+//        guard let fileUrl = URL(string: url) else {
+//            return
+//        }
+        let fileName = NSUUID().uuidString + ".m4a"
+        let ref = Ref().storageSpecificAudioMessage(id: fileName)
+        ref.putFile(from: url, metadata: nil) { (metadata, error) in
+            if error != nil{
+                print("Error!")
+            }
+            
+            ref.downloadURL { (downloadUrl, error) in
+                if let audioUrl = downloadUrl?.absoluteString {
+                    print(audioUrl)
+                    
+                }
+            }
+            
+                
+            }
+        }
+//        FIRStorage.storage().reference().child("message_voice").child(fileName).putFile(fileUrl, metadata: nil) { (metadata, error) in
+//            if error != nil {
+//                print(error ?? "error")
+//            }
+//
+//            if let downloadUrl = metadata?.downloadURL()?.absoluteString {
+//                print(downloadUrl)
+//                let values: [String : Any] = ["audioUrl": downloadUrl]
+//                self.sendMessageWith(properties: values)
+//            }
+//        }
+    
     
     
 }

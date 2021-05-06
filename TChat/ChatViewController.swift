@@ -14,10 +14,15 @@ import AVFoundation
 class ChatViewController: UIViewController {
     
     @IBOutlet weak var mediaButton: UIButton!
-    @IBOutlet weak var audioButton: UIButton!
+    
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    
+    //MARK: -AUDIO
+    @IBOutlet weak var recordButton: UIButton!
+    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
     
     var imagePartner: UIImage! // image from users VC
     var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
@@ -31,6 +36,30 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Users permission for audio
+        
+        recordingSession = AVAudioSession.sharedInstance()
+        
+        do{
+            try recordingSession.setCategory(.playAndRecord, mode: .default)
+            try recordingSession.setActive(true)
+            recordingSession.requestRecordPermission() { [unowned self] allowed in
+                DispatchQueue.main.async {
+                    if allowed {
+                        self.loadRecordingUI()
+                    }else{
+                        print("FAILED")
+                    }
+                }
+            }
+        } catch {
+            print("FAILED TO RECORD")
+        }
+        
+        
+        
+        
         setupPicker()
         setupNavigationBar()
         setupInputContainer()

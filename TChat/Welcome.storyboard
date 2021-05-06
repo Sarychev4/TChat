@@ -365,9 +365,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="audioButton" destination="UNF-q6-rlp" id="3Zd-Ru-FQe"/>
                         <outlet property="inputTextView" destination="7DQ-Az-Gwz" id="U5i-FC-m1c"/>
                         <outlet property="mediaButton" destination="OO9-e2-8LU" id="FZZ-e0-JaO"/>
+                        <outlet property="recordButton" destination="UNF-q6-rlp" id="3Zd-Ru-FQe"/>
                         <outlet property="sendButton" destination="6bC-7c-dEb" id="F0d-7B-x9f"/>
                         <outlet property="tableView" destination="rCM-tP-z2X" id="4kc-SZ-mdg"/>
                     </connections>
