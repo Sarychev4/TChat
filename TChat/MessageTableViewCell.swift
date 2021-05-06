@@ -15,6 +15,7 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var bubbleView: UIView!
     @IBOutlet weak var textMessageLabel: UILabel!
     
+    @IBOutlet weak var photoAudio: UIImageView!
     @IBOutlet weak var photoMessage: UIImageView!
     
     @IBOutlet weak var dateLabel: UILabel!
@@ -53,6 +54,8 @@ class MessageTableViewCell: UITableViewCell {
         activityIndicatorView.stopAnimating()
         activityIndicatorView.style = .large
         
+        photoAudio.layer.cornerRadius = 5
+        photoAudio.clipsToBounds = true
         
     }
     
@@ -133,6 +136,8 @@ class MessageTableViewCell: UITableViewCell {
         profileImage.isHidden = true
         textMessageLabel.isHidden = true
         
+        photoAudio.isHidden = true
+        
 //        if observation != nil {
 //            stopObservers()
 //        }
@@ -173,17 +178,23 @@ class MessageTableViewCell: UITableViewCell {
             
         } else if text.isEmpty && !audioUrlText.isEmpty{
             
-            textMessageLabel.isHidden = false
-            textMessageLabel.text = message.audioUrl
+            textMessageLabel.isHidden = true
+//            textMessageLabel.text = message.audioUrl
+            
+            let imageAudio = UIImage(named: "Audio_line")
+            photoAudio.image = imageAudio
+            photoAudio.isHidden = false
             
             playButton.backgroundColor = .black
-            let widthValue = audioUrlText.estimateFrameForText(audioUrlText).width + 40
-
-            if widthValue < 75 {
-                widthConstraint.constant = 75
-            } else {
-                widthConstraint.constant = widthValue - 40
-            }
+            widthConstraint.constant = 100
+            dateLabel.textColor = .black
+//            let widthValue = audioUrlText.estimateFrameForText(audioUrlText).width + 40
+//
+//            if widthValue < 75 {
+//                widthConstraint.constant = 75
+//            } else {
+//                widthConstraint.constant = widthValue - 40
+//            }
         }else {
 
 
@@ -199,6 +210,7 @@ class MessageTableViewCell: UITableViewCell {
             bubbleView.layer.borderColor = UIColor.clear.cgColor
             bubbleRightConstraint.constant = 8
             bubbleLeftConstraint.constant = UIScreen.main.bounds.width - widthConstraint.constant - bubbleRightConstraint.constant
+           
         } else {
             profileImage.isHidden = false
             bubbleView.backgroundColor = UIColor.white
