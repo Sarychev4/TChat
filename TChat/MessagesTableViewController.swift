@@ -6,16 +6,42 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MessagesTableViewController: UITableViewController {
 
     var inboxArray = [Inbox]()
     
+    var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupNavigationBar()
         setupTableView()
         observeInbox()
+        
+    }
+    
+    func setupNavigationBar(){
+        //navigationItem.backButtonTitle = "" //Hide back title in ChatVC
+        //navigationController?.navigationBar.backgroundColor = UIColor.blue
+        navigationItem.title = "Voices"
+        navigationController?.navigationBar.prefersLargeTitles = true
+      //  navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 5/255, green: 132/255, blue: 254/255, alpha: 1.0)]
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
+        //avatarImageView.image = imagePartner
+        avatarImageView.contentMode = .scaleAspectFill
+        avatarImageView.layer.cornerRadius = 18
+        avatarImageView.clipsToBounds = true
+        containerView.addSubview(avatarImageView)
+        
+        let leftBarButtonItem = UIBarButtonItem(customView: containerView)
+       // self.navigationItem.leftItemsSupplementBackButton = true //not allow to overriding the natural back button
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+        if let currentUser = Auth.auth().currentUser, let photoUrl = currentUser.photoURL {
+            avatarImageView.loadImage(photoUrl.absoluteString)
+        }
         
     }
     
@@ -39,9 +65,9 @@ class MessagesTableViewController: UITableViewController {
         tableView.tableFooterView = UIView()
     }
     
-    @IBAction func logoutAction(_ sender: Any) {
-        Api.User.logOut()
-    }
+//    @IBAction func logoutAction(_ sender: Any) {
+//        Api.User.logOut()
+//    }
     
     // MARK: - Table view data source
 

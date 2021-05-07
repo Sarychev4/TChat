@@ -53,6 +53,7 @@ class Ref {
     func databaseMessageSendTo(from: String, to: String) -> DatabaseReference {
         return databaseMessage.child(from).child(to)
     }
+    //INbox
     
     var databaseInbox: DatabaseReference {
         return databaseRoot.child(REF_INBOX)

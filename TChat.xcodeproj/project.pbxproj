@@ -12,6 +12,7 @@
 		DD02D612264183AB00294E5B /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02D611264183AB00294E5B /* Inbox.swift */; };
 		DD02D6152641897A00294E5B /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02D6142641897A00294E5B /* InboxTableViewCell.swift */; };
 		DD02D61826418ABC00294E5B /* InboxApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02D61726418ABC00294E5B /* InboxApi.swift */; };
+		DD4477562645D5840061BB69 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4477552645D5840061BB69 /* ProfileTableViewController.swift */; };
 		DD463CA5263AEAFA00F37791 /* PeopleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */; };
 		DD463CA8263AF10500F37791 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CA7263AF10500F37791 /* UserTableViewCell.swift */; };
 		DD463CAB263B0B4100F37791 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CAA263B0B4100F37791 /* User.swift */; };
@@ -49,6 +50,7 @@
 		DD02D611264183AB00294E5B /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		DD02D6142641897A00294E5B /* InboxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTableViewCell.swift; sourceTree = "<group>"; };
 		DD02D61726418ABC00294E5B /* InboxApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxApi.swift; sourceTree = "<group>"; };
+		DD4477552645D5840061BB69 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewController.swift; sourceTree = "<group>"; };
 		DD463CA7263AF10500F37791 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		DD463CAA263B0B4100F37791 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -135,23 +137,24 @@
 				DD90A3AC2636B82600EAD20B /* ViewController.swift */,
 				DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */,
 				DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */,
+				DD4477552645D5840061BB69 /* ProfileTableViewController.swift */,
+				DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */,
 				DD02D6142641897A00294E5B /* InboxTableViewCell.swift */,
-				DD463CE0263CCEEE00F37791 /* MessageTableViewCell.swift */,
+				DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */,
+				DD463CA7263AF10500F37791 /* UserTableViewCell.swift */,
 				DD463CC3263B668C00F37791 /* ChatViewController.swift */,
 				DD02D60E26417F6800294E5B /* ChatViewController+Extension.swift */,
-				DD463CDD263CC2D600F37791 /* Message.swift */,
-				DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */,
-				DD463CAA263B0B4100F37791 /* User.swift */,
-				DD463CA7263AF10500F37791 /* UserTableViewCell.swift */,
-				DD463CC0263B361800F37791 /* Extension.swift */,
-				DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */,
+				DD463CE0263CCEEE00F37791 /* MessageTableViewCell.swift */,
 				DD90A3C426375B4900EAD20B /* SignUpViewController.swift */,
 				DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */,
 				DD90A3CA263770E100EAD20B /* SignInViewController.swift */,
 				DD90A3CE263772A000EAD20B /* SignInViewController+UI.swift */,
 				DD90A3D12637759700EAD20B /* ForgotPasswordViewController.swift */,
 				DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */,
+				DD463CC0263B361800F37791 /* Extension.swift */,
+				DD463CAA263B0B4100F37791 /* User.swift */,
 				DD90A40A26384CAB00EAD20B /* Api.swift */,
+				DD463CDD263CC2D600F37791 /* Message.swift */,
 				DD02D61726418ABC00294E5B /* InboxApi.swift */,
 				DD463CDA263C57AD00F37791 /* MessageApi.swift */,
 				DD02D611264183AB00294E5B /* Inbox.swift */,
@@ -295,6 +298,7 @@
 				DD02D6152641897A00294E5B /* InboxTableViewCell.swift in Sources */,
 				DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */,
 				DD90A4122638A85200EAD20B /* StorageService.swift in Sources */,
+				DD4477562645D5840061BB69 /* ProfileTableViewController.swift in Sources */,
 				DD90A3D22637759700EAD20B /* ForgotPasswordViewController.swift in Sources */,
 				DD90A4292639A65C00EAD20B /* MessagesTableViewController.swift in Sources */,
 				DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */,

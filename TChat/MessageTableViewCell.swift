@@ -188,6 +188,7 @@ class MessageTableViewCell: UITableViewCell {
             playButton.backgroundColor = .black
             widthConstraint.constant = 100
             dateLabel.textColor = .black
+            bubbleView.layer.borderColor = UIColor.clear.cgColor
 //            let widthValue = audioUrlText.estimateFrameForText(audioUrlText).width + 40
 //
 //            if widthValue < 75 {
@@ -206,7 +207,7 @@ class MessageTableViewCell: UITableViewCell {
         }
 
         if uid == message.from {
-            bubbleView.backgroundColor = UIColor.systemGroupedBackground //groupTableViewBackground
+            //bubbleView.backgroundColor = UIColor.systemGroupedBackground //groupTableViewBackground
             bubbleView.layer.borderColor = UIColor.clear.cgColor
             bubbleRightConstraint.constant = 8
             bubbleLeftConstraint.constant = UIScreen.main.bounds.width - widthConstraint.constant - bubbleRightConstraint.constant
@@ -215,7 +216,7 @@ class MessageTableViewCell: UITableViewCell {
             profileImage.isHidden = false
             bubbleView.backgroundColor = UIColor.white
             profileImage.image = image
-            bubbleView.layer.borderColor = UIColor.lightGray.cgColor
+            bubbleView.layer.borderColor = UIColor.clear.cgColor
 
             bubbleLeftConstraint.constant = 55
             bubbleRightConstraint.constant = UIScreen.main.bounds.width - widthConstraint.constant - bubbleLeftConstraint.constant

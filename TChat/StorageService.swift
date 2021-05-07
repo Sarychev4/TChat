@@ -104,6 +104,59 @@ class StorageService {
             }
         }
     }
+    //photo in profile table vc
+    static func savePhotoProfile(image: UIImage, uid: String, onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void){
+        guard let imageData = image.jpegData(compressionQuality: 0.4) else {
+            return
+        }
+        
+        let storageProfileRef = Ref().storageSpecificProfile(uid: uid)
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        //Put Data in storage
+        storageProfileRef.putData(imageData, metadata: metadata) { (storageMetaData, error) in
+            if error != nil {
+                onError(error!.localizedDescription)
+                return
+            }
+            
+            //Download image to upload in FireBase Database
+            storageProfileRef.downloadURL(completion: { (url, error) in
+                if let metaImageUrl = url?.absoluteString { //Convert to String
+                    
+                    if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()//Creates an object which may be used to change the user's profile data.
+                    {
+                        changeRequest.photoURL = url
+                        //changeRequest.displayName = username
+                        changeRequest.commitChanges(completion: {(error) in
+                            if let error = error{
+                                ProgressHUD.showError(error.localizedDescription)
+                            }
+                        })
+                    }
+                    
+//                    var dictTemp = dict
+//                    dictTemp[PROFILE_IMAGE_URL] = metaImageUrl
+                    
+                    
+                    Ref().databaseSpecificUser(uid: uid).updateChildValues([PROFILE_IMAGE_URL: metaImageUrl], withCompletionBlock: { (error, ref) in
+                        if error == nil {
+                            onSuccess()
+                        } else {
+                            onError(error!.localizedDescription)
+                        }
+                    })
+                    
+                }
+            })
+        }
+        
+        
+        
+    }
+    
     static func savePhoto(username: String, uid: String, data: Data, metadata: StorageMetadata, storageProfileRef: StorageReference, dict: Dictionary<String, Any>,
                           onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         
