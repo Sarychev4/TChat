@@ -16,6 +16,7 @@ class UserTableViewCell: UITableViewCell {
     
     @IBOutlet weak var statusLbl: UILabel!
     
+    @IBOutlet weak var onlineView: UIView!
     var user: User!
     
     override func awakeFromNib() {
@@ -23,6 +24,12 @@ class UserTableViewCell: UITableViewCell {
         // Initialization code
         avatar.layer.cornerRadius = 30
         avatar.clipsToBounds = true
+        
+        onlineView.backgroundColor = UIColor.red
+        onlineView.layer.borderWidth = 2
+        onlineView.layer.borderColor = UIColor.white.cgColor
+        onlineView.layer.cornerRadius = 15/2
+        onlineView.clipsToBounds = true
     }
     
     func loadData(_ user: User){

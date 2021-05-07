@@ -62,6 +62,7 @@ class SignUpViewController: UIViewController {
         
         self.validateFields()
         self.signUp(onSuccess: {
+            Api.User.isOnline(bool: true)
             //switch view
             //(UIApplication.shared.delegate as! SceneDelegate).configureInitialViewController()
              (UIApplication.shared.connectedScenes

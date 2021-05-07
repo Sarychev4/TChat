@@ -21,6 +21,8 @@ let UID = "uid"
 let EMAIL = "email"
 let USERNAME = "username"
 let STATUS = "status"
+let IS_ONLINE = "isOnline"
+
 let ERROR_EMPTY_PHOTO = "Please choose your profile image"
 let ERROR_EMPTY_EMAIL = "Please enter an email address"
 let ERROR_EMPTY_USERNAME = "Please enter an username"
@@ -44,6 +46,10 @@ class Ref {
     
     func databaseSpecificUser(uid: String) -> DatabaseReference {
         return databaseUsers.child(uid)
+    }
+    
+    func databaseIsOnline(uid: String) -> DatabaseReference {
+        return databaseUsers.child(uid).child(IS_ONLINE)
     }
     
     var databaseMessage: DatabaseReference{

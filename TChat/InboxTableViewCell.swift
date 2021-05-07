@@ -14,12 +14,20 @@ class InboxTableViewCell: UITableViewCell {
     @IBOutlet weak var messageLbl: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
     
+    @IBOutlet weak var onlineView: UIView!
+    
     var user: User!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         avatar.layer.cornerRadius = 30
         avatar.clipsToBounds = true
+        
+        onlineView.backgroundColor = UIColor.red
+        onlineView.layer.borderWidth = 2
+        onlineView.layer.borderColor = UIColor.white.cgColor
+        onlineView.layer.cornerRadius = 15/2
+        onlineView.clipsToBounds = true
     }
     
     func configureCell(uid: String, inbox: Inbox){

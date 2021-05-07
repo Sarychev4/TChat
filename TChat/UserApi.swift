@@ -97,7 +97,9 @@ class UserApi {
     
     func logOut(){
         do {
+            Api.User.isOnline(bool: false)
             try Auth.auth().signOut()
+            
         } catch{
             ProgressHUD.showError(error.localizedDescription)
             return
@@ -146,6 +148,17 @@ class UserApi {
                     onSuccess(user)
                 }
             }
+        }
+    }
+    
+    func isOnline(bool: Bool) {
+        if !Api.User.currentUserId.isEmpty {
+            let ref = Ref().databaseIsOnline(uid: Api.User.currentUserId)
+            let dict: Dictionary<String, Any> = [
+                "online": bool as Any,
+                "latest": Date().timeIntervalSince1970 as Any
+            ]
+            ref.updateChildValues(dict)
         }
     }
     
