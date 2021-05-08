@@ -39,6 +39,10 @@ class ChatViewController: UIViewController {
     var isActive = false
     var lastTimeOnline = ""
     
+    var isRecording = false
+    var timer = Timer()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

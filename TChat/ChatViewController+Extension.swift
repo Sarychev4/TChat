@@ -115,6 +115,9 @@ extension ChatViewController {
         var status = ""
         if bool {
             status = "Active"
+            if isRecording {
+                status = "Recording..."
+            }
         } else {
             status = "Last seen \(self.lastTimeOnline)"
         }
@@ -150,6 +153,11 @@ extension ChatViewController {
                 if snapshot.key == "latest" {
                     let latest = snap as! Double
                     self.lastTimeOnline = latest.convertDate()
+                }
+                
+                if snapshot.key == "recording" {
+                    let recording = snap as! String
+                    self.isRecording = recording == Api.User.currentUserId ? true : false
                 }
                 self.updateTopLabel(bool: self.isActive)
             }
@@ -313,6 +321,15 @@ extension ChatViewController: AVAudioRecorderDelegate {
         if audioRecorder == nil {
             startRecording()
             
+            if !isRecording {
+                Api.User.recording(from: Api.User.currentUserId, to: partnerUser.uid)
+                isRecording = true
+            } else {
+                timer.invalidate()
+            }
+            
+            timerRecording()
+            
         } else {
             
             finishRecording(success: true)
@@ -320,6 +337,13 @@ extension ChatViewController: AVAudioRecorderDelegate {
             handleAudioSendWith(url: gg)
             //getAudioFileURL()
         }
+    }
+    
+    func timerRecording(){
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: {(t) in
+            Api.User.recording(from: Api.User.currentUserId, to: "")
+            self.isRecording = false
+        })
     }
     
     func startRecording(){

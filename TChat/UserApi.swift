@@ -162,6 +162,14 @@ class UserApi {
         }
     }
     
+    //for recording status
+    func recording(from: String, to: String){
+        let ref = Ref().databaseIsOnline(uid: from)
+        let dict: Dictionary<String, Any> = [
+            "recording": to
+        ]
+        ref.updateChildValues(dict)
+    }
 }
 
 typealias UserCompletion = (User) -> Void //used in observeUsers
