@@ -63,6 +63,7 @@ class MessagesTableViewController: UITableViewController {
     
     func setupTableView(){
         tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
     }
     
 //    @IBAction func logoutAction(_ sender: Any) {

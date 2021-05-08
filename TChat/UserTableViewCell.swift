@@ -26,7 +26,7 @@ class UserTableViewCell: UITableViewCell {
         avatar.layer.cornerRadius = 30
         avatar.clipsToBounds = true
         
-        onlineView.backgroundColor = UIColor.red
+        onlineView.backgroundColor = UIColor.gray
         onlineView.layer.borderWidth = 2
         onlineView.layer.borderColor = UIColor.white.cgColor
         onlineView.layer.cornerRadius = 15/2

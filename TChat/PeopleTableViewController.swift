@@ -25,6 +25,7 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
     
     func setupTableView() {
         tableView.tableFooterView = UIView() //Clear separate borders of messages??? //FOOTER VIEW FOR ALL TABLE
+        tableView.separatorStyle = .none
     }
     
     func setupSearchBarController(){
