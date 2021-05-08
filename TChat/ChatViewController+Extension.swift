@@ -88,21 +88,72 @@ extension ChatViewController {
         avatarImageView.clipsToBounds = true
         containerView.addSubview(avatarImageView)
         
+        if imagePartner != nil {
+            avatarImageView.image = imagePartner
+            self.observeActivity()
+            self.observeMessages()
+        } else {
+            avatarImageView.loadImage(partnerUser.profileImageUrl) { (image) in
+                self.imagePartner = image
+                self.observeActivity()
+                self.observeMessages()
+            }
+        }
+        
         let leftBarButtonItem = UIBarButtonItem(customView: containerView)
         self.navigationItem.leftItemsSupplementBackButton = true //not allow to overriding the natural back button
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
         // print(self.navigationItem.leftBarButtonItem)
         
+        //MARK: -STATUS
+        updateTopLabel(bool: false)
+        self.navigationItem.titleView = topLabel
+        
+    }
+    
+    func updateTopLabel(bool: Bool){
+        var status = ""
+        if bool {
+            status = "Active"
+        } else {
+            status = "Last seen \(self.lastTimeOnline)"
+        }
         topLabel.textAlignment = .center
         topLabel.numberOfLines = 0
         
         let attributed = NSMutableAttributedString(string: partnerUsername + "\n", attributes: [.font : UIFont.systemFont(ofSize: 17), .foregroundColor : UIColor.black])
         
-        attributed.append(NSAttributedString(string: "Dummy Text", attributes: [.font : UIFont.systemFont(ofSize: 13), .foregroundColor : UIColor.green]))
+        attributed.append(NSAttributedString(string: status, attributes: [.font : UIFont.systemFont(ofSize: 13), .foregroundColor : UIColor.lightGray]))
         topLabel.attributedText = attributed
-        
-        self.navigationItem.titleView = topLabel
-        
+    }
+    
+    func observeActivity(){
+        let ref = Ref().databaseIsOnline(uid: partnerUser.uid)
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            if let snap = snapshot.value as? Dictionary<String, Any> {
+                if let active = snap["online"] as? Bool {
+                    self.isActive = active
+                }
+                
+                if let latest = snap["latest"] as? Double {
+                    self.lastTimeOnline = latest.convertDate()
+                }
+                
+            }
+            self.updateTopLabel(bool: self.isActive)
+        }
+        ref.observe(.childChanged) { (snapshot) in
+            if let snap = snapshot.value {
+                if snapshot.key == "online" {
+                    self.isActive = snap as! Bool
+                }
+                if snapshot.key == "latest" {
+                    let latest = snap as! Double
+                    self.lastTimeOnline = latest.convertDate()
+                }
+                self.updateTopLabel(bool: self.isActive)
+            }
+        }
     }
     
     func sendToFirebase(dict: Dictionary<String, Any>){

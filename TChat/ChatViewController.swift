@@ -29,10 +29,16 @@ class ChatViewController: UIViewController {
     var topLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
     var partnerUsername: String!
     var partnerId: String!
+    var partnerUser: User!
+    
     var placeholderLbl = UILabel()
     var picker = UIImagePickerController()
     
     var messages = [Message]()
+    
+    var isActive = false
+    var lastTimeOnline = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +70,7 @@ class ChatViewController: UIViewController {
         setupNavigationBar()
         setupInputContainer()
         setupTableView()
-        observeMessages()
+        //observeMessages()
         // Do any additional setup after loading the view.
     }
     
