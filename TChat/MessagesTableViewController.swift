@@ -86,6 +86,7 @@ class MessagesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "InboxTableViewCell", for: indexPath) as! InboxTableViewCell
 
         let inbox = self.inboxArray[indexPath.row]
+        cell.controller = self
         cell.configureCell(uid: Api.User.currentUserId, inbox: inbox)
         return cell
     }

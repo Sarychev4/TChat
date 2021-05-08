@@ -170,6 +170,9 @@ class UserApi {
         ]
         ref.updateChildValues(dict)
     }
+    
+   
+    
 }
 
 typealias UserCompletion = (User) -> Void //used in observeUsers
