@@ -43,6 +43,14 @@ class MessagesTableViewController: UITableViewController {
             avatarImageView.loadImage(photoUrl.absoluteString)
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(updateProfile), name: NSNotification.Name("updateProfileImage"), object: nil)
+        
+    }
+    
+    @objc func updateProfile(){
+        if let currentUser = Auth.auth().currentUser, let photoUrl = currentUser.photoURL {
+            avatarImageView.loadImage(photoUrl.absoluteString)
+        }
     }
     
     func observeInbox(){

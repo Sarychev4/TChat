@@ -133,7 +133,10 @@ class StorageService {
                         changeRequest.commitChanges(completion: {(error) in
                             if let error = error{
                                 ProgressHUD.showError(error.localizedDescription)
+                            } else {
+                                NotificationCenter.default.post(name: NSNotification.Name("updateProfileImage"), object: nil)
                             }
+                            
                         })
                     }
                     
