@@ -57,4 +57,11 @@ class Message {
         let message = Message(id: keyId, from: from, to: to, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl, audioUrl: audioUrl)
         return message
     }
+    
+    static func hash(forMembers members: [String]) -> String {
+        let hash = members[0].hashString ^ members[1].hashString
+        let memberHash = String(hash)
+        return memberHash
+    }
+    
 }

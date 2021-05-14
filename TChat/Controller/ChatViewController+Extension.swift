@@ -18,17 +18,27 @@ extension ChatViewController {
             self.sortMessages()
         }
         
-        Api.Message.receiveMessage(from: partnerId, to: Api.User.currentUserId) { (message) in
-            print(message.id)
-            self.messages.append(message)
-            self.sortMessages()
-        }
+//        Api.Message.receiveMessage(from: partnerId, to: Api.User.currentUserId) { (message) in
+//            print(message.id)
+//            self.messages.append(message)
+//            self.sortMessages()
+//        }
     }
     
     func sortMessages() {
         messages = messages.sorted(by: { $0.date < $1.date })
+        lastMessageKey = messages.first!.id
+        print(lastMessageKey)
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.scrollToBottom()
+        }
+    }
+    
+    func scrollToBottom(){
+        if messages.count > 0 {
+            let index = IndexPath(row: messages.count - 1, section: 0)
+            tableView.scrollToRow(at: index, at: UITableView.ScrollPosition.bottom, animated: true)
         }
     }
     
@@ -39,8 +49,35 @@ extension ChatViewController {
     func setupTableView() {
         tableView.separatorStyle = .none //clear line between cells
         tableView.tableFooterView = UIView() //Clear separate borders of messages??? //FOOTER VIEW FOR ALL TABLE
+        tableView.allowsSelection = false
+        tableView.keyboardDismissMode = .onDrag
         tableView.delegate = self
         tableView.dataSource = self
+        
+        if #available(iOS 10.0, *){
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        
+        refreshControl.addTarget(self, action: #selector(loadMore), for: .valueChanged)
+    }
+    
+    @objc func loadMore(){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            Api.Message.loadMore(lastMessageKey: self.lastMessageKey, from: Api.User.currentUserId, to: self.partnerId, onSuccess:  { (messagesArray, lastMessageKey) in
+                if messagesArray.isEmpty{
+                    self.refreshControl.endRefreshing()
+                    return
+                }
+                self.messages.append(contentsOf: messagesArray)
+                self.messages = self.messages.sorted(by: { $0.date < $1.date })
+                self.lastMessageKey = lastMessageKey
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+                
+            })
+        }
     }
     
     func setupInputContainer(){
@@ -53,6 +90,31 @@ extension ChatViewController {
         //        recordButton.tintColor = .lightGray
         
         setupInputTextView()
+        
+        //KeyBoard
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    @objc func adjustForKeyboard(notification: Notification){
+        let userInfo = notification.userInfo!
+        let keyboardScreenEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+        
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            bottomConstraint.constant = 0
+        } else {
+            
+            if #available(iOS 11.0 , *){
+                bottomConstraint.constant = keyboardViewEndFrame.height - view.safeAreaInsets.bottom
+            } else {
+                bottomConstraint.constant = keyboardViewEndFrame.height
+            }
+        }
+        
+        view.layoutIfNeeded()
+        
     }
     
     func setupInputTextView(){

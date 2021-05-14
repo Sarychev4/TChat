@@ -53,7 +53,9 @@ class InboxTableViewCell: UITableViewCell {
             messageLbl.text = "[MEDIA]"
         }
         
-        let refInbox = Ref().databaseInboxInfor(from: Api.User.currentUserId, to: inbox.user.uid)
+        //let refInbox = Ref().databaseInboxInfor(from: Api.User.currentUserId, to: inbox.user.uid)
+        let channelId = Message.hash(forMembers: [Api.User.currentUserId, inbox.user.uid])
+        let refInbox = Database.database().reference().child(REF_INBOX).child(Api.User.currentUserId).child(channelId)
         if inboxChangedMessageHandle != nil {
             refInbox.removeObserver(withHandle: inboxChangedMessageHandle)
         }
@@ -113,7 +115,8 @@ class InboxTableViewCell: UITableViewCell {
             refUser.removeObserver(withHandle: inboxChangedProfileHandle)
         }
         
-        let refInbox = Ref().databaseInboxInfor(from: Api.User.currentUserId, to: inbox.user.uid)
+        let channelId = Message.hash(forMembers: [Api.User.currentUserId, inbox.user.uid])
+        let refInbox = Database.database().reference().child(REF_INBOX).child(Api.User.currentUserId).child(channelId)
         if inboxChangedMessageHandle != nil {
             refInbox.removeObserver(withHandle: inboxChangedMessageHandle)
         }

@@ -19,8 +19,11 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     //MARK: -AUDIO
     @IBOutlet weak var recordButton: UIButton!
+    
+    
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     
@@ -42,6 +45,8 @@ class ChatViewController: UIViewController {
     var isRecording = false
     var timer = Timer()
     
+    var refreshControl = UIRefreshControl()
+    var lastMessageKey: String?
     
     
     override func viewDidLoad() {

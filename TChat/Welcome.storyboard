@@ -388,6 +388,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomConstraint" destination="JiA-sp-mQ5" id="moE-Q0-Kyt"/>
                         <outlet property="inputTextView" destination="7DQ-Az-Gwz" id="U5i-FC-m1c"/>
                         <outlet property="mediaButton" destination="OO9-e2-8LU" id="FZZ-e0-JaO"/>
                         <outlet property="recordButton" destination="UNF-q6-rlp" id="3Zd-Ru-FQe"/>
