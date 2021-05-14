@@ -372,7 +372,7 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: AudioEXtension
 extension ChatViewController: AVAudioRecorderDelegate {
     func loadRecordingUI() {
-        let micImg = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        let micImg = UIImage(named: "microPhone")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         recordButton.setImage(micImg, for: .normal)
         recordButton.tintColor = .lightGray
         recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)

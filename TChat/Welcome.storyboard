@@ -332,7 +332,7 @@
                                             <constraint firstAttribute="height" constant="32" id="Cyf-Rl-6D6"/>
                                             <constraint firstAttribute="width" constant="32" id="Orp-s4-a5I"/>
                                         </constraints>
-                                        <state key="normal" image="mic"/>
+                                        <state key="normal" image="microPhone"/>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7DQ-Az-Gwz">
                                         <rect key="frame" x="91" y="8" width="277" height="30"/>
@@ -1102,7 +1102,7 @@
         <image name="icon_messages" width="25" height="25"/>
         <image name="icon_profile" width="28" height="28"/>
         <image name="icon_users" width="30" height="30"/>
-        <image name="mic" width="32" height="32"/>
+        <image name="microPhone" width="48" height="48"/>
         <image name="play" width="25" height="25"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
