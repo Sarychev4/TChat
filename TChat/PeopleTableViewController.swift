@@ -90,6 +90,7 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
         let cell = tableView.dequeueReusableCell(withIdentifier: IDENTIFIER_CELL_USERS, for: indexPath) as! UserTableViewCell
         // Configure the cell...
         let user = searchController.isActive ? searchResults[indexPath.row] : self.users[indexPath.row]
+        cell.controller = self
         cell.loadData(user)
         
         return cell

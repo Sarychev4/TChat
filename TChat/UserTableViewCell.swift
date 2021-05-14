@@ -19,6 +19,8 @@ class UserTableViewCell: UITableViewCell {
     @IBOutlet weak var onlineView: UIView!
     var user: User!
     var inboxChangedOnlineHandle: DatabaseHandle!
+    var inboxChangedProfileHandle: DatabaseHandle!
+    var controller: PeopleTableViewController!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -58,6 +60,18 @@ class UserTableViewCell: UITableViewCell {
                 }
             }
         }
+        
+        let refUser = Ref().databaseSpecificUser(uid: user.uid)
+        if inboxChangedProfileHandle != nil {
+            refUser.removeObserver(withHandle: inboxChangedProfileHandle)
+        }
+        
+        inboxChangedProfileHandle = refUser.observe(.childChanged, with: { (snapshot) in
+            if let snap = snapshot.value as? String {
+                self.user.updateUserData(key: snapshot.key, value: snap)
+                self.controller.tableView.reloadData()
+            }
+        })
     }
     
     override func prepareForReuse() {
@@ -65,6 +79,11 @@ class UserTableViewCell: UITableViewCell {
         let refOnline = Ref().databaseIsOnline(uid: self.user.uid)
         if inboxChangedOnlineHandle != nil {
             refOnline.removeObserver(withHandle: inboxChangedOnlineHandle)
+        }
+        
+        let refUser = Ref().databaseSpecificUser(uid: user.uid)
+        if inboxChangedProfileHandle != nil {
+            refUser.removeObserver(withHandle: inboxChangedProfileHandle)
         }
     }
     
