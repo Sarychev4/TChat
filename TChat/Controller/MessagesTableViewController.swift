@@ -14,6 +14,8 @@ class MessagesTableViewController: UITableViewController {
     
     var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
     
+    var lastInboxDate: Double?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -64,8 +66,21 @@ class MessagesTableViewController: UITableViewController {
     
     func sortedInbox(){
         inboxArray = inboxArray.sorted(by: { $0.date > $1.date })
+        lastInboxDate = inboxArray.last!.date
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    func loadMore() {
+        Api.Inbox.loadMore(start: lastInboxDate, controller: self, from: Api.User.currentUserId) { (inbox) in
+            self.tableView.tableFooterView = UIView()
+            if self.inboxArray.contains(where: {$0.channel == inbox.channel}) {
+                return
+            }
+            self.inboxArray.append(inbox)
+            self.tableView.reloadData()
+            self.lastInboxDate = self.inboxArray.last!.date
         }
     }
     
@@ -113,6 +128,23 @@ class MessagesTableViewController: UITableViewController {
             chatVC.partnerId = cell.user.uid
             chatVC.partnerUser = cell.user
             self.navigationController?.pushViewController(chatVC, animated: true)
+        }
+    }
+    
+    override func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        if let lastIndex = self.tableView.indexPathsForVisibleRows?.last {
+            if lastIndex.row >= self.inboxArray.count - 2 {
+                let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+                spinner.startAnimating()
+                spinner.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 44)
+                
+                self.tableView.tableFooterView = spinner
+                self.tableView.tableFooterView?.isHidden = false
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                    self.loadMore()
+                }
+            }
         }
     }
     /*
