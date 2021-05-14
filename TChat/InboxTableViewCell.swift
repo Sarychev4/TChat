@@ -20,6 +20,7 @@ class InboxTableViewCell: UITableViewCell {
     var user: User!
     var inboxChangedOnlineHandle: DatabaseHandle!
     var inboxChangedProfileHandle: DatabaseHandle!
+    var inboxChangedMessageHandle: DatabaseHandle!
     
     var inbox: Inbox!
     var controller: MessagesTableViewController!
@@ -51,6 +52,19 @@ class InboxTableViewCell: UITableViewCell {
         } else {
             messageLbl.text = "[MEDIA]"
         }
+        
+        let refInbox = Ref().databaseInboxInfor(from: Api.User.currentUserId, to: inbox.user.uid)
+        if inboxChangedMessageHandle != nil {
+            refInbox.removeObserver(withHandle: inboxChangedMessageHandle)
+        }
+        
+        inboxChangedMessageHandle = refInbox.observe(.childChanged, with: { (snapshot) in
+            if let snap = snapshot.value {
+                self.inbox.updateInboxData(key: snapshot.key, value: snap)
+                self.controller.sortedInbox()
+            }
+        })
+        
         
         let refOnline = Ref().databaseIsOnline(uid: inbox.user.uid)
         refOnline.observeSingleEvent(of: .value) { (snapshot) in
@@ -97,6 +111,11 @@ class InboxTableViewCell: UITableViewCell {
         let refUser = Ref().databaseSpecificUser(uid: inbox.user.uid)
         if inboxChangedProfileHandle != nil {
             refUser.removeObserver(withHandle: inboxChangedProfileHandle)
+        }
+        
+        let refInbox = Ref().databaseInboxInfor(from: Api.User.currentUserId, to: inbox.user.uid)
+        if inboxChangedMessageHandle != nil {
+            refInbox.removeObserver(withHandle: inboxChangedMessageHandle)
         }
     }
 

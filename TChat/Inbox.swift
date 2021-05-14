@@ -32,4 +32,13 @@ class Inbox {
         
         return inbox
     }
+    
+    func updateInboxData(key: String, value: Any) {
+        switch key {
+        case "text": self.text = value as! String
+        case "date": self.date = value as! Double
+        default:
+            break
+        }
+    }
 }
