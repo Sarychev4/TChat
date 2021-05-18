@@ -176,7 +176,7 @@ extension ChatViewController {
     func updateTopLabel(bool: Bool){
         var status = ""
         if bool {
-            status = "Active"
+            status = "online"
             if isRecording {
                 status = "Recording..."
             }
@@ -337,8 +337,8 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell") as! MessageTableViewCell
         cell.playButton.isHidden = messages[indexPath.row].text != "" //hide play button if it is not video or audio
-        
-        cell.configureCell(uid: Api.User.currentUserId, message: messages[indexPath.row], image: imagePartner)
+        //imagePartner
+        cell.configureCell(uid: Api.User.currentUserId, message: messages[indexPath.row], image: currentUserImage)
         cell.handleAudioPlay()
         return cell
     }

@@ -25,6 +25,7 @@ class InboxTableViewCell: UITableViewCell {
     var inbox: Inbox!
     var controller: MessagesTableViewController!
     
+    var currentUserImage: UIImage!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -38,9 +39,11 @@ class InboxTableViewCell: UITableViewCell {
         onlineView.clipsToBounds = true
     }
     
-    func configureCell(uid: String, inbox: Inbox){
+    func configureCell(uid: String, inbox: Inbox, currentImage: UIImage){
         self.user = inbox.user
         self.inbox = inbox
+        self.currentUserImage = currentImage
+        
         avatar.loadImage(inbox.user.profileImageUrl)
         usernameLbl.text = inbox.user.username
         let date = Date(timeIntervalSince1970: inbox.date)

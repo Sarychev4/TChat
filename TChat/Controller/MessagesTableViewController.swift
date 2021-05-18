@@ -111,7 +111,7 @@ class MessagesTableViewController: UITableViewController {
 
         let inbox = self.inboxArray[indexPath.row]
         cell.controller = self
-        cell.configureCell(uid: Api.User.currentUserId, inbox: inbox)
+        cell.configureCell(uid: Api.User.currentUserId, inbox: inbox, currentImage: avatarImageView.image!)
         return cell
     }
     
@@ -124,6 +124,7 @@ class MessagesTableViewController: UITableViewController {
             let storyboard = UIStoryboard(name: "Welcome", bundle: nil)
             let chatVC = storyboard.instantiateViewController(withIdentifier: IDENTIFIER_CHAT) as! ChatViewController
             chatVC.imagePartner = cell.avatar.image
+            chatVC.currentUserImage = cell.currentUserImage
             chatVC.partnerUsername = cell.usernameLbl.text
             chatVC.partnerId = cell.user.uid
             chatVC.partnerUser = cell.user

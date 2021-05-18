@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class PeopleTableViewController: UITableViewController, UISearchResultsUpdating {
     
     var users: [User] = []
     var searchController: UISearchController = UISearchController(searchResultsController: nil)
     var searchResults: [User] = []
+    
+    var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +46,9 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
         //navigationController?.navigationBar.backgroundColor = UIColor.blue
         navigationItem.title = "People"
         navigationController?.navigationBar.prefersLargeTitles = true
+        if let currentUser = Auth.auth().currentUser, let photoUrl = currentUser.photoURL {
+            avatarImageView.loadImage(photoUrl.absoluteString)
+        }
       //  navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 5/255, green: 132/255, blue: 254/255, alpha: 1.0)]
     }
     
@@ -91,7 +97,7 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
         // Configure the cell...
         let user = searchController.isActive ? searchResults[indexPath.row] : self.users[indexPath.row]
         cell.controller = self
-        cell.loadData(user)
+        cell.loadData(user, currentUserImage: avatarImageView.image!)
         
         return cell
     }
@@ -105,6 +111,7 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
             let storyboard = UIStoryboard(name: "Welcome", bundle: nil)
             let chatVC = storyboard.instantiateViewController(withIdentifier: IDENTIFIER_CHAT) as! ChatViewController
             chatVC.imagePartner = cell.avatar.image
+            chatVC.currentUserImage = cell.currentUserImage
             chatVC.partnerUsername = cell.usernameLbl.text
             chatVC.partnerId = cell.user.uid
             chatVC.partnerUser = cell.user

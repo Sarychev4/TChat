@@ -17,6 +17,9 @@ class UserTableViewCell: UITableViewCell {
     @IBOutlet weak var statusLbl: UILabel!
     
     @IBOutlet weak var onlineView: UIView!
+    
+    var currentUserImage: UIImage!
+    
     var user: User!
     var inboxChangedOnlineHandle: DatabaseHandle!
     var inboxChangedProfileHandle: DatabaseHandle!
@@ -35,9 +38,11 @@ class UserTableViewCell: UITableViewCell {
         onlineView.clipsToBounds = true
     }
     
-    func loadData(_ user: User){
+    func loadData(_ user: User, currentUserImage: UIImage){
+        
         self.user = user
         self.avatar.loadImage(user.profileImageUrl)
+        self.currentUserImage = currentUserImage
         self.usernameLbl.text = user.username
         self.statusLbl.text = user.status
         

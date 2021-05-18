@@ -48,7 +48,7 @@ class MessageTableViewCell: UITableViewCell {
         profileImage.clipsToBounds = true
         
         photoMessage.isHidden = true
-        profileImage.isHidden = true
+        profileImage.isHidden = false
         textMessageLabel.isHidden = true
         activityIndicatorView.isHidden = true
         activityIndicatorView.stopAnimating()
@@ -64,8 +64,12 @@ class MessageTableViewCell: UITableViewCell {
 //        handleAudioPlay()
         if player?.rate == 0 {
             player!.play()
+            let pauseBtnImg = UIImage(named: "pause")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+            playButton.setImage(pauseBtnImg, for: .normal)
         } else {
             player!.pause()
+            let playBtnImg = UIImage(named: "play")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+            playButton.setImage(playBtnImg, for: .normal)
         }
     }
     //MARK: - AUDIO PLAYER
@@ -185,8 +189,9 @@ class MessageTableViewCell: UITableViewCell {
             photoAudio.image = imageAudio
             photoAudio.isHidden = false
             
-            playButton.backgroundColor = .black
-            widthConstraint.constant = 100
+            playButton.backgroundColor = UIColor(red: 5/255, green: 132/255, blue: 254/255, alpha: 1)
+            playButton.layer.cornerRadius = 0.5 * playButton.bounds.size.width
+            widthConstraint.constant = 120
             dateLabel.textColor = .black
             bubbleView.layer.borderColor = UIColor.clear.cgColor
 //            let widthValue = audioUrlText.estimateFrameForText(audioUrlText).width + 40
