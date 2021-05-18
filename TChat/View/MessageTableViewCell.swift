@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import FDWaveformView
 
 class MessageTableViewCell: UITableViewCell {
 
@@ -15,7 +16,7 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var bubbleView: UIView!
     @IBOutlet weak var textMessageLabel: UILabel!
     
-    @IBOutlet weak var photoAudio: UIImageView!
+    @IBOutlet weak var photoAudio: UIImageView! //FDWaveformView!
     @IBOutlet weak var photoMessage: UIImageView!
     
     @IBOutlet weak var dateLabel: UILabel!
@@ -28,6 +29,8 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var bubbleRightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    
+    //var waveform: FDWaveformView!
     
     var playerLayer: AVPlayerLayer?
     var player: AVPlayer?
@@ -60,6 +63,7 @@ class MessageTableViewCell: UITableViewCell {
     }
     
     @IBAction func playBtnDidTapped(_ sender: Any) {
+        
         //handlePlay()
 //        handleAudioPlay()
         if player?.rate == 0 {
@@ -142,6 +146,8 @@ class MessageTableViewCell: UITableViewCell {
         
         photoAudio.isHidden = true
         
+        
+        
 //        if observation != nil {
 //            stopObservers()
 //        }
@@ -185,8 +191,15 @@ class MessageTableViewCell: UITableViewCell {
             textMessageLabel.isHidden = true
 //            textMessageLabel.text = message.audioUrl
             
+//             let thisBundle = Bundle(for: type(of: self))
+//
+//            let url = thisBundle.url(forResource: message.audioUrl, withExtension: "aiff")
+//             self.photoAudio.audioURL = url
+             
             let imageAudio = UIImage(named: "Audio_line")
+//            photoAudio.audioURL =  URL(string: audioUrlText)
             photoAudio.image = imageAudio
+            
             photoAudio.isHidden = false
             
             playButton.backgroundColor = UIColor(red: 5/255, green: 132/255, blue: 254/255, alpha: 1)

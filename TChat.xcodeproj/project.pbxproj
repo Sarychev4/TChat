@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,7 @@
 		DD463CDB263C57AD00F37791 /* MessageApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CDA263C57AD00F37791 /* MessageApi.swift */; };
 		DD463CDE263CC2D600F37791 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CDD263CC2D600F37791 /* Message.swift */; };
 		DD463CE1263CCEEE00F37791 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CE0263CCEEE00F37791 /* MessageTableViewCell.swift */; };
+		DD70B7FA2653FF7200730FDF /* FDWaveformView in Frameworks */ = {isa = PBXBuildFile; productRef = DD70B7F92653FF7200730FDF /* FDWaveformView */; };
 		DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3A82636B82600EAD20B /* AppDelegate.swift */; };
 		DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */; };
 		DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AC2636B82600EAD20B /* ViewController.swift */; };
@@ -87,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD70B7FA2653FF7200730FDF /* FDWaveformView in Frameworks */,
 				2FBABE95F79330DCD9BFBA46 /* Pods_TChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,6 +221,9 @@
 			dependencies = (
 			);
 			name = TChat;
+			packageProductDependencies = (
+				DD70B7F92653FF7200730FDF /* FDWaveformView */,
+			);
 			productName = TChat;
 			productReference = DD90A3A52636B82600EAD20B /* TChat.app */;
 			productType = "com.apple.product-type.application";
@@ -246,6 +251,9 @@
 				Base,
 			);
 			mainGroup = DD90A39C2636B82600EAD20B;
+			packageReferences = (
+				DD70B7F82653FF7200730FDF /* XCRemoteSwiftPackageReference "FDWaveformView" */,
+			);
 			productRefGroup = DD90A3A62636B82600EAD20B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -539,6 +547,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DD70B7F82653FF7200730FDF /* XCRemoteSwiftPackageReference "FDWaveformView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fulldecent/FDWaveformView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DD70B7F92653FF7200730FDF /* FDWaveformView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD70B7F82653FF7200730FDF /* XCRemoteSwiftPackageReference "FDWaveformView" */;
+			productName = FDWaveformView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DD90A39D2636B82600EAD20B /* Project object */;
 }

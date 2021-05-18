@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
+import ProgressHUD
+import Firebase
 
 extension ViewController {
     
@@ -71,6 +75,55 @@ extension ViewController {
         signInFacebookButton.imageView?.contentMode = .scaleAspectFit
         signInFacebookButton.tintColor = .white
         signInFacebookButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: -15, bottom: 12, right: 0)
+        
+        signInFacebookButton.addTarget(self, action: #selector(fbButtonDidTap), for: .touchUpInside)
+    }
+    
+    @objc func fbButtonDidTap(){
+        let fbLogimManager = LoginManager()
+        fbLogimManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
+            if let error = error {
+                ProgressHUD.showError(error.localizedDescription)
+                return
+            }
+            
+            guard let accessToken = AccessToken.current else {
+                ProgressHUD.showError("Failed to get access token")
+                return
+            }
+            
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+            Auth.auth().signIn(with: credential, completion:  { (result, error) in
+                if let error = error {
+                    ProgressHUD.showError(error.localizedDescription)
+                    return
+                }
+                
+                if let authData = result {
+                    print("AuthData")
+                    print(authData.user.email)
+                    print("\(authData.user.photoURL!.absoluteString)")//?access_token=\(accessToken)")
+                    let dict: Dictionary<String, Any> = [
+                        UID: authData.user.uid,
+                        EMAIL: authData.user.email ?? "Empty",
+                        USERNAME: authData.user.displayName as Any,
+                        PROFILE_IMAGE_URL: "\(authData.user.photoURL!.absoluteString)?access_token=\(accessToken)",
+                        STATUS: "Default status"
+                    ]
+                 
+                    Ref().databaseSpecificUser(uid: authData.user.uid).updateChildValues(dict, withCompletionBlock: { (error, ref) in
+                        if error == nil {
+                            Api.User.isOnline(bool: true)
+                             (UIApplication.shared.connectedScenes
+                                 .first!.delegate as! SceneDelegate).configureInitialViewController()
+                        } else {
+                            ProgressHUD.showError(error!.localizedDescription)
+                        }
+                    })
+                    
+                }
+            })
+        }
     }
     //Google
     func setupGoogleButton(){
