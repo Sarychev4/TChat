@@ -18,9 +18,10 @@ class Message {
     var width: Double
     var videoUrl: String
     var audioUrl: String
+    var samples: [Float]
     
     
-    init(id: String, from: String, to: String, date: Double, text: String, imageUrl: String, height: Double, width: Double, videoUrl: String, audioUrl: String) {
+    init(id: String, from: String, to: String, date: Double, text: String, imageUrl: String, height: Double, width: Double, videoUrl: String, audioUrl: String, samples: [Float]) {
         self.id = id
         self.from = from
         self.to = to
@@ -31,6 +32,7 @@ class Message {
         self.width = width
         self.videoUrl = videoUrl
         self.audioUrl = audioUrl
+        self.samples = samples
     }
     
     static func transformMessage(dict: [String: Any], keyId: String) -> Message? {
@@ -52,9 +54,11 @@ class Message {
         let videoUrl = (dict["videoUrl"] as? String) == nil ? "" : (dict["videoUrl"]! as! String)
         
         let audioUrl = (dict["audioUrl"] as? String) == nil ? "" : (dict["audioUrl"]! as! String)
+        
+        let samples = (dict["samples"] as? [Float]) == nil ? [0] : (dict["samples"]! as! [Float])
 
         
-        let message = Message(id: keyId, from: from, to: to, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl, audioUrl: audioUrl)
+        let message = Message(id: keyId, from: from, to: to, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl, audioUrl: audioUrl, samples: samples)
         return message
     }
     

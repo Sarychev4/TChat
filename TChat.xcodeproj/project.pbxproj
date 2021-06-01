@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,7 +21,6 @@
 		DD463CDB263C57AD00F37791 /* MessageApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CDA263C57AD00F37791 /* MessageApi.swift */; };
 		DD463CDE263CC2D600F37791 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CDD263CC2D600F37791 /* Message.swift */; };
 		DD463CE1263CCEEE00F37791 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CE0263CCEEE00F37791 /* MessageTableViewCell.swift */; };
-		DD70B7FA2653FF7200730FDF /* FDWaveformView in Frameworks */ = {isa = PBXBuildFile; productRef = DD70B7F92653FF7200730FDF /* FDWaveformView */; };
 		DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3A82636B82600EAD20B /* AppDelegate.swift */; };
 		DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */; };
 		DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AC2636B82600EAD20B /* ViewController.swift */; };
@@ -41,6 +40,7 @@
 		DD90A4122638A85200EAD20B /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4112638A85200EAD20B /* StorageService.swift */; };
 		DD90A4152638B36300EAD20B /* Ref.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4142638B36300EAD20B /* Ref.swift */; };
 		DD90A4292639A65C00EAD20B /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */; };
+		DDDB3043265540C00024FAE8 /* PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB3042265540C00024FAE8 /* PulseAnimation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +81,7 @@
 		DD90A4112638A85200EAD20B /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DD90A4142638B36300EAD20B /* Ref.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ref.swift; sourceTree = "<group>"; };
 		DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
+		DDDB3042265540C00024FAE8 /* PulseAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +89,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD70B7FA2653FF7200730FDF /* FDWaveformView in Frameworks */,
 				2FBABE95F79330DCD9BFBA46 /* Pods_TChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -190,6 +190,7 @@
 				DD90A3A82636B82600EAD20B /* AppDelegate.swift */,
 				DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */,
 				DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */,
+				DDDB3042265540C00024FAE8 /* PulseAnimation.swift */,
 				DD70B781264F24A300730FDF /* Controller */,
 				DD70B783264F24EF00730FDF /* View */,
 				DD70B785264F251800730FDF /* Api */,
@@ -222,7 +223,6 @@
 			);
 			name = TChat;
 			packageProductDependencies = (
-				DD70B7F92653FF7200730FDF /* FDWaveformView */,
 			);
 			productName = TChat;
 			productReference = DD90A3A52636B82600EAD20B /* TChat.app */;
@@ -252,7 +252,6 @@
 			);
 			mainGroup = DD90A39C2636B82600EAD20B;
 			packageReferences = (
-				DD70B7F82653FF7200730FDF /* XCRemoteSwiftPackageReference "FDWaveformView" */,
 			);
 			productRefGroup = DD90A3A62636B82600EAD20B /* Products */;
 			projectDirPath = "";
@@ -339,6 +338,7 @@
 				DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */,
 				DD90A4122638A85200EAD20B /* StorageService.swift in Sources */,
 				DD4477562645D5840061BB69 /* ProfileTableViewController.swift in Sources */,
+				DDDB3043265540C00024FAE8 /* PulseAnimation.swift in Sources */,
 				DD90A3D22637759700EAD20B /* ForgotPasswordViewController.swift in Sources */,
 				DD90A4292639A65C00EAD20B /* MessagesTableViewController.swift in Sources */,
 				DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */,
@@ -547,25 +547,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		DD70B7F82653FF7200730FDF /* XCRemoteSwiftPackageReference "FDWaveformView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/fulldecent/FDWaveformView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		DD70B7F92653FF7200730FDF /* FDWaveformView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DD70B7F82653FF7200730FDF /* XCRemoteSwiftPackageReference "FDWaveformView" */;
-			productName = FDWaveformView;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DD90A39D2636B82600EAD20B /* Project object */;
 }

@@ -30,23 +30,23 @@ class MessagesTableViewController: UITableViewController {
         navigationItem.title = "Voices"
         navigationController?.navigationBar.prefersLargeTitles = true
       //  navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 5/255, green: 132/255, blue: 254/255, alpha: 1.0)]
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
+       // let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
         //avatarImageView.image = imagePartner
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.layer.cornerRadius = 18
         avatarImageView.clipsToBounds = true
-        containerView.addSubview(avatarImageView)
-        
-        let leftBarButtonItem = UIBarButtonItem(customView: containerView)
+       // containerView.addSubview(avatarImageView)
+
+      //  let leftBarButtonItem = UIBarButtonItem(customView: containerView)
        // self.navigationItem.leftItemsSupplementBackButton = true //not allow to overriding the natural back button
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        
+      //  self.navigationItem.leftBarButtonItem = leftBarButtonItem
+
         if let currentUser = Auth.auth().currentUser, let photoUrl = currentUser.photoURL {
             avatarImageView.loadImage(photoUrl.absoluteString)
         }
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(updateProfile), name: NSNotification.Name("updateProfileImage"), object: nil)
-        
+//
     }
     
     @objc func updateProfile(){
@@ -111,7 +111,7 @@ class MessagesTableViewController: UITableViewController {
 
         let inbox = self.inboxArray[indexPath.row]
         cell.controller = self
-        cell.configureCell(uid: Api.User.currentUserId, inbox: inbox, currentImage: avatarImageView.image!)
+        cell.configureCell(uid: Api.User.currentUserId, inbox: inbox, currentImage: avatarImageView.image!, samples: inbox.samples)
         return cell
     }
     

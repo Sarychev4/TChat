@@ -80,22 +80,22 @@ extension ChatViewController {
         }
     }
     
-    func setupInputContainer(){
-        let mediaImg = UIImage(named: "attachment_icon")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        mediaButton.setImage(mediaImg, for: .normal)
-        mediaButton.tintColor = .lightGray
-        
-        //        let micImg = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        //        recordButton.setImage(micImg, for: .normal)
-        //        recordButton.tintColor = .lightGray
-        
-        setupInputTextView()
-        
-        //KeyBoard
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-    }
+//    func setupInputContainer(){
+////        let mediaImg = UIImage(named: "attachment_icon")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+////        mediaButton.setImage(mediaImg, for: .normal)
+////        mediaButton.tintColor = .lightGray
+//        
+//        //        let micImg = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+//        //        recordButton.setImage(micImg, for: .normal)
+//        //        recordButton.tintColor = .lightGray
+//        
+//        setupInputTextView()
+//        
+//        //KeyBoard
+//        let notificationCenter = NotificationCenter.default
+//        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+//    }
     
     @objc func adjustForKeyboard(notification: Notification){
         let userInfo = notification.userInfo!
@@ -117,29 +117,29 @@ extension ChatViewController {
         
     }
     
-    func setupInputTextView(){
-        
-        inputTextView.delegate = self
-        
-        placeholderLbl.isHidden = false
-        
-        let placeholderX: CGFloat = self.view.frame.size.width / 75
-        let placeholderY: CGFloat = 0
-        let placeholderWidth: CGFloat = inputTextView.bounds.width - placeholderX
-        let placeholderHeight: CGFloat = inputTextView.bounds.height
-        
-        let placeholderFontSize = self.view.frame.size.width / 25
-        
-        placeholderLbl.frame = CGRect(x: placeholderX, y: placeholderY, width: placeholderWidth, height: placeholderHeight)
-        placeholderLbl.text = "Write a message"
-        placeholderLbl.font = UIFont(name: "HelveticaNeue", size: placeholderFontSize)
-        placeholderLbl.textColor = .lightGray
-        placeholderLbl.textAlignment = .left
-        
-        inputTextView.addSubview(placeholderLbl)
-        
-        
-    }
+//    func setupInputTextView(){
+//
+//        inputTextView.delegate = self
+//
+//        placeholderLbl.isHidden = false
+//
+//        let placeholderX: CGFloat = self.view.frame.size.width / 75
+//        let placeholderY: CGFloat = 0
+//        let placeholderWidth: CGFloat = inputTextView.bounds.width - placeholderX
+//        let placeholderHeight: CGFloat = inputTextView.bounds.height
+//
+//        let placeholderFontSize = self.view.frame.size.width / 25
+//
+//        placeholderLbl.frame = CGRect(x: placeholderX, y: placeholderY, width: placeholderWidth, height: placeholderHeight)
+//        placeholderLbl.text = "Write a message"
+//        placeholderLbl.font = UIFont(name: "HelveticaNeue", size: placeholderFontSize)
+//        placeholderLbl.textColor = .lightGray
+//        placeholderLbl.textAlignment = .left
+//
+//        inputTextView.addSubview(placeholderLbl)
+//
+//
+//    }
     
     func setupNavigationBar(){
         navigationItem.largeTitleDisplayMode = .never
@@ -233,6 +233,7 @@ extension ChatViewController {
         value["to"] = partnerId
         value["date"] = date
         value["read"] = true
+        value["samples"] = samples
         
         Api.Message.sendMessage(from: Api.User.currentUserId, to: partnerId, value: value)
         
@@ -336,31 +337,32 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell") as! MessageTableViewCell
-        cell.playButton.isHidden = messages[indexPath.row].text != "" //hide play button if it is not video or audio
+//        cell.playButton.isHidden = messages[indexPath.row].text != "" //hide play button if it is not video or audio
         //imagePartner
-        cell.configureCell(uid: Api.User.currentUserId, message: messages[indexPath.row], image: currentUserImage)
+        
+        cell.configureCell(uid: Api.User.currentUserId, message: messages[indexPath.row], image: currentUserImage, partnerName: partnerUsername, partnerImage: imagePartner, currentUserName: Api.User.currentUserName)
         cell.handleAudioPlay()
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var height: CGFloat = 0
-        let message = messages[indexPath.row]
-        let text = message.text
-        let audioUrlText = message.audioUrl
-        if !text.isEmpty {
-            height = text.estimateFrameForText(text).height + 60
-        }else if text.isEmpty && !audioUrlText.isEmpty{
-            height = audioUrlText.estimateFrameForText(audioUrlText).height + 60
-    }
+//        var height: CGFloat = 0
+//        let message = messages[indexPath.row]
+//        let text = message.text
+//        let audioUrlText = message.audioUrl
+//        if !text.isEmpty {
+//            height = text.estimateFrameForText(text).height + 60
+//        }else if text.isEmpty && !audioUrlText.isEmpty{
+//            height = audioUrlText.estimateFrameForText(audioUrlText).height + 60
+//    }
+//
+//        let heightMessage = message.height
+//        let widthMessage = message.width
+//        if heightMessage != 0, widthMessage != 0 {
+//            height = CGFloat(heightMessage / widthMessage * 250)
+//        }
 
-        let heightMessage = message.height
-        let widthMessage = message.width
-        if heightMessage != 0, widthMessage != 0 {
-            height = CGFloat(heightMessage / widthMessage * 250)
-        }
-
-        return height
+        return 120
        // return 95
     }
     
@@ -375,7 +377,7 @@ extension ChatViewController: AVAudioRecorderDelegate {
         let micImg = UIImage(named: "microPhone")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         recordButton.setImage(micImg, for: .normal)
         recordButton.tintColor = .lightGray
-        recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
+       // recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
     }
     
     @objc func recordTapped(){
@@ -409,6 +411,7 @@ extension ChatViewController: AVAudioRecorderDelegate {
     }
     
     func startRecording(){
+        samples = []
         let audioFileUrl = getAudioFileURL()
         
         let settings = [
@@ -419,9 +422,10 @@ extension ChatViewController: AVAudioRecorderDelegate {
         ]
         
         do {
-            
+            startMetering()
             audioRecorder = try AVAudioRecorder(url: audioFileUrl, settings: settings)
             audioRecorder.delegate = self
+            audioRecorder.isMeteringEnabled = true
             audioRecorder.record()
             
             //            let micImgStop = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
@@ -445,7 +449,7 @@ extension ChatViewController: AVAudioRecorderDelegate {
     }
     
     func finishRecording(success: Bool) {
-        
+        print(samples)
         audioRecorder.stop()
         
         audioRecorder = nil
@@ -475,6 +479,28 @@ extension ChatViewController: AVAudioRecorderDelegate {
         }
         
         
+    }
+    
+    @objc func updateMeter() {
+        guard let recorder = audioRecorder else { return }
+        
+        recorder.updateMeters()
+        
+        let dB = recorder.averagePower(forChannel: 0)
+        let percentage: Float = pow(10, (0.05 * dB)) + 0.1
+        
+        samples.append(percentage)
+        
+    }
+    
+    func startMetering() {
+        link = CADisplayLink(target: self, selector: #selector(updateMeter))
+        link?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
+    }
+    
+    func stopMetering() {
+        link?.invalidate()
+        link = nil
     }
     
     

@@ -7,9 +7,11 @@
 
 import UIKit
 import Firebase
+import SoundWave
 
 class InboxTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var inboxSoundWaveView: AudioVisualizationView!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var messageLbl: UILabel!
@@ -39,10 +41,19 @@ class InboxTableViewCell: UITableViewCell {
         onlineView.clipsToBounds = true
     }
     
-    func configureCell(uid: String, inbox: Inbox, currentImage: UIImage){
+    func configureCell(uid: String, inbox: Inbox, currentImage: UIImage, samples: [Float]){
         self.user = inbox.user
         self.inbox = inbox
         self.currentUserImage = currentImage
+        
+        self.inboxSoundWaveView.meteringLevelBarWidth = 3.0
+        self.inboxSoundWaveView.meteringLevelBarInterItem = 3.0
+        self.inboxSoundWaveView.meteringLevelBarCornerRadius = 0.0
+        self.inboxSoundWaveView.gradientStartColor = .blue
+        self.inboxSoundWaveView.gradientEndColor = .black
+        self.inboxSoundWaveView.audioVisualizationMode = .read
+        self.inboxSoundWaveView.meteringLevels = samples
+        
         
         avatar.loadImage(inbox.user.profileImageUrl)
         usernameLbl.text = inbox.user.username
@@ -53,7 +64,7 @@ class InboxTableViewCell: UITableViewCell {
         if !inbox.text.isEmpty {
             messageLbl.text = inbox.text
         } else {
-            messageLbl.text = "[MEDIA]"
+            messageLbl.text = inbox.audioUrl
         }
         
         //let refInbox = Ref().databaseInboxInfor(from: Api.User.currentUserId, to: inbox.user.uid)

@@ -97,7 +97,7 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
         // Configure the cell...
         let user = searchController.isActive ? searchResults[indexPath.row] : self.users[indexPath.row]
         cell.controller = self
-        cell.loadData(user, currentUserImage: avatarImageView.image!)
+        cell.loadData(user, currentUserImage: avatarImageView.image!) //
         
         return cell
     }

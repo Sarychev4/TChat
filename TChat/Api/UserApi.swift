@@ -11,6 +11,8 @@ import Firebase
 import ProgressHUD
 import FirebaseStorage
 import FirebaseDatabase
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class UserApi {
     
@@ -20,8 +22,15 @@ class UserApi {
 //        } else {
 //            return ""
 //        }
+        
         return Auth.auth().currentUser != nil ? Auth.auth().currentUser!.uid : ""
     }
+    
+    var currentUserName: String {
+        
+        return Auth.auth().currentUser != nil ? Auth.auth().currentUser!.displayName! : ""
+    }
+    
     
     func signIn(email: String, password: String, onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void){
         Auth.auth().signIn(withEmail: email, password: password) { (authData, error) in
@@ -98,7 +107,22 @@ class UserApi {
     func logOut(){
         do {
             Api.User.isOnline(bool: false)
+            if let providerData = Auth.auth().currentUser?.providerData {
+                let userInfo = providerData[0]
+                
+                switch userInfo.providerID {
+                case "facebook.com":
+                    LoginManager().logOut()
+                    print("LOGOUT")
+                    AccessToken.current = nil
+                    Profile.current = nil
+
+                default:
+                    break
+                }
+            }
             try Auth.auth().signOut()
+            
             
         } catch{
             ProgressHUD.showError(error.localizedDescription)

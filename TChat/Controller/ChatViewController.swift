@@ -13,8 +13,9 @@ import AVFoundation
 
 class ChatViewController: UIViewController {
     
+    @IBOutlet weak var bottomPanelView: UIView!
     @IBOutlet weak var mediaButton: UIButton!
-    
+    var pulse: PulseAnimation?
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -26,6 +27,8 @@ class ChatViewController: UIViewController {
     
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
+    var samples: [Float] = []
+    var link: CADisplayLink?
     
     var currentUserImage: UIImage!
     var imagePartner: UIImage! // image from users VC
@@ -78,13 +81,34 @@ class ChatViewController: UIViewController {
         
         setupPicker()
         setupNavigationBar()
-        setupInputContainer()
+       // setupInputContainer()
         setupTableView()
         //observeMessages()
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func recordButtonTouchDownDidTapped(_ sender: UIButton) {
+        startRecording()
+        showAnimation(below: recordButton.layer, numberOfPulse: Float.infinity, radius: 80, postion: sender.center)
+    }
     
+    @IBAction func recordButtonTouchUpInsideDidTapped(_ sender: UIButton) {
+        finishRecording(success: true)
+        let gg = getAudioFileURL()
+        handleAudioSendWith(url: gg)
+        if let pulseBtn = self.pulse {
+            stopAnimation(pulseAnimation: pulseBtn)
+        }
+    }
+    @IBAction func recordButtonTouchDragExitDidTapped(_ sender: UIButton) {
+        print("exit")
+        finishRecording(success: true)
+        let gg = getAudioFileURL()
+        handleAudioSendWith(url: gg)
+        if let pulseBtn = self.pulse {
+            stopAnimation(pulseAnimation: pulseBtn)
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -94,6 +118,21 @@ class ChatViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    //MARK: -PulseAnimation
+    func showAnimation(below: CALayer, numberOfPulse:Float, radius: CGFloat, postion: CGPoint) {
+            pulse = PulseAnimation(numberOfPulse: numberOfPulse, radius: radius, postion: postion)
+            pulse!.animationDuration = 1.0
+            pulse!.backgroundColor = #colorLiteral(red: 0.05282949957, green: 0.5737867104, blue: 1, alpha: 1)
+        
+        bottomPanelView.layer.insertSublayer(pulse!, below: below)
+        print("showAnimation")
+        print(postion)
+    }
+    
+    func stopAnimation(pulseAnimation: PulseAnimation){
+        pulseAnimation.removeFromSuperlayer()
     }
     
     @IBAction func sendButtonDidTapped(_ sender: Any) {

@@ -38,7 +38,7 @@ class UserTableViewCell: UITableViewCell {
         onlineView.clipsToBounds = true
     }
     
-    func loadData(_ user: User, currentUserImage: UIImage){
+    func loadData(_ user: User, currentUserImage: UIImage){ //
         
         self.user = user
         self.avatar.loadImage(user.profileImageUrl)

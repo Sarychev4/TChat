@@ -118,6 +118,7 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
+  - SoundWave (0.1.4)
 
 DEPENDENCIES:
   - FBSDKLoginKit
@@ -127,6 +128,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - ProgressHUD
   - SDWebImage
+  - SoundWave
 
 SPEC REPOS:
   trunk:
@@ -149,6 +151,7 @@ SPEC REPOS:
     - ProgressHUD
     - PromisesObjC
     - SDWebImage
+    - SoundWave
 
 SPEC CHECKSUMS:
   FBSDKCoreKit: 0d1ae58388a458b8222f72025804cdc84eb5d0c3
@@ -170,7 +173,8 @@ SPEC CHECKSUMS:
   ProgressHUD: 4bdaa0d2ddf676b23324b199f9facffb5c3a1620
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SoundWave: d98ffaa863570b29d991da32a09b7ce1b4aaf2d4
 
-PODFILE CHECKSUM: be95d9d0cbcc6e2a1b535fafdc11909f4462b8e9
+PODFILE CHECKSUM: 8c2846aa6905d30ac5b41b49a7cb697b68078ef6
 
 COCOAPODS: 1.10.1
