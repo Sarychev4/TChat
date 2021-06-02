@@ -244,19 +244,19 @@ extension ChatViewController {
 
 extension ChatViewController: UITextViewDelegate {
     
-    func textViewDidChange(_ textView: UITextView) {
-        let spacing = CharacterSet.whitespacesAndNewlines
-        if !textView.text.trimmingCharacters(in: spacing).isEmpty{
-            let text = textView.text.trimmingCharacters(in: spacing)
-            sendButton.isEnabled = true
-            sendButton.setTitleColor(.black, for: .normal)
-            placeholderLbl.isHidden = true
-        } else {
-            sendButton.isEnabled = false
-            sendButton.setTitleColor(.lightGray, for: .normal)
-            placeholderLbl.isHidden = false
-        }
-    }
+//    func textViewDidChange(_ textView: UITextView) {
+//        let spacing = CharacterSet.whitespacesAndNewlines
+//        if !textView.text.trimmingCharacters(in: spacing).isEmpty{
+//            let text = textView.text.trimmingCharacters(in: spacing)
+//            sendButton.isEnabled = true
+//            sendButton.setTitleColor(.black, for: .normal)
+//            placeholderLbl.isHidden = true
+//        } else {
+//            sendButton.isEnabled = false
+//            sendButton.setTitleColor(.lightGray, for: .normal)
+//            placeholderLbl.isHidden = false
+//        }
+//    }
 }
 
 

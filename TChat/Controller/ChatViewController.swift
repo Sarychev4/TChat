@@ -16,8 +16,8 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var bottomPanelView: UIView!
     @IBOutlet weak var mediaButton: UIButton!
     var pulse: PulseAnimation?
-    @IBOutlet weak var inputTextView: UITextView!
-    @IBOutlet weak var sendButton: UIButton!
+//    @IBOutlet weak var inputTextView: UITextView!
+//    @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
@@ -29,6 +29,15 @@ class ChatViewController: UIViewController {
     var audioRecorder: AVAudioRecorder!
     var samples: [Float] = []
     var link: CADisplayLink?
+    
+    var timer = Timer()
+    
+    @IBOutlet weak var timerLabel: UILabel! //Send your voice message
+    var minutes = 0
+    var seconds = 0
+    var fractions = 0
+    
+    @IBOutlet weak var leftCancelLabel: UILabel!
     
     var currentUserImage: UIImage!
     var imagePartner: UIImage! // image from users VC
@@ -47,7 +56,7 @@ class ChatViewController: UIViewController {
     var lastTimeOnline = ""
     
     var isRecording = false
-    var timer = Timer()
+    
     
     var refreshControl = UIRefreshControl()
     var lastMessageKey: String?
@@ -55,6 +64,8 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        leftCancelLabel.isHidden = true
         
         //Users permission for audio
         
@@ -90,6 +101,9 @@ class ChatViewController: UIViewController {
     @IBAction func recordButtonTouchDownDidTapped(_ sender: UIButton) {
         startRecording()
         showAnimation(below: recordButton.layer, numberOfPulse: Float.infinity, radius: 80, postion: sender.center)
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(UpdateTimer), userInfo: nil, repeats: true)
+        leftCancelLabel.isHidden = false
     }
     
     @IBAction func recordButtonTouchUpInsideDidTapped(_ sender: UIButton) {
@@ -99,6 +113,10 @@ class ChatViewController: UIViewController {
         if let pulseBtn = self.pulse {
             stopAnimation(pulseAnimation: pulseBtn)
         }
+        timer.invalidate()
+        timerLabel.textColor = UIColor(hexString: "BFBFBF")
+        timerLabel.text = "Send your voice message"
+        leftCancelLabel.isHidden = true
     }
     @IBAction func recordButtonTouchDragExitDidTapped(_ sender: UIButton) {
         print("exit")
@@ -108,6 +126,11 @@ class ChatViewController: UIViewController {
         if let pulseBtn = self.pulse {
             stopAnimation(pulseAnimation: pulseBtn)
         }
+        
+        timer.invalidate()
+        timerLabel.textColor = UIColor(hexString: "BFBFBF")
+        timerLabel.text = "Send your voice message"
+        leftCancelLabel.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,6 +141,23 @@ class ChatViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
+    }
+    //MARK: -TIMER
+    @objc func UpdateTimer() {
+        fractions += 1
+        if fractions > 99 {
+            seconds += 1
+            fractions = 0
+        }
+        
+        if seconds == 60{
+            minutes += 1
+            seconds = 0
+        }
+        
+        let secondsString = seconds > 9 ? "\(seconds)" : "0\(seconds)"
+        timerLabel.textColor = .black
+        timerLabel.text = "·\(minutes):\(secondsString),\(fractions)"//String(format: "%.1f", counter)
     }
     
     //MARK: -PulseAnimation
@@ -135,13 +175,13 @@ class ChatViewController: UIViewController {
         pulseAnimation.removeFromSuperlayer()
     }
     
-    @IBAction func sendButtonDidTapped(_ sender: Any) {
-        if let text = inputTextView.text, text != "" {
-            inputTextView.text = ""
-            self.textViewDidChange(inputTextView)
-            sendToFirebase(dict:["text": text as Any])
-        }
-    }
+//    @IBAction func sendButtonDidTapped(_ sender: Any) {
+//        if let text = inputTextView.text, text != "" {
+//            inputTextView.text = ""
+//            self.textViewDidChange(inputTextView)
+//            sendToFirebase(dict:["text": text as Any])
+//        }
+//    }
     
     @IBAction func mediaButtonDidTapped(_ sender: Any) {
         let alert = UIAlertController(title: "TChat", message: "Select source", preferredStyle: UIAlertController.Style.actionSheet)

@@ -245,9 +245,15 @@
                                 <rect key="frame" x="0.0" y="802" width="414" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send your voice message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPF-Hc-PC7">
-                                        <rect key="frame" x="16" y="24" width="163.5" height="19.5"/>
+                                        <rect key="frame" x="16" y="20.5" width="163.5" height="19.5"/>
                                         <color key="tintColor" systemColor="systemBlueColor"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                        <color key="textColor" red="0.74901960784313726" green="0.74901960784313726" blue="0.74901960784313726" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; Left - Cancel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqe-cK-asg">
+                                        <rect key="frame" x="161" y="20" width="92" height="20"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
                                         <color key="textColor" red="0.74901960784313726" green="0.74901960784313726" blue="0.74901960784313726" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -259,9 +265,9 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNF-q6-rlp">
-                                        <rect key="frame" x="351" y="7" width="47" height="47"/>
+                                        <rect key="frame" x="350" y="6" width="48" height="48"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="47" id="Whi-CG-UZT"/>
+                                            <constraint firstAttribute="width" constant="48" id="Whi-CG-UZT"/>
                                         </constraints>
                                         <state key="normal" image="microPhone"/>
                                         <connections>
@@ -273,14 +279,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="gPF-Hc-PC7" firstAttribute="top" secondItem="Yo8-JY-Att" secondAttribute="bottom" constant="23" id="CtQ-IF-W1Q"/>
                                     <constraint firstAttribute="height" constant="60" id="DDK-pe-X6g"/>
                                     <constraint firstAttribute="trailing" secondItem="Yo8-JY-Att" secondAttribute="trailing" id="DEN-tf-Zbk"/>
-                                    <constraint firstAttribute="bottom" secondItem="UNF-q6-rlp" secondAttribute="bottom" constant="6" id="ato-VO-XEq"/>
+                                    <constraint firstItem="UNF-q6-rlp" firstAttribute="centerY" secondItem="kLd-92-c3S" secondAttribute="centerY" id="Yjd-n3-qOM"/>
+                                    <constraint firstItem="gPF-Hc-PC7" firstAttribute="centerY" secondItem="kLd-92-c3S" secondAttribute="centerY" id="b7c-DA-bCU"/>
                                     <constraint firstItem="gPF-Hc-PC7" firstAttribute="leading" secondItem="kLd-92-c3S" secondAttribute="leading" constant="16" id="glT-FX-eTH"/>
                                     <constraint firstItem="Yo8-JY-Att" firstAttribute="leading" secondItem="kLd-92-c3S" secondAttribute="leading" id="kxF-PX-TWj"/>
+                                    <constraint firstItem="qqe-cK-asg" firstAttribute="centerY" secondItem="kLd-92-c3S" secondAttribute="centerY" id="lk4-sL-PBm"/>
+                                    <constraint firstItem="qqe-cK-asg" firstAttribute="centerX" secondItem="kLd-92-c3S" secondAttribute="centerX" id="tHm-z7-lyO"/>
                                     <constraint firstItem="Yo8-JY-Att" firstAttribute="top" secondItem="kLd-92-c3S" secondAttribute="top" id="uNY-6k-e7I"/>
-                                    <constraint firstItem="UNF-q6-rlp" firstAttribute="top" secondItem="Yo8-JY-Att" secondAttribute="bottom" constant="6" id="xvD-nC-ahH"/>
                                     <constraint firstAttribute="trailing" secondItem="UNF-q6-rlp" secondAttribute="trailing" constant="16" id="yWt-Uo-T1t"/>
                                 </constraints>
                             </view>
@@ -300,8 +307,10 @@
                     <connections>
                         <outlet property="bottomConstraint" destination="JiA-sp-mQ5" id="moE-Q0-Kyt"/>
                         <outlet property="bottomPanelView" destination="kLd-92-c3S" id="Fma-6W-rYA"/>
+                        <outlet property="leftCancelLabel" destination="qqe-cK-asg" id="OeL-WT-85F"/>
                         <outlet property="recordButton" destination="UNF-q6-rlp" id="3Zd-Ru-FQe"/>
                         <outlet property="tableView" destination="rCM-tP-z2X" id="4kc-SZ-mdg"/>
+                        <outlet property="timerLabel" destination="gPF-Hc-PC7" id="gBX-U7-D1O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8UE-Aq-Y4G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -386,7 +395,7 @@
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G1e-dc-ha8" customClass="AudioVisualizationView" customModule="SoundWave">
                                             <rect key="frame" x="130" y="50" width="234" height="30"/>
-                                            <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="240" id="hl7-wZ-nFu"/>
                                             </constraints>
@@ -1037,9 +1046,6 @@
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
