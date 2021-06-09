@@ -2,8 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>$(PRODUCT_NAME) micro phone use</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SFProDisplay-Regular.ttf</string>
+	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(PRODUCT_NAME) micro phone use</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -64,20 +68,18 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    
-    <key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>fb824828301763887</string>
-      </array>
-      </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>824828301763887</string>
-    <key>FacebookDisplayName</key>
-    <string>TChat</string>
-    
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb824828301763887</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>824828301763887</string>
+	<key>FacebookDisplayName</key>
+	<string>TChat</string>
 </dict>
 </plist>

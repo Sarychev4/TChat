@@ -40,6 +40,7 @@
 		DD90A4122638A85200EAD20B /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4112638A85200EAD20B /* StorageService.swift */; };
 		DD90A4152638B36300EAD20B /* Ref.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4142638B36300EAD20B /* Ref.swift */; };
 		DD90A4292639A65C00EAD20B /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */; };
+		DDA72F8A2670E91900B1C113 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDA72F892670E91900B1C113 /* SFProDisplay-Regular.ttf */; };
 		DDDB3043265540C00024FAE8 /* PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB3042265540C00024FAE8 /* PulseAnimation.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		DD90A4112638A85200EAD20B /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DD90A4142638B36300EAD20B /* Ref.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ref.swift; sourceTree = "<group>"; };
 		DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
+		DDA72F892670E91900B1C113 /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
 		DDDB3042265540C00024FAE8 /* PulseAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,8 +202,17 @@
 				DD90A3B32636B82800EAD20B /* LaunchScreen.storyboard */,
 				DD90A3D826377FAA00EAD20B /* GoogleService-Info.plist */,
 				DD90A3B62636B82800EAD20B /* Info.plist */,
+				DDA72F882670E8EC00B1C113 /* Fonts */,
 			);
 			path = TChat;
+			sourceTree = "<group>";
+		};
+		DDA72F882670E8EC00B1C113 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DDA72F892670E91900B1C113 /* SFProDisplay-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +281,7 @@
 				DD90A3B52636B82800EAD20B /* LaunchScreen.storyboard in Resources */,
 				DD90A3D926377FAA00EAD20B /* GoogleService-Info.plist in Resources */,
 				DD90A3BE2636BE6700EAD20B /* Welcome.storyboard in Resources */,
+				DDA72F8A2670E91900B1C113 /* SFProDisplay-Regular.ttf in Resources */,
 				DD90A3B22636B82800EAD20B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

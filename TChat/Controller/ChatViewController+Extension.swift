@@ -234,6 +234,7 @@ extension ChatViewController {
         value["date"] = date
         value["read"] = true
         value["samples"] = samples
+        value["recordLength"] = recordLength
         
         Api.Message.sendMessage(from: Api.User.currentUserId, to: partnerId, value: value)
         
@@ -362,7 +363,7 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
 //            height = CGFloat(heightMessage / widthMessage * 250)
 //        }
 
-        return 120
+        return 126
        // return 95
     }
     
@@ -422,7 +423,7 @@ extension ChatViewController: AVAudioRecorderDelegate {
         ]
         
         do {
-            startMetering()
+            //startMetering()
             audioRecorder = try AVAudioRecorder(url: audioFileUrl, settings: settings)
             audioRecorder.delegate = self
             audioRecorder.isMeteringEnabled = true
@@ -492,6 +493,8 @@ extension ChatViewController: AVAudioRecorderDelegate {
         samples.append(percentage)
         
     }
+    
+  
     
     func startMetering() {
         link = CADisplayLink(target: self, selector: #selector(updateMeter))

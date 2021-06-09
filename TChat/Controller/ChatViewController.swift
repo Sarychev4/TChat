@@ -31,15 +31,17 @@ class ChatViewController: UIViewController {
     var link: CADisplayLink?
     
     var timer = Timer()
+    var timer2 = Timer()
     
     @IBOutlet weak var timerLabel: UILabel! //Send your voice message
     var minutes = 0
     var seconds = 0
     var fractions = 0
+    var recordLength = 0 //sec
     
     @IBOutlet weak var leftCancelLabel: UILabel!
     
-    var currentUserImage: UIImage!
+    var currentUserImage: UIImage?
     var imagePartner: UIImage! // image from users VC
     var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
     var topLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
@@ -101,6 +103,7 @@ class ChatViewController: UIViewController {
     @IBAction func recordButtonTouchDownDidTapped(_ sender: UIButton) {
         startRecording()
         showAnimation(below: recordButton.layer, numberOfPulse: Float.infinity, radius: 80, postion: sender.center)
+        timer2 = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
         
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(UpdateTimer), userInfo: nil, repeats: true)
         leftCancelLabel.isHidden = false
@@ -114,9 +117,12 @@ class ChatViewController: UIViewController {
             stopAnimation(pulseAnimation: pulseBtn)
         }
         timer.invalidate()
+        timer2.invalidate()
         timerLabel.textColor = UIColor(hexString: "BFBFBF")
         timerLabel.text = "Send your voice message"
         leftCancelLabel.isHidden = true
+        recordLength = seconds
+        (minutes, seconds, fractions) = (0, 0, 0)
     }
     @IBAction func recordButtonTouchDragExitDidTapped(_ sender: UIButton) {
         print("exit")
@@ -128,9 +134,12 @@ class ChatViewController: UIViewController {
         }
         
         timer.invalidate()
+        timer2.invalidate()
         timerLabel.textColor = UIColor(hexString: "BFBFBF")
         timerLabel.text = "Send your voice message"
         leftCancelLabel.isHidden = true
+        recordLength = seconds
+        (minutes, seconds, fractions) = (0, 0, 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -40,10 +40,17 @@ class MessagesTableViewController: UITableViewController {
       //  let leftBarButtonItem = UIBarButtonItem(customView: containerView)
        // self.navigationItem.leftItemsSupplementBackButton = true //not allow to overriding the natural back button
       //  self.navigationItem.leftBarButtonItem = leftBarButtonItem
-
-        if let currentUser = Auth.auth().currentUser, let photoUrl = currentUser.photoURL {
-            avatarImageView.loadImage(photoUrl.absoluteString)
+        
+        Api.User.getUserInforSingleEvent(uid: Api.User.currentUserId) { (user) in
+//            self.usernameTextField.text = user.username
+//            self.emailTextField.text = user.email
+//            self.statusTextField.text = user.status
+            self.avatarImageView.loadImage(user.profileImageUrl)
         }
+        
+//        if let currentUser = Auth.auth().currentUser, let photoUrl = currentUser.photoURL {
+//            avatarImageView.loadImage(photoUrl.absoluteString)
+//        }
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateProfile), name: NSNotification.Name("updateProfileImage"), object: nil)
 //
@@ -108,7 +115,6 @@ class MessagesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "InboxTableViewCell", for: indexPath) as! InboxTableViewCell
-
         let inbox = self.inboxArray[indexPath.row]
         cell.controller = self
         cell.configureCell(uid: Api.User.currentUserId, inbox: inbox, currentImage: avatarImageView.image!, samples: inbox.samples)

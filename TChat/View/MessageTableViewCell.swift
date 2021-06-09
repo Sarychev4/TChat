@@ -19,6 +19,7 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var profileNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var recordLengthLabel: UILabel!
     
     @IBOutlet weak var dateLabelLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var dateLabelRightConstraint: NSLayoutConstraint!
@@ -172,6 +173,7 @@ class MessageTableViewCell: UITableViewCell {
         handleAudioPlay()
         if self.player?.rate == 0 {
             self.player!.play()
+            self.soundWaveView.play(for: 5) //MARK:  -TIMEDURATION
             //let pauseBtnImg = UIImage(named: "pause")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
            // playButton.setImage(pauseBtnImg, for: .normal)
         } else {
@@ -181,7 +183,7 @@ class MessageTableViewCell: UITableViewCell {
         }
     }
     
-    func configureCell(uid: String, message: Message, image: UIImage, partnerName: String?, partnerImage: UIImage, currentUserName: String ){
+    func configureCell(uid: String, message: Message, image: UIImage?, partnerName: String?, partnerImage: UIImage, currentUserName: String ){
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
 
@@ -189,7 +191,8 @@ class MessageTableViewCell: UITableViewCell {
 
         soundWaveView.isUserInteractionEnabled = true
         
-       
+        
+        recordLengthLabel.text = "\(message.recordLength)sec"
         
         self.message = message
         let text = message.text
@@ -207,18 +210,22 @@ class MessageTableViewCell: UITableViewCell {
     soundWaveView.isHidden = false
        // self.soundWaveView.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2.0)
        // self.soundWaveView.frame.size.width = 162
-        self.soundWaveView.meteringLevelBarWidth = 3.0
-        self.soundWaveView.meteringLevelBarInterItem = 3.0
+        //self.soundWaveView.meteringLevelBarWidth = 3.0
+        //self.soundWaveView.meteringLevelBarInterItem = 3.0
         self.soundWaveView.meteringLevelBarCornerRadius = 0.0
         self.soundWaveView.gradientStartColor = .blue
         self.soundWaveView.gradientEndColor = .black
         self.soundWaveView.audioVisualizationMode = .read
-        self.soundWaveView.meteringLevels = samples //Array(meters)
+        self.soundWaveView.meteringLevels = samples //[0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3,0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3 ]//samples //Array(meters)
+        
         
         
         
         if uid == message.from {
-            profileImageView.image = image
+            if let currentUserImg = image {
+                profileImageView.image = currentUserImg
+            }
+            
             profileImageView.isHidden = false
             
             profileNameLabel.text = currentUserName
@@ -236,7 +243,7 @@ class MessageTableViewCell: UITableViewCell {
           //  soundWaveRightConstraint.constant = 0
             
             dateLabelRightConstraint.constant = 30
-            dateLabelLeftConstraint.constant = 0
+           // dateLabelLeftConstraint.constant = 0
             
             dateLabel.textAlignment = .right
            // dateLabel.backgroundColor = .red
@@ -260,7 +267,7 @@ class MessageTableViewCell: UITableViewCell {
             
             
             
-            dateLabelRightConstraint.constant = 0
+            //dateLabelRightConstraint.constant = 0
             dateLabelLeftConstraint.constant = 30
             
           //  dateLabel.backgroundColor = .green

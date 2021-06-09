@@ -38,11 +38,14 @@ class UserTableViewCell: UITableViewCell {
         onlineView.clipsToBounds = true
     }
     
-    func loadData(_ user: User, currentUserImage: UIImage){ //
+    func loadData(_ user: User, currentUserImage: UIImage?){ //
         
         self.user = user
         self.avatar.loadImage(user.profileImageUrl)
-        self.currentUserImage = currentUserImage
+        if let currentUserImg = currentUserImage {
+            self.currentUserImage = currentUserImg
+        }
+        
         self.usernameLbl.text = user.username
         self.statusLbl.text = user.status
         
