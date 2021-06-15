@@ -73,7 +73,6 @@ class Ref {
         return databaseInbox.child(uid)
     }
     
-    
     // Storage Ref
     let storageRoot = Storage.storage().reference(forURL: URL_STORAGE_ROOT)
     
@@ -100,4 +99,5 @@ class Ref {
     func storageSpecificAudioMessage(id: String) -> StorageReference {
         return storageMessage.child("audio").child(id)
     }
+    
 }

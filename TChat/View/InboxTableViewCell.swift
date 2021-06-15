@@ -8,31 +8,39 @@
 import UIKit
 import Firebase
 import SoundWave
+import AVFoundation
 
 class InboxTableViewCell: UITableViewCell {
 
     @IBOutlet weak var inboxSoundWaveView: AudioVisualizationView!
     @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var messageAvatar: UIImageView!
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var messageLbl: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
     
+    @IBOutlet weak var recordLenthLbl: UILabel!
     @IBOutlet weak var onlineView: UIView!
     
-    var user: User!
-    var inboxChangedOnlineHandle: DatabaseHandle!
-    var inboxChangedProfileHandle: DatabaseHandle!
-    var inboxChangedMessageHandle: DatabaseHandle!
+    @IBOutlet weak var containerForSoundWave: UIView!
+    var user: User! 
     
     var inbox: Inbox!
-    var controller: MessagesTableViewController!
+    var controller: InboxListTableViewController!
+    
+    var playerLayer: AVPlayerLayer?
+    var player: AVPlayer?
     
     var currentUserImage: UIImage!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         avatar.layer.cornerRadius = 30
         avatar.clipsToBounds = true
+        messageAvatar.layer.cornerRadius = 11
+        messageAvatar.clipsToBounds = true
+        containerForSoundWave.clipsToBounds = true
         
         onlineView.backgroundColor = UIColor.gray
         onlineView.layer.borderWidth = 2
@@ -41,99 +49,89 @@ class InboxTableViewCell: UITableViewCell {
         onlineView.clipsToBounds = true
     }
     
+    @IBAction func playButtonDidTapped(_ sender: Any) {
+        handleAudioPlay()
+        if self.player?.rate == 0 {
+            self.player!.play()
+            let secs = Double(self.inbox.recordLength)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+            self.inboxSoundWaveView.play(for: secs) //MARK:  -TIMEDURATION
+               // self.soundWaveViewLeft.play(for: secs)
+            }
+        } else {
+            self.player!.pause()
+        }
+    }
+    //MARK: - AUDIO PLAYER
+    func handleAudioPlay(){
+        let audioUrl = inbox.audioUrl
+        if audioUrl.isEmpty{
+            return
+        }
+
+       // player = AVPlayer(url: audioUrl)
+        if let url = URL(string: audioUrl){
+            
+            player = AVPlayer(url: url)
+            playerLayer = AVPlayerLayer(player: player)
+         
+        }
+        
+    }
+    
+    
     func configureCell(uid: String, inbox: Inbox, currentImage: UIImage, samples: [Float]){
         self.user = inbox.user
         self.inbox = inbox
         self.currentUserImage = currentImage
         
+        if inbox.recordLength < 9 {
+            self.recordLenthLbl.text = "00:0\(inbox.recordLength)"
+        }else if inbox.recordLength > 9 && inbox.recordLength < 60{
+            self.recordLenthLbl.text = "00:\(inbox.recordLength)"
+        }else if inbox.recordLength > 60{
+            let secs = inbox.recordLength - 60
+            self.recordLenthLbl.text = "01:\(secs)"
+        }
+       
+        avatar.loadImage(inbox.user.profileImageUrl)
+        
+        if uid == inbox.senderId {
+            self.messageAvatar.image = currentImage
+        } else {
+            
+            self.messageAvatar.loadImage(inbox.user.profileImageUrl)
+        }
+        
+        
         self.inboxSoundWaveView.meteringLevelBarWidth = 3.0
         self.inboxSoundWaveView.meteringLevelBarInterItem = 3.0
         self.inboxSoundWaveView.meteringLevelBarCornerRadius = 0.0
         self.inboxSoundWaveView.gradientStartColor = .blue
-        self.inboxSoundWaveView.gradientEndColor = .black
+        self.inboxSoundWaveView.gradientEndColor = .white
         self.inboxSoundWaveView.audioVisualizationMode = .read
         self.inboxSoundWaveView.meteringLevels = samples
         
         
-        avatar.loadImage(inbox.user.profileImageUrl)
+        
+        
         usernameLbl.text = inbox.user.username
         let date = Date(timeIntervalSince1970: inbox.date)
         let dateString = timeAgoSinceDate(date, currentDate: Date(), numericDates: true)
         dateLbl.text = dateString
         
-        if !inbox.text.isEmpty {
-            messageLbl.text = inbox.text
-        } else {
-            messageLbl.text = inbox.audioUrl
-        }
+//        if !inbox.text.isEmpty {
+//            messageLbl.text = inbox.text
+//        } else {
+//            messageLbl.text = inbox.audioUrl
+//        }
         
         //let refInbox = Ref().databaseInboxInfor(from: Api.User.currentUserId, to: inbox.user.uid)
-        let channelId = Message.hash(forMembers: [Api.User.currentUserId, inbox.user.uid])
-        let refInbox = Database.database().reference().child(REF_INBOX).child(Api.User.currentUserId).child(channelId)
-        if inboxChangedMessageHandle != nil {
-            refInbox.removeObserver(withHandle: inboxChangedMessageHandle)
-        }
-        
-        inboxChangedMessageHandle = refInbox.observe(.childChanged, with: { (snapshot) in
-            if let snap = snapshot.value {
-                self.inbox.updateInboxData(key: snapshot.key, value: snap)
-                self.controller.sortedInbox()
-            }
-        })
-        
-        
-        let refOnline = Ref().databaseIsOnline(uid: inbox.user.uid)
-        refOnline.observeSingleEvent(of: .value) { (snapshot) in
-            if let snap = snapshot.value as? Dictionary<String, Any> {
-                if let active = snap["online"] as? Bool {
-                    self.onlineView.backgroundColor = active == true ? .cyan : .gray
-                }
-            }
-        }
-        
-        if inboxChangedOnlineHandle != nil {
-            refOnline.removeObserver(withHandle: inboxChangedOnlineHandle)
-        }
-        
-        inboxChangedOnlineHandle = refOnline.observe(.childChanged) { (snapshot) in
-            if let snap = snapshot.value {
-                if snapshot.key == "online" {
-                    self.onlineView.backgroundColor = (snap as! Bool) == true ? .cyan : .gray
-                }
-            }
-        }
-        
-        let refUser = Ref().databaseSpecificUser(uid: inbox.user.uid)
-        if inboxChangedProfileHandle != nil {
-            refUser.removeObserver(withHandle: inboxChangedProfileHandle)
-        }
-        
-        inboxChangedProfileHandle = refUser.observe(.childChanged, with: { (snapshot) in
-            if let snap = snapshot.value as? String {
-                self.user.updateUserData(key: snapshot.key, value: snap)
-                self.controller.sortedInbox()
-            }
-        })
         
     }
     
     override func prepareForReuse() {
-        super.prepareForReuse()
-        let refOnline = Ref().databaseIsOnline(uid: self.inbox.user.uid)
-        if inboxChangedOnlineHandle != nil {
-            refOnline.removeObserver(withHandle: inboxChangedOnlineHandle)
-        }
-        
-        let refUser = Ref().databaseSpecificUser(uid: inbox.user.uid)
-        if inboxChangedProfileHandle != nil {
-            refUser.removeObserver(withHandle: inboxChangedProfileHandle)
-        }
-        
-        let channelId = Message.hash(forMembers: [Api.User.currentUserId, inbox.user.uid])
-        let refInbox = Database.database().reference().child(REF_INBOX).child(Api.User.currentUserId).child(channelId)
-        if inboxChangedMessageHandle != nil {
-            refInbox.removeObserver(withHandle: inboxChangedMessageHandle)
-        }
+        super.prepareForReuse() 
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

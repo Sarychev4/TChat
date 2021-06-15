@@ -29,21 +29,39 @@ class MessageApi {
 //        refTo.updateChildValues(dict)
         
         let channelId = Message.hash(forMembers: [from, to])
-
-        let ref = Database.database().reference().child("feedMessages").child(channelId)
-        ref.childByAutoId().updateChildValues(value)
-        
-        var dict = value
-        if let text = dict["text"] as? String, text.isEmpty {
-            dict["imageUrl"] = nil
-            dict["height"] = nil
-            dict["width"] = nil
+        var lastMessageID = ""
+        let ref = Database.database().reference().child("feedMessages")
+        ref.childByAutoId().updateChildValues(value) { (error, snapshot) in
+            if error != nil{
+                print(error?.localizedDescription)
+                
+            } else {
+                lastMessageID = snapshot.key ?? "gg"
+                
+                var dict = value
+                if let text = dict["text"] as? String, text.isEmpty {
+                    dict["imageUrl"] = nil
+                    dict["height"] = nil
+                    dict["width"] = nil
+                }
+                dict["id"] = channelId
+                dict["lastMessageId"] = lastMessageID
+                let refFromInbox = Database.database().reference().child(REF_INBOX).child(channelId)
+                refFromInbox.updateChildValues(dict)
+            }
+            
         }
-        
-        let refFromInbox = Database.database().reference().child(REF_INBOX).child(from).child(channelId)
-        refFromInbox.updateChildValues(dict)
-        let refToInbox = Database.database().reference().child(REF_INBOX).child(to).child(channelId)
-        refToInbox.updateChildValues(dict)
+    }
+    
+    func getMessage(with id: String, onComplete: @escaping(Message) -> Void) {
+        let ref = Database.database().reference().child("feedMessages").child(id)
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            if let dict = snapshot.value as? Dictionary<String, Any> {
+                if let message = Message.transformMessage(dict: dict, keyId: snapshot.key) {
+                    onComplete(message)
+                }
+            }
+        }
     }
     
     func receiveMessage(from: String, to: String, onSucces: @escaping(Message) -> Void){

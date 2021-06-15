@@ -9,8 +9,7 @@ import Foundation
 
 class Message {
     var id: String
-    var from: String
-    var to: String
+    var senderId: String
     var date: Double
     var text: String
     var imageUrl: String
@@ -22,10 +21,9 @@ class Message {
     var recordLength: Int
     
     
-    init(id: String, from: String, to: String, date: Double, text: String, imageUrl: String, height: Double, width: Double, videoUrl: String, audioUrl: String, samples: [Float], recordLength: Int) {
+    init(id: String, senderId: String, date: Double, text: String, imageUrl: String, height: Double, width: Double, videoUrl: String, audioUrl: String, samples: [Float], recordLength: Int) {
         self.id = id
-        self.from = from
-        self.to = to
+        self.senderId = senderId
         self.date = date
         self.text = text
         self.imageUrl = imageUrl
@@ -39,8 +37,7 @@ class Message {
     
     static func transformMessage(dict: [String: Any], keyId: String) -> Message? {
         
-        guard let from = dict["from"] as? String,
-              let to = dict["to"] as? String,
+        guard let senderId = dict["sender_id"] as? String,
               let date = dict["date"] as? Double else {
             return nil
         }
@@ -61,7 +58,7 @@ class Message {
         
         let recordLength = (dict["recordLength"] as? Int) == nil ? 0 : (dict["recordLength"]! as! Int)
         
-        let message = Message(id: keyId, from: from, to: to, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl, audioUrl: audioUrl, samples: samples, recordLength: recordLength)
+        let message = Message(id: keyId, senderId: senderId, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl, audioUrl: audioUrl, samples: samples, recordLength: recordLength)
         return message
     }
     

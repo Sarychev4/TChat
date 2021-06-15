@@ -34,27 +34,27 @@ func timeAgoSinceDate(_ date:Date, currentDate:Date, numericDates:Bool) -> Strin
         if (numericDates){ return "1 month ago"
         } else { return "Last month" }
     } else if (components.weekOfYear! >= 2) {
-        return "\(components.weekOfYear!) weeks ago"
+        return "\(components.weekOfYear!)w ago"
     } else if (components.weekOfYear! >= 1){
-        if (numericDates){ return "1 week ago"
+        if (numericDates){ return "1w ago"
         } else { return "Last week" }
     } else if (components.day! >= 2) {
-        return "\(components.day!) days ago"
+        return "\(components.day!)d ago"
     } else if (components.day! >= 1){
-        if (numericDates){ return "1 day ago"
+        if (numericDates){ return "1d ago"
         } else { return "Yesterday" }
     } else if (components.hour! >= 2) {
-        return "\(components.hour!) hours ago"
+        return "\(components.hour!)h ago"
     } else if (components.hour! >= 1){
-        if (numericDates){ return "1 hour ago"
+        if (numericDates){ return "1h ago"
         } else { return "An hour ago" }
     } else if (components.minute! >= 2) {
-        return "\(components.minute!) minutes ago"
+        return "\(components.minute!)m ago"
     } else if (components.minute! >= 1){
-        if (numericDates){ return "1 minute ago"
+        if (numericDates){ return "1m ago"
         } else { return "A minute ago" }
     } else if (components.second! >= 3) {
-        return "\(components.second!) seconds ago"
+        return "\(components.second!)s ago"
     } else { return "Just now" }
 }
 

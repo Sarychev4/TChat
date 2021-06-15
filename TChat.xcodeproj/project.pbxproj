@@ -39,7 +39,7 @@
 		DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A40D26384D4700EAD20B /* UserApi.swift */; };
 		DD90A4122638A85200EAD20B /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4112638A85200EAD20B /* StorageService.swift */; };
 		DD90A4152638B36300EAD20B /* Ref.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4142638B36300EAD20B /* Ref.swift */; };
-		DD90A4292639A65C00EAD20B /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */; };
+		DD90A4292639A65C00EAD20B /* InboxListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4282639A65C00EAD20B /* InboxListTableViewController.swift */; };
 		DDA72F8A2670E91900B1C113 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDA72F892670E91900B1C113 /* SFProDisplay-Regular.ttf */; };
 		DDDB3043265540C00024FAE8 /* PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB3042265540C00024FAE8 /* PulseAnimation.swift */; };
 /* End PBXBuildFile section */
@@ -81,7 +81,7 @@
 		DD90A40D26384D4700EAD20B /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
 		DD90A4112638A85200EAD20B /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DD90A4142638B36300EAD20B /* Ref.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ref.swift; sourceTree = "<group>"; };
-		DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
+		DD90A4282639A65C00EAD20B /* InboxListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxListTableViewController.swift; sourceTree = "<group>"; };
 		DDA72F892670E91900B1C113 /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
 		DDDB3042265540C00024FAE8 /* PulseAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,7 +131,7 @@
 				DD90A3AC2636B82600EAD20B /* ViewController.swift */,
 				DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */,
 				DD4477552645D5840061BB69 /* ProfileTableViewController.swift */,
-				DD90A4282639A65C00EAD20B /* MessagesTableViewController.swift */,
+				DD90A4282639A65C00EAD20B /* InboxListTableViewController.swift */,
 				DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */,
 				DD463CC3263B668C00F37791 /* ChatViewController.swift */,
 				DD02D60E26417F6800294E5B /* ChatViewController+Extension.swift */,
@@ -352,7 +352,7 @@
 				DD4477562645D5840061BB69 /* ProfileTableViewController.swift in Sources */,
 				DDDB3043265540C00024FAE8 /* PulseAnimation.swift in Sources */,
 				DD90A3D22637759700EAD20B /* ForgotPasswordViewController.swift in Sources */,
-				DD90A4292639A65C00EAD20B /* MessagesTableViewController.swift in Sources */,
+				DD90A4292639A65C00EAD20B /* InboxListTableViewController.swift in Sources */,
 				DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */,
 				DD463CC1263B361800F37791 /* Extension.swift in Sources */,
 				DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */,

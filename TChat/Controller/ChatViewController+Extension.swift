@@ -13,22 +13,16 @@ extension ChatViewController {
     
     func observeMessages(){
         Api.Message.receiveMessage(from: Api.User.currentUserId, to: partnerId) { (message) in
-            print(message.id)
-            self.messages.append(message)
-            self.sortMessages()
+            DispatchQueue.main.async {
+                self.messages = LocalCacheService.shared.messages
+                self.sortMessages()
+            }
         }
-        
-//        Api.Message.receiveMessage(from: partnerId, to: Api.User.currentUserId) { (message) in
-//            print(message.id)
-//            self.messages.append(message)
-//            self.sortMessages()
-//        }
     }
     
     func sortMessages() {
         messages = messages.sorted(by: { $0.date < $1.date })
         lastMessageKey = messages.first!.id
-        print(lastMessageKey)
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.scrollToBottom()
@@ -229,12 +223,15 @@ extension ChatViewController {
     func sendToFirebase(dict: Dictionary<String, Any>){
         let date: Double = Date().timeIntervalSince1970
         var value = dict
-        value["from"] = Api.User.currentUserId
-        value["to"] = partnerId
+        value["sender_id"] = Api.User.currentUserId 
         value["date"] = date
         value["read"] = true
         value["samples"] = samples
         value["recordLength"] = recordLength
+        
+//        value["firstUserId"] =
+//        value["secondUserId"] =
+//        value["lastMessageId"] =
         
         Api.Message.sendMessage(from: Api.User.currentUserId, to: partnerId, value: value)
         
@@ -363,7 +360,7 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
 //            height = CGFloat(heightMessage / widthMessage * 250)
 //        }
 
-        return 126
+        return 162
        // return 95
     }
     
@@ -377,7 +374,9 @@ extension ChatViewController: AVAudioRecorderDelegate {
     func loadRecordingUI() {
         let micImg = UIImage(named: "microPhone")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         recordButton.setImage(micImg, for: .normal)
-        recordButton.tintColor = .lightGray
+//        recordButton.tintColor = .lightGray
+       // recordButton.backgroundColor = .blue
+        recordButton.layer.cornerRadius = 24
        // recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
     }
     

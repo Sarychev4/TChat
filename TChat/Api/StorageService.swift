@@ -13,6 +13,8 @@ import ProgressHUD
 import AVFoundation
 
 class StorageService {
+    
+    
     //MARK: - PUSH AUDIO TO FIREBASE
     static func saveAudioMessage(url: URL, id: String, onSuccess: @escaping(_ value: Any) -> Void, onError: @escaping(_ errorMessage: String) -> Void){
         let ref = Ref().storageSpecificAudioMessage(id: id)
@@ -201,6 +203,53 @@ class StorageService {
                     
                 }
             })
+        }
+    }
+}
+
+class LocalCacheService {
+    static let shared = LocalCacheService()
+    
+    var users: Set<User> = []
+    var messages: [Message] = []
+    var inboxes: [Inbox] = []
+    
+    init() {
+        observeUsers()
+        observeInboxes()
+    }
+    
+    func observeUsers() {
+        
+    }
+     
+    func observeInboxes() {
+        Api.Inbox.observeInboxes(uid: Api.User.currentUserId) { (inbox) in
+            if let message = self.messages.first(where: { $0.id == inbox.lastMessageId }) {
+                inbox.lastMessage = message
+            } else {
+                Api.Message.getMessage(with: inbox.lastMessageId) { (message) in
+                    inbox.lastMessage = message
+                }
+            }
+            
+            for participantId in inbox.participantsIDs {
+                if let participant = self.users.first(where: { $0.uid == participantId }) {
+                    inbox.participants.append(participant)
+                } else {
+                    Api.User.getUserInfor(uid: participantId, onSuccess: { (user) in
+                        inbox.participants.append(user)
+                    })
+                }
+            }
+            
+            
+            if let index = self.inboxes.firstIndex(where: { $0.id == inbox.id }) {
+                self.inboxes[index] = inbox
+            } else {
+                self.inboxes.append(inbox)
+            }
+            self.inboxes = self.inboxes.sorted(by: { $0.lastMessageDate > $1.lastMessageDate })
         }
     }
 }

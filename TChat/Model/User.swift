@@ -7,7 +7,11 @@
 
 import Foundation
 
-class User {
+class User: Hashable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.uid == rhs.uid
+    }
+    
     var uid: String
     var username: String
     var email: String

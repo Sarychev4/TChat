@@ -166,7 +166,7 @@ class UserApi {
     
     func getUserInfor(uid: String, onSuccess: @escaping(UserCompletion)){
         let ref = Ref().databaseSpecificUser(uid: uid)
-        ref.observe(.value) { (snapshot) in
+        ref.observeSingleEvent(of: .value) { (snapshot) in
             if let dict = snapshot.value as? Dictionary<String, Any> {
                 if let user = User.transformUser(dict: dict){
                     onSuccess(user)
