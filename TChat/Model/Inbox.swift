@@ -24,15 +24,15 @@ class Inbox {
         self.lastMessageDate = lastMessageDate
     }
     
-    static func transformInbox(dict: [String: Any], channel: String,  user: User) -> Inbox? {
-        
-        guard let id = dict["id"] as? String,
-              let participants = dict["participants"] as? [String],
-              let lastMessageId = dict["lastMessageId"] as? String,
-              let lastMessageDate = dict["lastMessageDate"] as? Double
-        else { return nil }
-        
-        let inbox = Inbox(id: id, lastMessageId: lastMessageId, participants: participants, lastMessageDate: lastMessageDate)
-        return inbox
+    init(withJson dict: [String: Any]) {
+        self.id = dict["id"] as? String ?? ""
+        self.lastMessageId = dict["lastMessageId"] as? String ?? ""
+        self.participantsIDs = dict["participants"] as? [String] ?? []
+        self.lastMessageDate = dict["lastMessageDate"] as? Double ?? 0
+    }
+    
+    func update(withJson dict: [String: Any]) {
+        self.lastMessageId = dict["lastMessageId"] as? String ?? ""
+        self.lastMessageDate = dict["lastMessageDate"] as? Double ?? 0
     }
 }

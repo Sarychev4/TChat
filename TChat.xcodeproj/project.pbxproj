@@ -41,6 +41,7 @@
 		DD90A4152638B36300EAD20B /* Ref.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4142638B36300EAD20B /* Ref.swift */; };
 		DD90A4292639A65C00EAD20B /* InboxListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4282639A65C00EAD20B /* InboxListTableViewController.swift */; };
 		DDA72F8A2670E91900B1C113 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDA72F892670E91900B1C113 /* SFProDisplay-Regular.ttf */; };
+		DDA7300D267A3E6100B1C113 /* LocalCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA7300C267A3E6100B1C113 /* LocalCacheService.swift */; };
 		DDDB3043265540C00024FAE8 /* PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB3042265540C00024FAE8 /* PulseAnimation.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		DD90A4142638B36300EAD20B /* Ref.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ref.swift; sourceTree = "<group>"; };
 		DD90A4282639A65C00EAD20B /* InboxListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxListTableViewController.swift; sourceTree = "<group>"; };
 		DDA72F892670E91900B1C113 /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
+		DDA7300C267A3E6100B1C113 /* LocalCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCacheService.swift; sourceTree = "<group>"; };
 		DDDB3042265540C00024FAE8 /* PulseAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,6 +166,7 @@
 				DD90A40D26384D4700EAD20B /* UserApi.swift */,
 				DD90A4142638B36300EAD20B /* Ref.swift */,
 				DD90A4112638A85200EAD20B /* StorageService.swift */,
+				DDA7300C267A3E6100B1C113 /* LocalCacheService.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				DD463CC1263B361800F37791 /* Extension.swift in Sources */,
 				DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */,
 				DD463CAB263B0B4100F37791 /* User.swift in Sources */,
+				DDA7300D267A3E6100B1C113 /* LocalCacheService.swift in Sources */,
 				DD02D612264183AB00294E5B /* Inbox.swift in Sources */,
 				DD463CDE263CC2D600F37791 /* Message.swift in Sources */,
 				DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */,

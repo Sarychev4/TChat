@@ -9,47 +9,24 @@ import Foundation
 import Firebase
 
 class MessageApi {
-    func sendMessage(from: String, to: String, value: Dictionary<String, Any>){
-
-//        let ref = Ref().databaseMessageSendTo(from: from, to: to)
-//        ref.childByAutoId().updateChildValues(value)
-//
-//        var dict = value
-//        if let text = dict["text"] as? String, text.isEmpty {
-//            dict["imageUrl"] = nil
-//            dict["height"] = nil
-//            dict["width"] = nil
-//        }
-//
-//
-//        let refFrom = Ref().databaseInboxInfor(from: from, to: to)
-//        refFrom.updateChildValues(dict)
-//
-//        let refTo = Ref().databaseInboxInfor(from: to, to: from)
-//        refTo.updateChildValues(dict)
-        
+    func sendMessage(from: String, to: String, value: Dictionary<String, Any>) {
         let channelId = Message.hash(forMembers: [from, to])
-        var lastMessageID = ""
+
         let ref = Database.database().reference().child("feedMessages")
         ref.childByAutoId().updateChildValues(value) { (error, snapshot) in
-            if error != nil{
-                print(error?.localizedDescription)
-                
-            } else {
-                lastMessageID = snapshot.key ?? "gg"
-                
-                var dict = value
-                if let text = dict["text"] as? String, text.isEmpty {
-                    dict["imageUrl"] = nil
-                    dict["height"] = nil
-                    dict["width"] = nil
-                }
+            if error != nil {
+                print(">>>> Ошибка при отправке сообщения: \(error?.localizedDescription ?? "")")
+
+            } else if let messageId = snapshot.key {
+                print(">>>> Отправляю сообщение: \(messageId)")
+                var dict: [String: Any] = [:]
                 dict["id"] = channelId
-                dict["lastMessageId"] = lastMessageID
+                dict["participants"] = [from, to]
+                dict["lastMessageId"] = messageId
+                dict["lastMessageDate"] = value["date"] as? Double ?? Date().timeIntervalSince1970
                 let refFromInbox = Database.database().reference().child(REF_INBOX).child(channelId)
                 refFromInbox.updateChildValues(dict)
             }
-            
         }
     }
     
@@ -64,9 +41,9 @@ class MessageApi {
         }
     }
     
-    func receiveMessage(from: String, to: String, onSucces: @escaping(Message) -> Void){
-        let channelId = Message.hash(forMembers: [from, to])
-        let ref = Database.database().reference().child("feedMessages").child(channelId)
+    func receiveMessage(from: String, to: String, onSucces: @escaping(Message) -> Void) {
+        let ref = Database.database().reference().child("feedMessages")
+        ref.quer.observe(.childAdded) { (snapshot) in
         ref.queryOrderedByKey().queryLimited(toLast: 4).observe(.childAdded) { (snapshot) in
             if let dict = snapshot.value as? Dictionary<String, Any> {
                 if let message = Message.transformMessage(dict: dict, keyId: snapshot.key) {

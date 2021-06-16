@@ -12,51 +12,91 @@ typealias InboxCompletion = (Inbox) -> Void
 
 class InboxApi {
     
-    func observeInboxes(uid: String, onSuccess: @escaping(InboxCompletion)) {
-        
-        let ref = Database.database().reference().child(REF_INBOX)
-        ref.queryOrdered(byChild: "date").observe(.value) { (snapshot) in
-            if let response = snapshot.value as? [String: Any], let dict = response.values.first as? [String: Any] {
-
-                let channelId = response.keys.first ?? ""
-                let uid = dict["sender_id"] as? String ?? ""
-                
-                Api.User.getUserInfor(uid: uid, onSuccess: { (user) in
-                    if let inbox = Inbox.transformInbox(dict: dict, channel: channelId, user: user) {
-                        onSuccess(inbox)
-                    }
-                })
-            }
+    var inboxes: [Inbox] {
+        get {
+            return LocalCacheService.shared.inboxes
         }
-        
+        set {
+            LocalCacheService.shared.inboxes = newValue
+        }
     }
     
     func loadMore(start timestamp: Double?, controller: InboxListTableViewController, from: String, onSuccess: @escaping(InboxCompletion)) {
-        guard let timestamp = timestamp else {
-            return
-        }
-        let ref = Database.database().reference().child(REF_INBOX).queryOrdered(byChild: "date").queryEnding(atValue: timestamp - 1).queryLimited(toLast: 30)
-        ref.observeSingleEvent(of: .value) { (snapshot) in
-            guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else {
-                return
-            }
-            if allObjects.isEmpty {
-                controller.tableView.tableFooterView = UIView()
-            }
-            
-            allObjects.forEach({ (object) in
-                if let dict = object.value as? Dictionary<String, Any> {
-                    guard let partnerId = dict["to"] as? String else {
-                        return
-                    }
-                    let channelId = Message.hash(forMembers: [from, partnerId])
-                    Api.User.getUserInfor(uid: partnerId, onSuccess: { (user) in
-                        if let inbox = Inbox.transformInbox(dict: dict, channel: channelId, user: user) {
-                            onSuccess(inbox)
-                        }
-                    })
+//        guard let timestamp = timestamp else { return }
+//        let ref = Database.database().reference().child(REF_INBOX).queryOrdered(byChild: "date").queryEnding(atValue: timestamp - 1).queryLimited(toLast: 30)
+//        ref.observeSingleEvent(of: .value) { (snapshot) in
+//            guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else {
+//                return
+//            }
+//            if allObjects.isEmpty {
+//                controller.tableView.tableFooterView = UIView()
+//            }
+//            let dispatchGroup = DispatchGroup()
+//            var result: [Inbox] = []
+//            allObjects.forEach({ (object) in
+//                if let response = snapshot.value as? [String: Any], let dict = response.values.first as? [String: Any] {
+//                    let channelId = response.keys.first ?? ""
+//                    dispatchGroup.enter()
+////                    Api.User.getUserInfor(uid: partnerId, onSuccess: { (user) in
+////                        dispatchGroup.leave()
+////                        if let inbox = Inbox.setup(withJson: dict, channel: channelId, user: user) {
+////                            onSuccess(inbox)
+////                        }
+////                    })
+//                }
+//            })
+//            dispatchGroup.notify(queue: .main) {
+//
+//            }
+//        }
+    }
+    
+    func observeInboxes(onUpdate: @escaping(() -> Void)) {
+        let ref = Database.database().reference().child(REF_INBOX)
+        ref.observe(.value) { (snapshot) in
+            if let response = snapshot.value as? [String: Any], let dict = response.values.first as? [String: Any] {
+
+                let inboxId = response.keys.first ?? ""
+                
+                print(">>> Загружаю inbox, id: \(inboxId)")
+                var inbox:Inbox! = self.inboxes.first(where: { $0.id == inboxId })
+                if inbox == nil {
+                    print(">>> Не нашел в кэше, создаю новый inbox, id: \(inboxId)")
+                    inbox = Inbox(withJson: dict)
+                    self.inboxes.append(inbox)
+                } else {
+                    print(">>> Нашел чат в кэше, обновляю последнее сообщение")
+                    inbox.update(withJson:dict)
                 }
-            })
+                
+                let dispatchGroup = DispatchGroup()
+                inbox.participantsIDs.forEach { (participantId) in
+                    // Если не скачивал данные о себе и опоненте, скачиваю и добавляю в модельку
+                    if inbox.participants.contains(where: { $0.uid == participantId }) == false {
+                        print(">>> Загружаю данные об участнике чата id: \(participantId)")
+                        dispatchGroup.enter()
+                        Api.User.getUserInfor(uid: participantId, onSuccess: { (user) in
+                            print(">>> Загрузил данные об участнике чата id: \(participantId)")
+                            inbox.participants.append(user)
+                            dispatchGroup.leave()
+                        })
+                    }
+                }
+                 
+                print(">>> Загружаю данные о последнем сообщении в чате id: \(inbox.lastMessageId)")
+                dispatchGroup.enter()
+                Api.Message.getMessage(with: inbox.lastMessageId) { (message) in
+                    print(">>> Загрузил данные о последнем сообщении. Дата: \(message.date)")
+                    inbox.lastMessage = message
+                    dispatchGroup.leave()
+                }
+                
+                self.inboxes = self.inboxes.sorted(by: { $0.lastMessageDate > $1.lastMessageDate })
+                dispatchGroup.notify(queue: .main) {
+                    print(">>> Данные о чате полностью загружены. paticipants: \(inbox.participants.count), lastM: \(inbox.lastMessage?.id)")
+                    onUpdate()
+                }
+            }
         }
     }
     

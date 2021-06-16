@@ -228,15 +228,7 @@ extension ChatViewController {
         value["read"] = true
         value["samples"] = samples
         value["recordLength"] = recordLength
-        
-//        value["firstUserId"] =
-//        value["secondUserId"] =
-//        value["lastMessageId"] =
-        
         Api.Message.sendMessage(from: Api.User.currentUserId, to: partnerId, value: value)
-        
-        
-        
     }
 }
 

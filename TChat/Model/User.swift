@@ -7,9 +7,13 @@
 
 import Foundation
 
-class User: Hashable {
+class User: Hashable, Equatable {
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.uid == rhs.uid
+    }
+    
+    var hashValue: Int {
+        return uid.hashValue
     }
     
     var uid: String

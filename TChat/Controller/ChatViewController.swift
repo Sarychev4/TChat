@@ -99,7 +99,7 @@ class ChatViewController: UIViewController {
         setupNavigationBar()
         // setupInputContainer()
         setupTableView()
-        //observeMessages()
+        observeMessages()
         
     }
     

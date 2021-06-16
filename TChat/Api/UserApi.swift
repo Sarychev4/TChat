@@ -16,6 +16,8 @@ import FBSDKCoreKit
 
 class UserApi {
     
+    var users: Set<User> = []
+    
     var currentUserId: String {
 //        if Auth.auth().currentUser != nil {
 //            return Auth.auth().currentUser!.uid
@@ -134,22 +136,18 @@ class UserApi {
              .first!.delegate as! SceneDelegate).configureInitialViewController()
     }
     
-    func observeUsers(onSuccess: @escaping(UserCompletion)){
-        //        print(Ref().databaseRoot.ref.description())
-        //        print(Ref().databaseUsers.ref.description())
-        Ref().databaseUsers.observe(.childAdded) { (snaphot) in
-            //           print(snaphot.value)
-            if let dict = snaphot.value as? Dictionary<String, Any> {
-                //                let email = dict["email"] as! String
-                //                let username = dict["username"] as! String
-                //                print(email)
-                //                print(username)
-                if let user = User.transformUser(dict: dict){
-                    onSuccess(user)
-                   // self.users.append(user)
-                }
-               // self.tableView.reloadData() //reloads rows and sections
+    func observeUsers(onUpdate: @escaping(() -> Void)) {
+        Ref().databaseUsers.observe(.value) { (snapshot) in
+            guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else {
+                return
             }
+            let userJsons: [[String: Any]] = allObjects.compactMap({ $0.value as? [String: Any] })
+            for userJson in userJsons {
+                if let user = User.transformUser(dict: userJson){
+                    self.users.insert(user)
+                }
+            }
+            onUpdate()
         }
     }
     
@@ -194,6 +192,7 @@ class UserApi {
         ]
         ref.updateChildValues(dict)
     }
+    
     
    
     

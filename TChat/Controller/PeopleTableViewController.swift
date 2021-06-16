@@ -53,8 +53,9 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
     }
     
     func observeUsers(){
-        Api.User.observeUsers { (user) in 
-            self.users.append(user)
+        Api.User.observeUsers { [weak self] in
+            guard let self = self else { return }
+            self.users = Array(Api.User.users)
             self.tableView.reloadData()
         }
     }

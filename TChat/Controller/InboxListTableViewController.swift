@@ -59,7 +59,7 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func observeInboxes() {
-        Api.Inbox.observeInboxes(uid: Api.User.currentUserId) { [weak self] (inbox) in
+        Api.Inbox.observeInboxes() { [weak self] in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.inboxArray = LocalCacheService.shared.inboxes
@@ -69,11 +69,11 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func loadMore() {
-        let lastInboxDate = inboxArray.first?.lastMessageDate
-        Api.Inbox.loadMore(start: lastInboxDate, controller: self, from: Api.User.currentUserId) { (inbox) in
-            self.inboxArray.append(inbox)
-            self.tableView.reloadData()
-        }
+//        let lastInboxDate = inboxArray.first?.lastMessageDate
+//        Api.Inbox.loadMore(start: lastInboxDate, controller: self, from: Api.User.currentUserId) { (inbox) in
+//            self.inboxArray.append(inbox)
+//            self.tableView.reloadData()
+//        }
     }
     
     func setupTableView(){
@@ -101,7 +101,7 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
         let cell = tableView.dequeueReusableCell(withIdentifier: "InboxTableViewCell", for: indexPath) as! InboxTableViewCell
         let inbox = self.inboxArray[indexPath.row]
         cell.controller = self
-        cell.configureCell(uid: Api.User.currentUserId, inbox: inbox, currentImage: avatarImageView.image!, samples: inbox.samples)
+        cell.configureCell(uid: Api.User.currentUserId, inbox: inbox, currentImage: avatarImageView.image)
         return cell
     }
      
@@ -109,14 +109,12 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
         return 76
     }
     
-    
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? InboxTableViewCell{
             let storyboard = UIStoryboard(name: "Welcome", bundle: nil)
             let chatVC = storyboard.instantiateViewController(withIdentifier: IDENTIFIER_CHAT) as! ChatViewController
             chatVC.imagePartner = cell.avatar.image
-            chatVC.currentUserImage = cell.currentUserImage
+            chatVC.currentUserImage = avatarImageView.image
             chatVC.partnerUsername = cell.usernameLbl.text
             chatVC.partnerId = cell.user.uid
             chatVC.partnerUser = cell.user

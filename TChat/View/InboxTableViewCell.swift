@@ -29,9 +29,7 @@ class InboxTableViewCell: UITableViewCell {
     var controller: InboxListTableViewController!
     
     var playerLayer: AVPlayerLayer?
-    var player: AVPlayer?
-    
-    var currentUserImage: UIImage!
+    var player: AVPlayer? 
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,10 +48,11 @@ class InboxTableViewCell: UITableViewCell {
     }
     
     @IBAction func playButtonDidTapped(_ sender: Any) {
+        guard let lastMessage = inbox.lastMessage else { return }
         handleAudioPlay()
         if self.player?.rate == 0 {
             self.player!.play()
-            let secs = Double(self.inbox.recordLength)
+            let secs = Double(lastMessage.recordLength)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             self.inboxSoundWaveView.play(for: secs) //MARK:  -TIMEDURATION
                // self.soundWaveViewLeft.play(for: secs)
@@ -64,7 +63,8 @@ class InboxTableViewCell: UITableViewCell {
     }
     //MARK: - AUDIO PLAYER
     func handleAudioPlay(){
-        let audioUrl = inbox.audioUrl
+        guard let lastMessage = inbox.lastMessage else { return }
+        let audioUrl = lastMessage.audioUrl
         if audioUrl.isEmpty{
             return
         }
@@ -79,31 +79,35 @@ class InboxTableViewCell: UITableViewCell {
         
     }
     
-    
-    func configureCell(uid: String, inbox: Inbox, currentImage: UIImage, samples: [Float]){
-        self.user = inbox.user
+    func configureCell(uid: String, inbox: Inbox, currentImage: UIImage?){
+        guard let lastMessage = inbox.lastMessage, let opponent = inbox.participants.first(where: { $0.uid != Api.User.currentUserId }) else { return }
+        self.user = opponent
         self.inbox = inbox
-        self.currentUserImage = currentImage
         
-        if inbox.recordLength < 9 {
-            self.recordLenthLbl.text = "00:0\(inbox.recordLength)"
-        }else if inbox.recordLength > 9 && inbox.recordLength < 60{
-            self.recordLenthLbl.text = "00:\(inbox.recordLength)"
-        }else if inbox.recordLength > 60{
-            let secs = inbox.recordLength - 60
+        if lastMessage.recordLength < 9 {
+            self.recordLenthLbl.text = "00:0\(lastMessage.recordLength)"
+        } else if lastMessage.recordLength > 9 && lastMessage.recordLength < 60 {
+            self.recordLenthLbl.text = "00:\(lastMessage.recordLength)"
+        } else if lastMessage.recordLength > 60 {
+            let secs = lastMessage.recordLength - 60
             self.recordLenthLbl.text = "01:\(secs)"
         }
        
-        avatar.loadImage(inbox.user.profileImageUrl)
+        avatar.loadImage(opponent.profileImageUrl)
         
-        if uid == inbox.senderId {
+        let isLastMessageMine = lastMessage.senderId == uid
+        if isLastMessageMine {
             self.messageAvatar.image = currentImage
         } else {
-            
-            self.messageAvatar.loadImage(inbox.user.profileImageUrl)
+            self.messageAvatar.loadImage(opponent.profileImageUrl)
         }
         
+        usernameLbl.text = opponent.username
+        let date = Date(timeIntervalSince1970: lastMessage.date)
+        let dateString = timeAgoSinceDate(date, currentDate: Date(), numericDates: true)
+        dateLbl.text = dateString
         
+        guard let samples = inbox.lastMessage?.samples else { return }
         self.inboxSoundWaveView.meteringLevelBarWidth = 3.0
         self.inboxSoundWaveView.meteringLevelBarInterItem = 3.0
         self.inboxSoundWaveView.meteringLevelBarCornerRadius = 0.0
@@ -111,14 +115,6 @@ class InboxTableViewCell: UITableViewCell {
         self.inboxSoundWaveView.gradientEndColor = .white
         self.inboxSoundWaveView.audioVisualizationMode = .read
         self.inboxSoundWaveView.meteringLevels = samples
-        
-        
-        
-        
-        usernameLbl.text = inbox.user.username
-        let date = Date(timeIntervalSince1970: inbox.date)
-        let dateString = timeAgoSinceDate(date, currentDate: Date(), numericDates: true)
-        dateLbl.text = dateString
         
 //        if !inbox.text.isEmpty {
 //            messageLbl.text = inbox.text
