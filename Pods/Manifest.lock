@@ -107,6 +107,7 @@ PODS:
   - GoogleUtilities/UserDefaults (7.3.1):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.5.0)
+  - Kingfisher (6.3.0)
   - leveldb-library (1.22.1)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -126,6 +127,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
+  - Kingfisher
   - ProgressHUD
   - SDWebImage
   - SoundWave
@@ -146,6 +148,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - GTMSessionFetcher
+    - Kingfisher
     - leveldb-library
     - nanopb
     - ProgressHUD
@@ -168,6 +171,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   ProgressHUD: 4bdaa0d2ddf676b23324b199f9facffb5c3a1620
@@ -175,6 +179,6 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SoundWave: d98ffaa863570b29d991da32a09b7ce1b4aaf2d4
 
-PODFILE CHECKSUM: 8c2846aa6905d30ac5b41b49a7cb697b68078ef6
+PODFILE CHECKSUM: 1b594311e0594ba7c7ab6ecf3338e457ab737de4
 
 COCOAPODS: 1.10.1

@@ -75,7 +75,7 @@ class UserTableViewCell: UITableViewCell {
         }
         
         inboxChangedProfileHandle = refUser.observe(.childChanged, with: { (snapshot) in
-            if let snap = snapshot.value as? String {
+            if let snap = snapshot.value {
                 self.user.updateUserData(key: snapshot.key, value: snap)
                 self.controller.tableView.reloadData()
             }

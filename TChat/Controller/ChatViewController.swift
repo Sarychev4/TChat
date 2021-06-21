@@ -43,8 +43,7 @@ class ChatViewController: UIViewController {
     
     @IBOutlet weak var leftCancelLabel: UILabel!
     
-    var currentUserImage: UIImage?
-    var imagePartner: UIImage! // image from users VC
+    var currentUserImage: UIImage? 
     var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
     var topLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
     var partnerUsername: String!
@@ -67,8 +66,15 @@ class ChatViewController: UIViewController {
     
     var location: CGPoint = .zero
     
+    var dialogId: String?
+    var lastMessageId: String?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+      
+        
         
         leftCancelLabel.isHidden = true
         
@@ -105,6 +111,9 @@ class ChatViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        
+        
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panButton(pan:)))
         recordButton.addGestureRecognizer(pan)
     }
@@ -230,6 +239,17 @@ class ChatViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
+        
+        //Update isRead in inbox
+        
+            if let lastMsgId = self.lastMessageId, let dialogId = self.dialogId {
+    //            Database.database().reference().child("feedMessages").child(chatId)
+                Ref().databaseInbox.child(dialogId).child("isRead").setValue(true)
+                Ref().databaseRoot.child("feedMessages").child(dialogId).child(lastMsgId).child("isRead").setValue(true)
+                
+            }
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

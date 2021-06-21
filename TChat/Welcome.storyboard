@@ -495,7 +495,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InboxTableViewCell" rowHeight="88" id="NjC-5e-B7e" customClass="InboxTableViewCell" customModule="TChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="InboxTableViewCell" rowHeight="88" id="NjC-5e-B7e" customClass="InboxTableViewCell" customModule="TChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NjC-5e-B7e" id="hlC-ox-iCZ">
@@ -537,13 +537,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acB-Ak-V9X">
-                                                    <rect key="frame" x="118" y="39.5" width="236" height="29"/>
+                                                    <rect key="frame" x="88" y="39.5" width="266" height="29"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U8Y-Cx-LWn" customClass="AudioVisualizationView" customModule="SoundWave">
-                                                            <rect key="frame" x="0.0" y="-15.5" width="236" height="60"/>
+                                                            <rect key="frame" x="0.0" y="-15.5" width="266" height="60"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Fade" translatesAutoresizingMaskIntoConstraints="NO" id="mad-7v-IOc">
-                                                                    <rect key="frame" x="196" y="8" width="70" height="44"/>
+                                                                    <rect key="frame" x="226" y="8" width="70" height="44"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="70" id="3Ag-W6-Utc"/>
                                                                     </constraints>
@@ -559,10 +559,10 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="U8Y-Cx-LWn" firstAttribute="leading" secondItem="acB-Ak-V9X" secondAttribute="leading" id="R5t-a0-9hv"/>
                                                         <constraint firstAttribute="height" constant="29" id="ZFj-wx-ua7"/>
                                                         <constraint firstAttribute="trailing" secondItem="U8Y-Cx-LWn" secondAttribute="trailing" id="aIY-5R-9uT"/>
                                                         <constraint firstItem="U8Y-Cx-LWn" firstAttribute="centerY" secondItem="acB-Ak-V9X" secondAttribute="centerY" id="alf-Xy-xjq"/>
+                                                        <constraint firstItem="U8Y-Cx-LWn" firstAttribute="leading" secondItem="acB-Ak-V9X" secondAttribute="leading" id="wco-hP-aSr"/>
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvD-1R-Frf">
@@ -596,13 +596,13 @@
                                                 <constraint firstItem="P4P-tD-YEm" firstAttribute="leading" secondItem="cRs-Sm-Lbk" secondAttribute="trailing" constant="12" id="2TL-Rf-qF8"/>
                                                 <constraint firstAttribute="trailing" secondItem="TkV-HP-F3R" secondAttribute="trailing" constant="16" id="2tP-FU-h9P"/>
                                                 <constraint firstItem="mZB-xW-EiC" firstAttribute="trailing" secondItem="cRs-Sm-Lbk" secondAttribute="trailing" id="4QZ-Tj-s1m"/>
-                                                <constraint firstItem="acB-Ak-V9X" firstAttribute="leading" secondItem="P4P-tD-YEm" secondAttribute="trailing" constant="8" id="79E-Aj-xw5"/>
                                                 <constraint firstItem="P4P-tD-YEm" firstAttribute="top" secondItem="Kfj-Of-mSr" secondAttribute="bottom" constant="11" id="Ad4-Sb-5tO"/>
                                                 <constraint firstItem="Kfj-Of-mSr" firstAttribute="top" secondItem="hlC-ox-iCZ" secondAttribute="top" constant="10" id="Exz-Vo-FGp"/>
                                                 <constraint firstAttribute="trailing" secondItem="lvD-1R-Frf" secondAttribute="trailing" constant="16" id="PCQ-MB-iWM"/>
                                                 <constraint firstItem="acB-Ak-V9X" firstAttribute="centerY" secondItem="P4P-tD-YEm" secondAttribute="centerY" id="Qg4-t4-x51"/>
                                                 <constraint firstItem="lvD-1R-Frf" firstAttribute="centerY" secondItem="P4P-tD-YEm" secondAttribute="centerY" id="Rv5-Gc-E2S"/>
                                                 <constraint firstItem="lvD-1R-Frf" firstAttribute="leading" secondItem="acB-Ak-V9X" secondAttribute="trailing" constant="16" id="SWo-pj-alI"/>
+                                                <constraint firstItem="acB-Ak-V9X" firstAttribute="leading" secondItem="cRs-Sm-Lbk" secondAttribute="trailing" constant="12" id="ZzE-2V-JXD"/>
                                                 <constraint firstItem="cRs-Sm-Lbk" firstAttribute="top" secondItem="hlC-ox-iCZ" secondAttribute="top" constant="8" id="b9b-Kc-Nyg"/>
                                                 <constraint firstItem="cRs-Sm-Lbk" firstAttribute="leading" secondItem="hlC-ox-iCZ" secondAttribute="leading" constant="16" id="ipa-51-RnJ"/>
                                                 <constraint firstItem="3py-Td-5zM" firstAttribute="centerY" secondItem="Kfj-Of-mSr" secondAttribute="centerY" id="mCw-lg-Oql"/>
@@ -613,10 +613,12 @@
                                         <connections>
                                             <outlet property="avatar" destination="cRs-Sm-Lbk" id="r00-JU-b24"/>
                                             <outlet property="containerForSoundWave" destination="acB-Ak-V9X" id="orj-lu-s0c"/>
+                                            <outlet property="containerForSoundWaveLeftConstraint" destination="ZzE-2V-JXD" id="JMo-CA-oGD"/>
                                             <outlet property="dateLbl" destination="3py-Td-5zM" id="IhE-1r-RQi"/>
                                             <outlet property="inboxSoundWaveView" destination="U8Y-Cx-LWn" id="IYP-Or-nlz"/>
                                             <outlet property="messageAvatar" destination="P4P-tD-YEm" id="Mkw-pt-Gnb"/>
                                             <outlet property="onlineView" destination="mZB-xW-EiC" id="Lyd-sr-m0Y"/>
+                                            <outlet property="playButton" destination="lvD-1R-Frf" id="SgP-tT-nUM"/>
                                             <outlet property="recordLenthLbl" destination="TkV-HP-F3R" id="CHU-gY-gtk"/>
                                             <outlet property="usernameLbl" destination="Kfj-Of-mSr" id="jgN-NS-OTb"/>
                                         </connections>

@@ -21,13 +21,15 @@ class User: Hashable, Equatable {
     var email: String
     var profileImageUrl: String
     var status: String
+    var inboxes: [String] = []
     
-    init(uid: String, username: String, email: String, profileImageUrl: String, status: String) {
+    init(uid: String, username: String, email: String, profileImageUrl: String, status: String, inboxes: [String]) {
         self.uid = uid
         self.username = username
         self.email = email
         self.profileImageUrl = profileImageUrl
         self.status = status
+        self.inboxes = inboxes
     }
     
     static func transformUser(dict: [String: Any]) -> User? {
@@ -36,20 +38,22 @@ class User: Hashable, Equatable {
               let username = dict["username"] as? String,
               let email = dict["email"] as? String,
               let profileImageUrl = dict["profileImageUrl"] as? String,
-              let status = dict["status"] as? String else {
+              let status = dict["status"] as? String
+        else {
             return nil
         }
-        
-        let user = User(uid: uid, username: username, email: email, profileImageUrl: profileImageUrl, status: status)
+        let inboxes = dict["inboxes"] as? [String] ?? []
+        let user = User(uid: uid, username: username, email: email, profileImageUrl: profileImageUrl, status: status, inboxes: inboxes)
         return user
     }
     
-    func updateUserData(key: String, value: String) {
+    func updateUserData(key: String, value: Any) {
         switch key {
-        case "username": self.username = value
-        case "email": self.email = value
-        case "profileImageUrl": self.profileImageUrl = value
-        case "status": self.status = value
+        case "username": self.username = value as? String ?? ""
+        case "email": self.email = value as? String ?? ""
+        case "profileImageUrl": self.profileImageUrl = value as? String ?? ""
+        case "status": self.status = value as? String ?? ""
+        case "inboxes": self.inboxes = value as? [String] ?? []
         default:
             break
         }

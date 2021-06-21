@@ -19,9 +19,10 @@ class Message {
     var audioUrl: String
     var samples: [Float]
     var recordLength: Int
+    var isRead: Bool
     
     
-    init(id: String, senderId: String, date: Double, text: String, imageUrl: String, height: Double, width: Double, videoUrl: String, audioUrl: String, samples: [Float], recordLength: Int) {
+    init(id: String, senderId: String, date: Double, text: String, imageUrl: String, height: Double, width: Double, videoUrl: String, audioUrl: String, samples: [Float], recordLength: Int, isRead: Bool) {
         self.id = id
         self.senderId = senderId
         self.date = date
@@ -33,6 +34,7 @@ class Message {
         self.audioUrl = audioUrl
         self.samples = samples
         self.recordLength = recordLength
+        self.isRead = isRead
     }
     
     static func transformMessage(dict: [String: Any], keyId: String) -> Message? {
@@ -58,14 +60,14 @@ class Message {
         
         let recordLength = (dict["recordLength"] as? Int) == nil ? 0 : (dict["recordLength"]! as! Int)
         
-        let message = Message(id: keyId, senderId: senderId, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl, audioUrl: audioUrl, samples: samples, recordLength: recordLength)
+        let isRead = (dict["isRead"] as? Bool) == nil ? true : (dict["isRead"] as! Bool)
+        
+        let message = Message(id: keyId, senderId: senderId, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl, audioUrl: audioUrl, samples: samples, recordLength: recordLength, isRead: isRead)
         return message
     }
     
-    static func hash(forMembers members: [String]) -> String {
-        let hash = members[0].hashString ^ members[1].hashString
-        let memberHash = String(hash)
-        return memberHash
+    static func hash(forMembers members: [String]) -> String { 
+        return members.sorted().joined(separator: "_")
     }
     
 }

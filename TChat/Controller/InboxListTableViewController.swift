@@ -15,7 +15,7 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
     
     var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
     var inboxArray: [Inbox] = []
-     
+    let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,11 +113,12 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
         if let cell = tableView.cellForRow(at: indexPath) as? InboxTableViewCell{
             let storyboard = UIStoryboard(name: "Welcome", bundle: nil)
             let chatVC = storyboard.instantiateViewController(withIdentifier: IDENTIFIER_CHAT) as! ChatViewController
-            chatVC.imagePartner = cell.avatar.image
             chatVC.currentUserImage = avatarImageView.image
             chatVC.partnerUsername = cell.usernameLbl.text
             chatVC.partnerId = cell.user.uid
             chatVC.partnerUser = cell.user
+            chatVC.dialogId = cell.inbox.id
+            chatVC.lastMessageId = cell.inbox.lastMessageId
             self.navigationController?.pushViewController(chatVC, animated: true)
         }
     }
@@ -125,9 +126,9 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if let lastIndex = self.tableView.indexPathsForVisibleRows?.last {
             if lastIndex.row >= self.inboxArray.count - 2 {
-                let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-                spinner.startAnimating()
-                spinner.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 44)
+                //let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+                self.spinner.startAnimating()
+                self.spinner.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 44)
                 
                 self.tableView.tableFooterView = spinner
                 self.tableView.tableFooterView?.isHidden = false
@@ -137,6 +138,10 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
                 }
             }
         }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.spinner.stopAnimating()
     }
     /*
      // Override to support conditional editing of the table view.

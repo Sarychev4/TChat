@@ -8,8 +8,6 @@
 import Foundation
 
 class LocalCacheService {
-    static let shared = LocalCacheService()
-    var users: Set<User> = []
-    var messages: [Message] = []
+    static let shared = LocalCacheService() 
     var inboxes: [Inbox] = []
 }

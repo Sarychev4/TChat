@@ -111,7 +111,6 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
         if let cell = tableView.cellForRow(at: indexPath) as? UserTableViewCell{
             let storyboard = UIStoryboard(name: "Welcome", bundle: nil)
             let chatVC = storyboard.instantiateViewController(withIdentifier: IDENTIFIER_CHAT) as! ChatViewController
-            chatVC.imagePartner = cell.avatar.image
             chatVC.currentUserImage = cell.currentUserImage
             chatVC.partnerUsername = cell.usernameLbl.text
             chatVC.partnerId = cell.user.uid

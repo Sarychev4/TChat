@@ -7,11 +7,15 @@
 
 import UIKit
 import AVFoundation
-import FDWaveformView
 import SoundWave
 
 class MessageTableViewCell: UITableViewCell {
-
+    private struct KeyPath {
+           
+            struct PlayerItem {
+                static let Status = "status"
+            }
+        }
     
     @IBOutlet weak var bubbleView: UIView!
     // @IBOutlet weak var soundWaveView: AudioVisualizationView!
@@ -51,9 +55,10 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
 
-    
+    //var observation: Any? = nil
     var playerLayer: AVPlayerLayer?
     var player: AVPlayer?
+    var isReadyToPlay: Bool?
     
     var message: Message!
     
@@ -90,58 +95,62 @@ class MessageTableViewCell: UITableViewCell {
    
     //MARK: - AUDIO PLAYER
     func handleAudioPlay(){
+        
         let audioUrl = message.audioUrl
         if audioUrl.isEmpty{
             return
         }
 
-       // player = AVPlayer(url: audioUrl)
-        if let url = URL(string: audioUrl){
-//            activityIndicatorView.isHidden = false
-//            activityIndicatorView.startAnimating()
-            
-            player = AVPlayer(url: url)
+        if let url = URL(string: audioUrl) {
+            player?.currentItem?.removeObserver(self, forKeyPath: KeyPath.PlayerItem.Status)
+            let playerItem = AVPlayerItem(url: url)
+            player = AVPlayer(playerItem: playerItem)
+            playerItem.addObserver(self, forKeyPath: KeyPath.PlayerItem.Status, options: [.initial, .new], context: nil)
+
             playerLayer = AVPlayerLayer(player: player)
-            //playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-           // playerLayer?.frame = photoAudio.frame
-           // playerLayer?.frame = photoMessage.frame
-           // observation = player?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
-            //-----bubbleView.layer.addSublayer(playerLayer!)
-           // player?.play()
-           // playButton.isHidden = true
+           print(" Начинаю ")
         }
         
     }
-    //MARK: - VIDEO PLAYER
-//    var observation: Any? = nil
-//
-//    func handlePlay(){
-//        let videoUrl = message.videoUrl
-//        if videoUrl.isEmpty{
-//            return
-//        }
-//
-//        if let url = URL(string: videoUrl){
-//            activityIndicatorView.isHidden = false
-//            activityIndicatorView.startAnimating()
-//
-//            player = AVPlayer(url: url)
-//            playerLayer = AVPlayerLayer(player: player)
-//            playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-//          //  playerLayer?.frame = photoAudio.frame
-//            //playerLayer?.frame = photoMessage.frame
-//            observation = player?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
-//            bubbleView.layer.addSublayer(playerLayer!)
-//            player?.play()
-//            playButton.isHidden = true
-//        }
+    
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+            // Player Item Observers
+
+            if keyPath == KeyPath.PlayerItem.Status {
+                if let statusInt = change?[.newKey] as? Int, let status = AVPlayerItem.Status(rawValue: statusInt) {
+                    switch status {
+                    case .unknown:
+                        break
+                    case .readyToPlay:
+                        if self.player?.rate == 0 {
+                            self.player!.play()
+                            let secs = Double(self.message.recordLength)
+                           // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                            self.soundWaveView.play(for: secs) //MARK:  -TIMEDURATION
+                               // self.soundWaveViewLeft.play(for: secs)
+                           // }
+                        } else {
+                            self.player!.pause()
+                        }
+                    case .failed:
+                        break
+                    @unknown default:
+                        break
+                    }
+                }
+            }
+    }
+
+    
+    
 //    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+
         
         //profileImageView.isHidden = true
-        
+        //player?.currentItem?.removeObserver(self, forKeyPath: KeyPath.PlayerItem.Status)
         playerLayer?.removeFromSuperlayer()
         player?.pause()
 
@@ -156,19 +165,20 @@ class MessageTableViewCell: UITableViewCell {
     
     @objc func handleTap() {
         handleAudioPlay()
-        if self.player?.rate == 0 {
-            self.player!.play()
-            let secs = Double(self.message.recordLength)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-            self.soundWaveView.play(for: secs) //MARK:  -TIMEDURATION
-               // self.soundWaveViewLeft.play(for: secs)
-            }
-        } else {
-            self.player!.pause()
-        }
+//        if self.player?.rate == 0 {
+//            self.player!.play()
+//            let secs = Double(self.message.recordLength)
+//           // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+//            self.soundWaveView.play(for: secs) //MARK:  -TIMEDURATION
+//            self.soundWaveViewLeft.play(for: secs)
+//          //  }
+//        } else {
+//            self.player!.pause()
+//        }
     }
     
-    func configureCell(uid: String, message: Message, image: UIImage?, partnerName: String?, partnerImage: UIImage, currentUserName: String ){
+    func configureCell(uid: String, message: Message, image: UIImage?, partnerName: String?, partnerImageUrl: String, currentUserName: String ){
+        //stopObservers()
         self.message = message
 //let recordSeconds = message.recordLength
        // let text = message.text
@@ -270,7 +280,7 @@ class MessageTableViewCell: UITableViewCell {
 //
             leftContainerForSoundWaveView.isHidden = false
             rightContainerForSoundWaveView.isHidden = true
-            profileImageView.image = partnerImage
+            profileImageView.kf.setImage(with: URL(string: partnerImageUrl))
             profileImageView.isHidden = true
 
             profileNameLabel.text = partnerName

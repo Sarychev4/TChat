@@ -8,13 +8,15 @@
 import Foundation
 import UIKit
 import AVFoundation
+import Kingfisher
 
 extension ChatViewController {
     
     func observeMessages(){
+        print("receiveMessage(from")
         Api.Message.receiveMessage(from: Api.User.currentUserId, to: partnerId) { (message) in
             DispatchQueue.main.async {
-                self.messages = LocalCacheService.shared.messages
+                self.messages.append(message)
                 self.sortMessages()
             }
         }
@@ -22,7 +24,9 @@ extension ChatViewController {
     
     func sortMessages() {
         messages = messages.sorted(by: { $0.date < $1.date })
-        lastMessageKey = messages.first!.id
+        if messages.count > 0 {
+            lastMessageKey = messages.first!.id
+        }
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.scrollToBottom()
@@ -138,23 +142,13 @@ extension ChatViewController {
     func setupNavigationBar(){
         navigationItem.largeTitleDisplayMode = .never
         let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
-        avatarImageView.image = imagePartner
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.layer.cornerRadius = 18
         avatarImageView.clipsToBounds = true
         containerView.addSubview(avatarImageView)
-        
-        if imagePartner != nil {
-            avatarImageView.image = imagePartner
-            self.observeActivity()
-            self.observeMessages()
-        } else {
-            avatarImageView.loadImage(partnerUser.profileImageUrl) { (image) in
-                self.imagePartner = image
-                self.observeActivity()
-                self.observeMessages()
-            }
-        }
+          
+        avatarImageView.kf.setImage(with: URL(string: partnerUser.profileImageUrl)!)
+        self.observeActivity()
         
         let leftBarButtonItem = UIBarButtonItem(customView: containerView)
         self.navigationItem.leftItemsSupplementBackButton = true //not allow to overriding the natural back button
@@ -225,7 +219,8 @@ extension ChatViewController {
         var value = dict
         value["sender_id"] = Api.User.currentUserId 
         value["date"] = date
-        value["read"] = true
+//        value["read"] = false
+        value["isRead"] = false
         value["samples"] = samples
         value["recordLength"] = recordLength
         Api.Message.sendMessage(from: Api.User.currentUserId, to: partnerId, value: value)
@@ -328,10 +323,9 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell") as! MessageTableViewCell
 //        cell.playButton.isHidden = messages[indexPath.row].text != "" //hide play button if it is not video or audio
-        //imagePartner
-        
-        cell.configureCell(uid: Api.User.currentUserId, message: messages[indexPath.row], image: currentUserImage, partnerName: partnerUsername, partnerImage: imagePartner, currentUserName: Api.User.currentUserName)
-        cell.handleAudioPlay()
+        cell.isReadyToPlay = false
+        cell.configureCell(uid: Api.User.currentUserId, message: messages[indexPath.row], image: currentUserImage, partnerName: partnerUsername, partnerImageUrl: partnerUser.profileImageUrl, currentUserName: Api.User.currentUserName)
+        //cell.handleAudioPlay()
         return cell
     }
     

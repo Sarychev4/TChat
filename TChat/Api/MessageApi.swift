@@ -10,56 +10,49 @@ import Firebase
 
 class MessageApi {
     func sendMessage(from: String, to: String, value: Dictionary<String, Any>) {
-        let channelId = Message.hash(forMembers: [from, to])
+        let chatId = Message.hash(forMembers: [from, to])
 
-        let ref = Database.database().reference().child("feedMessages")
+        let ref = Database.database().reference().child("feedMessages").child(chatId)
         ref.childByAutoId().updateChildValues(value) { (error, snapshot) in
             if error != nil {
                 print(">>>> Ошибка при отправке сообщения: \(error?.localizedDescription ?? "")")
-
             } else if let messageId = snapshot.key {
                 print(">>>> Отправляю сообщение: \(messageId)")
                 var dict: [String: Any] = [:]
-                dict["id"] = channelId
+                dict["id"] = chatId
                 dict["participants"] = [from, to]
                 dict["lastMessageId"] = messageId
+                dict["user1"] = chatId.components(separatedBy:"_").first!
+                dict["user2"] = chatId.components(separatedBy:"_").last!
                 dict["lastMessageDate"] = value["date"] as? Double ?? Date().timeIntervalSince1970
-                let refFromInbox = Database.database().reference().child(REF_INBOX).child(channelId)
+                dict["isRead"] = false
+                let refFromInbox = Database.database().reference().child(REF_INBOX).child(chatId)
                 refFromInbox.updateChildValues(dict)
             }
         }
     }
     
-    func getMessage(with id: String, onComplete: @escaping(Message) -> Void) {
-        let ref = Database.database().reference().child("feedMessages").child(id)
+    func getMessage(from chatId: String, with id: String, onComplete: @escaping(Message?) -> Void) {
+        let ref = Database.database().reference().child("feedMessages").child(chatId).child(id)
         ref.observeSingleEvent(of: .value) { (snapshot) in
-            if let dict = snapshot.value as? Dictionary<String, Any> {
-                if let message = Message.transformMessage(dict: dict, keyId: snapshot.key) {
+            if let dict = snapshot.value as? Dictionary<String, Any>, let message = Message.transformMessage(dict: dict, keyId: snapshot.key) {
                     onComplete(message)
-                }
+            } else {
+                onComplete(nil)
             }
         }
     }
     
-    func receiveMessage(from: String, to: String, onSucces: @escaping(Message) -> Void) {
-        let ref = Database.database().reference().child("feedMessages")
-        ref.quer.observe(.childAdded) { (snapshot) in
+    func receiveMessage(from: String, to: String, onSuccess: @escaping(Message) -> Void) {
+        let chatId = Message.hash(forMembers: [from, to])
+        let ref = Database.database().reference().child("feedMessages").child(chatId)
         ref.queryOrderedByKey().queryLimited(toLast: 4).observe(.childAdded) { (snapshot) in
             if let dict = snapshot.value as? Dictionary<String, Any> {
                 if let message = Message.transformMessage(dict: dict, keyId: snapshot.key) {
-                    onSucces(message)
+                    onSuccess(message)
                 }
             }
         }
-//        let ref = Ref().databaseMessageSendTo(from: from, to: to)
-//        ref.observe(.childAdded) { (snapshot) in
-//            if let dict = snapshot.value as? Dictionary<String, Any>{
-//                if let message = Message.transformMessage(dict: dict, keyId: snapshot.key){
-//
-//                    onSucces(message)
-//                }
-//            }
-//        }
     }
     
     func loadMore(lastMessageKey: String?, from: String, to: String, onSuccess: @escaping([Message], String) -> Void){
