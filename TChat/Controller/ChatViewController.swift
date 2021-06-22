@@ -29,7 +29,7 @@ class ChatViewController: UIViewController {
     
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
-    var samples: [Float] = []
+    var samples: [CGFloat] = []
     var link: CADisplayLink?
     
     var timer = Timer()
@@ -244,8 +244,8 @@ class ChatViewController: UIViewController {
         
             if let lastMsgId = self.lastMessageId, let dialogId = self.dialogId {
     //            Database.database().reference().child("feedMessages").child(chatId)
-                Ref().databaseInbox.child(dialogId).child("isRead").setValue(true)
                 Ref().databaseRoot.child("feedMessages").child(dialogId).child(lastMsgId).child("isRead").setValue(true)
+                Ref().databaseInbox.child(dialogId).child("isRead").setValue(true)
                 
             }
         

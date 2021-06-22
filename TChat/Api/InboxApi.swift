@@ -104,6 +104,7 @@ class InboxApi {
                 print(">>> Загрузил данные о последнем сообщении")
                 if let message = message {
                     inbox.lastMessage = message
+                    print(">>> В последнем сообщении read: \(message.isRead)")
                 }
                 dispatchGroup.leave()
             }

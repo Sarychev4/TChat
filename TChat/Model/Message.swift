@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 class Message {
     var id: String
@@ -56,13 +57,13 @@ class Message {
         
         let audioUrl = (dict["audioUrl"] as? String) == nil ? "" : (dict["audioUrl"]! as! String)
         
-        let samples = (dict["samples"] as? [Float]) == nil ? [0] : (dict["samples"]! as! [Float])
+        let samples = (dict["samples"] as? [CGFloat]) == nil ? [0] : (dict["samples"]! as! [CGFloat])
         
         let recordLength = (dict["recordLength"] as? Int) == nil ? 0 : (dict["recordLength"]! as! Int)
         
-        let isRead = (dict["isRead"] as? Bool) == nil ? true : (dict["isRead"] as! Bool)
+        let isRead = (dict["isRead"] as? Bool) ?? true
         
-        let message = Message(id: keyId, senderId: senderId, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl, audioUrl: audioUrl, samples: samples, recordLength: recordLength, isRead: isRead)
+        let message = Message(id: keyId, senderId: senderId, date: date, text: text, imageUrl: imageUrl, height: height, width: width, videoUrl: videoUrl, audioUrl: audioUrl, samples: samples.map({ Float($0) }), recordLength: recordLength, isRead: isRead)
         return message
     }
     

@@ -100,8 +100,8 @@ class InboxTableViewCell: UITableViewCell {
         let lastMsgId = self.inbox.lastMessageId
         let dialogId = self.inbox.id
 //            Database.database().reference().child("feedMessages").child(chatId)
-            Ref().databaseInbox.child(dialogId).child("isRead").setValue(true)
-            Ref().databaseRoot.child("feedMessages").child(dialogId).child(lastMsgId).child("isRead").setValue(true)
+        Ref().databaseRoot.child("feedMessages").child(dialogId).child(lastMsgId).child("isRead").setValue(true)
+        Ref().databaseInbox.child(dialogId).child("isRead").setValue(true)
     }
     
     
@@ -140,14 +140,17 @@ class InboxTableViewCell: UITableViewCell {
         let isLastMessageMine = lastMessage.senderId == uid
         if isLastMessageMine {
             self.playButton.isHidden = true
-            
+            guard let isReaded = inbox.lastMessage?.isRead else {
+                return
+            }
             if inbox.lastMessage?.isRead == false {
                 
                 self.inboxSoundWaveView.gradientStartColor = .systemBlue
                 self.recordLenthLbl.textColor = .systemBlue
                 self.messageAvatar.isHidden = false
                 print("1111")
-                print("\(lastMessage.isRead)")
+                print("\(inbox.lastMessage?.isRead)")
+                print("\(isReaded)")
             } else {
                 self.inboxSoundWaveView.gradientStartColor = .lightGray
                 self.recordLenthLbl.textColor = .lightGray

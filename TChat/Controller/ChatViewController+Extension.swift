@@ -475,8 +475,12 @@ extension ChatViewController: AVAudioRecorderDelegate {
         let dB = recorder.averagePower(forChannel: 0)
         let percentage: Float = pow(10, (0.05 * dB)) + 0.1
         
-        samples.append(percentage)
-        
+       // samples.append(percentage)
+        let value = CGFloat(Double(String(format: "%.1f", percentage))!)
+        samples.append(value)
+         print("DB \(dB)")
+        print("PERCENTAGE\(percentage)")
+        print("ROUNDED\(String(format: "%.1f", percentage))")
     }
     
   
