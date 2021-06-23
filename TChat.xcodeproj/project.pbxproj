@@ -23,11 +23,11 @@
 		DD463CE1263CCEEE00F37791 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD463CE0263CCEEE00F37791 /* MessageTableViewCell.swift */; };
 		DD90A3A92636B82600EAD20B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3A82636B82600EAD20B /* AppDelegate.swift */; };
 		DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */; };
-		DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AC2636B82600EAD20B /* ViewController.swift */; };
+		DD90A3AD2636B82600EAD20B /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3AC2636B82600EAD20B /* Welcome.swift */; };
 		DD90A3B22636B82800EAD20B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD90A3B12636B82800EAD20B /* Assets.xcassets */; };
 		DD90A3B52636B82800EAD20B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD90A3B32636B82800EAD20B /* LaunchScreen.storyboard */; };
 		DD90A3BE2636BE6700EAD20B /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */; };
-		DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */; };
+		DD90A3C226374A4E00EAD20B /* Welcome+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3C126374A4E00EAD20B /* Welcome+UI.swift */; };
 		DD90A3C526375B4900EAD20B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3C426375B4900EAD20B /* SignUpViewController.swift */; };
 		DD90A3C8263765E000EAD20B /* SignUpViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */; };
 		DD90A3CB263770E100EAD20B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A3CA263770E100EAD20B /* SignInViewController.swift */; };
@@ -65,12 +65,12 @@
 		DD90A3A52636B82600EAD20B /* TChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD90A3A82636B82600EAD20B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DD90A3AC2636B82600EAD20B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DD90A3AC2636B82600EAD20B /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
 		DD90A3B12636B82800EAD20B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD90A3B42636B82800EAD20B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD90A3B62636B82800EAD20B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Welcome.storyboard; sourceTree = "<group>"; };
-		DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+UI.swift"; sourceTree = "<group>"; };
+		DD90A3C126374A4E00EAD20B /* Welcome+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Welcome+UI.swift"; sourceTree = "<group>"; };
 		DD90A3C426375B4900EAD20B /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignUpViewController+UI.swift"; sourceTree = "<group>"; };
 		DD90A3CA263770E100EAD20B /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -130,8 +130,8 @@
 		DD70B781264F24A300730FDF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				DD90A3AC2636B82600EAD20B /* ViewController.swift */,
-				DD90A3C126374A4E00EAD20B /* ViewController+UI.swift */,
+				DD90A3AC2636B82600EAD20B /* Welcome.swift */,
+				DD90A3C126374A4E00EAD20B /* Welcome+UI.swift */,
 				DD4477552645D5840061BB69 /* ProfileTableViewController.swift */,
 				DD90A4282639A65C00EAD20B /* InboxListTableViewController.swift */,
 				DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */,
@@ -344,7 +344,7 @@
 				DD02D61826418ABC00294E5B /* InboxApi.swift in Sources */,
 				DD90A3C8263765E000EAD20B /* SignUpViewController+UI.swift in Sources */,
 				DD02D60F26417F6800294E5B /* ChatViewController+Extension.swift in Sources */,
-				DD90A3AD2636B82600EAD20B /* ViewController.swift in Sources */,
+				DD90A3AD2636B82600EAD20B /* Welcome.swift in Sources */,
 				DD90A3D5263775A600EAD20B /* ForgotPasswordViewController+UI.swift in Sources */,
 				DD463CA5263AEAFA00F37791 /* PeopleTableViewController.swift in Sources */,
 				DD463CDB263C57AD00F37791 /* MessageApi.swift in Sources */,
@@ -356,7 +356,7 @@
 				DDDB3043265540C00024FAE8 /* PulseAnimation.swift in Sources */,
 				DD90A3D22637759700EAD20B /* ForgotPasswordViewController.swift in Sources */,
 				DD90A4292639A65C00EAD20B /* InboxListTableViewController.swift in Sources */,
-				DD90A3C226374A4E00EAD20B /* ViewController+UI.swift in Sources */,
+				DD90A3C226374A4E00EAD20B /* Welcome+UI.swift in Sources */,
 				DD463CC1263B361800F37791 /* Extension.swift in Sources */,
 				DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */,
 				DD463CAB263B0B4100F37791 /* User.swift in Sources */,

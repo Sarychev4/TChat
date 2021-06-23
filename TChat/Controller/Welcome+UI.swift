@@ -11,7 +11,7 @@ import FBSDKLoginKit
 import ProgressHUD
 import Firebase
 
-extension ViewController {
+extension Welcome {
     
 
     //MARK: Sign In Buttons
@@ -89,12 +89,21 @@ extension ViewController {
     
     
     //Create a new account
-    func setupCreateAccountButton(){
-        
-        createAccountButton.setTitle("Create a new account", for: .normal)
-        createAccountButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        createAccountButton.backgroundColor = .black
-        createAccountButton.layer.cornerRadius = 5
-        createAccountButton.clipsToBounds = true
+    func setupSignUpButton(){
+        signUpButton.setTitle("Sign Up", for: .normal)
+        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        signUpButton.backgroundColor = .systemBlue
+        signUpButton.layer.cornerRadius = 8
+        signUpButton.clipsToBounds = true
+    }
+    
+    func setupSignInButton(){
+        signInButton.setTitle("Sign In", for: .normal)
+        signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        signInButton.backgroundColor = .clear
+        signInButton.layer.borderWidth = 1.0
+        signInButton.layer.borderColor = UIColor.systemBlue.cgColor
+        signInButton.layer.cornerRadius = 8
+        signInButton.clipsToBounds = true
     }
 }

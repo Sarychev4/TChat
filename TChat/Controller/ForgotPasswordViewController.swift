@@ -15,6 +15,7 @@ class ForgotPasswordViewController: UIViewController {
     
     @IBOutlet weak var resetButton: UIButton!
     
+    @IBOutlet weak var backToSignInButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,12 +26,15 @@ class ForgotPasswordViewController: UIViewController {
         
         setupEmailTextField()
         setupResetButton()
-
+        setupBackToSignInButton()
     }
 
-    @IBAction func dismissAction(_ sender: Any) {
+    @IBAction func backToSignInClicked(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
+    //    @IBAction func dismissAction(_ sender: Any) {
+//        navigationController?.popViewController(animated: true)
+//    }
     
     @IBAction func resetPasswordButtonDidTapped(_ sender: Any) {
         guard let email = emailTextField.text, email != "" else {

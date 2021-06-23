@@ -7,12 +7,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class Welcome: UIViewController {
     
 
     @IBOutlet weak var signInFacebookButton: UIButton!
-    @IBOutlet weak var createAccountButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
 
+    @IBOutlet weak var signInButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +22,9 @@ class ViewController: UIViewController {
     
     func setupUI(){
       
-        setupFacebookButton()
-        setupCreateAccountButton()
+        //setupFacebookButton()
+        setupSignUpButton()
+        setupSignInButton()
           
     }
     

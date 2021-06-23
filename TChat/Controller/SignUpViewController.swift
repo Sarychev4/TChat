@@ -16,8 +16,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var titleTextLabel: UILabel!
     @IBOutlet weak var avatar: UIImageView!
     
-    @IBOutlet weak var fullnameContainerView: UIView!
-    @IBOutlet weak var fullnameTextField: UITextField!
+    @IBOutlet weak var nameContainerView: UIView!
+    @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var emailContainerView: UIView!
     @IBOutlet weak var emailTextField: UITextField!
@@ -48,9 +48,9 @@ class SignUpViewController: UIViewController {
         
     }
     
-    @IBAction func dissmissAction(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
+//    @IBAction func dissmissAction(_ sender: Any) {
+//        navigationController?.popViewController(animated: true)
+//    }
     
     
     

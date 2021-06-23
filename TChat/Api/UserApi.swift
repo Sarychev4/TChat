@@ -47,6 +47,10 @@ class UserApi {
     
     func signUp(withUsername username: String, email: String, password: String, image: UIImage?, onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void){
         
+        guard let imageSelected = image else {
+            //ProgressHUD.showError(ERROR_EMPTY_PHOTO)
+            return
+        }
         Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
             if error != nil {
                 ProgressHUD.showError(error!.localizedDescription)
@@ -62,10 +66,7 @@ class UserApi {
                     STATUS: "Default status"
                 ]
                 
-                guard let imageSelected = image else {
-                    ProgressHUD.showError(ERROR_EMPTY_PHOTO)
-                    return
-                }
+               
                 //Convert data
                 guard let imageData = imageSelected.jpegData(compressionQuality: 0.4) else {
                     return

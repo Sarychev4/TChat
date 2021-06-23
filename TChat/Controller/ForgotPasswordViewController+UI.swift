@@ -14,6 +14,7 @@ extension ForgotPasswordViewController {
         emailContainerView.layer.borderColor = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1).cgColor
         emailContainerView.layer.cornerRadius = 3
         emailContainerView.clipsToBounds = true
+        emailContainerView.backgroundColor = UIColor(hexString: "F5F5F5")
         
         emailTextField.borderStyle = .none
         
@@ -24,11 +25,22 @@ extension ForgotPasswordViewController {
     }
     
     func setupResetButton(){
-        resetButton.setTitle("RESET MY PASSWORD", for: .normal)
+        resetButton.setTitle("Reset my password", for: .normal)
         resetButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        resetButton.backgroundColor = .black
-        resetButton.layer.cornerRadius = 5
+        resetButton.backgroundColor = .systemBlue
+        resetButton.layer.cornerRadius = 8
         resetButton.clipsToBounds = true
         resetButton.setTitleColor(.white, for: UIControl.State.normal)
+    }
+    
+    func setupBackToSignInButton(){
+        backToSignInButton.setTitle("Back to sign in", for: .normal)
+        backToSignInButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        backToSignInButton.backgroundColor = .clear
+        backToSignInButton.layer.borderWidth = 1.0
+        backToSignInButton.layer.borderColor = UIColor.systemBlue.cgColor
+        backToSignInButton.layer.cornerRadius = 8
+        backToSignInButton.clipsToBounds = true
+        backToSignInButton.setTitleColor(.systemBlue, for: UIControl.State.normal)
     }
 }

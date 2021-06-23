@@ -19,8 +19,9 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var passwordContainerView: UIView!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
-    @IBOutlet weak var signUpButton: UIButton!
+   // @IBOutlet weak var signUpButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,14 +34,14 @@ class SignInViewController: UIViewController {
         setupTitleLabel()
         setupEmailTextField()
         setupPasswordTextField()
-        setupSignUpButton()
+       // setupSignUpButton()
         setupSignInButton()
-        
+        setupForgotPasswordButton()
     }
 
-    @IBAction func dismissAction(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
+//    @IBAction func dismissAction(_ sender: Any) {
+//        navigationController?.popViewController(animated: true)
+//    }
     
     @IBAction func signInButtonDidTapped(_ sender: Any) {
         //Dismiss keyboard when user touch view
