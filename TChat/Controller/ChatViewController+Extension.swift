@@ -221,7 +221,9 @@ extension ChatViewController {
         value["date"] = date
 //        value["read"] = false
         value["isRead"] = false
-        value["samples"] = samples
+        //value["samples"] = samples
+        value["cuttedInboxSamples"] = cuttedInboxSamples
+        value["cuttedMessageSamples"] = cuttedMessageSamples
         value["recordLength"] = recordLength
         Api.Message.sendMessage(from: Api.User.currentUserId, to: partnerId, value: value)
     }
@@ -247,71 +249,71 @@ extension ChatViewController: UITextViewDelegate {
 
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
-            let tempUrl = createTemporaryURLforVideoFile(url: videoUrl)
-            handleVideoSelectedForUrl(tempUrl)
-            //print(tempUrl.absoluteString)
-        } else {
-            handleImageSelectedForInfo(info)
-        }
-        
-    }
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        if let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+//            let tempUrl = createTemporaryURLforVideoFile(url: videoUrl)
+//            handleVideoSelectedForUrl(tempUrl)
+//            //print(tempUrl.absoluteString)
+//        } else {
+//            handleImageSelectedForInfo(info)
+//        }
+//
+//    }
     
-    func handleVideoSelectedForUrl(_ url: URL){
-        //save video data
-        let videoNameUnicId = NSUUID().uuidString// + ".mov"
-        
-        StorageService.saveVideoMessage(url: url, id: videoNameUnicId, onSuccess: { (anyValue) in
-            if let dict = anyValue as? [String: Any] {
-                self.sendToFirebase(dict: dict)
-            }
-        }) { (errorMessage) in
-            
-        }
-        self.picker.dismiss(animated: true, completion: nil)
-    }
-    //!!!!!!!!!!!!!
-    func createTemporaryURLforVideoFile(url: URL) -> URL {
-        /// Create the temporary directory.
-        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-        /// create a temporary file for us to copy the video to.
-        let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(url.lastPathComponent ?? "")
-        /// Attempt the copy.
-        do {
-            try FileManager().copyItem(at: url.absoluteURL, to: temporaryFileURL)
-        } catch {
-            print("There was an error copying the video file to the temporary location.")
-        }
-        
-        return temporaryFileURL as URL
-    }
+//    func handleVideoSelectedForUrl(_ url: URL){
+//        //save video data
+//        let videoNameUnicId = NSUUID().uuidString// + ".mov"
+//
+//        StorageService.saveVideoMessage(url: url, id: videoNameUnicId, onSuccess: { (anyValue) in
+//            if let dict = anyValue as? [String: Any] {
+//                self.sendToFirebase(dict: dict)
+//            }
+//        }) { (errorMessage) in
+//
+//        }
+//        self.picker.dismiss(animated: true, completion: nil)
+//    }
+//    //!!!!!!!!!!!!!
+//    func createTemporaryURLforVideoFile(url: URL) -> URL {
+//        /// Create the temporary directory.
+//        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+//        /// create a temporary file for us to copy the video to.
+//        let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(url.lastPathComponent ?? "")
+//        /// Attempt the copy.
+//        do {
+//            try FileManager().copyItem(at: url.absoluteURL, to: temporaryFileURL)
+//        } catch {
+//            print("There was an error copying the video file to the temporary location.")
+//        }
+//
+//        return temporaryFileURL as URL
+//    }
     
     
-    func handleImageSelectedForInfo(_ info: [UIImagePickerController.InfoKey : Any]){
-        var selectedImageFromPicker: UIImage?
-        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
-            selectedImageFromPicker = imageSelected
-            
-        }
-        
-        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            selectedImageFromPicker = imageOriginal
-        }
-        
-        //save photo data
-        let imageNameUnicId = NSUUID().uuidString
-        StorageService.savePhotoMessage(image: selectedImageFromPicker, id: imageNameUnicId, onSuccess: { (anyValue) in
-            print(anyValue)
-            if let dict = anyValue as? [String: Any] {
-                self.sendToFirebase(dict: dict)
-            }
-        }) { (errorMessage) in
-            
-        }
-        
-        self.picker.dismiss(animated: true, completion: nil)
-    }
+//    func handleImageSelectedForInfo(_ info: [UIImagePickerController.InfoKey : Any]){
+//        var selectedImageFromPicker: UIImage?
+//        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
+//            selectedImageFromPicker = imageSelected
+//
+//        }
+//
+//        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+//            selectedImageFromPicker = imageOriginal
+//        }
+//
+//        //save photo data
+//        let imageNameUnicId = NSUUID().uuidString
+//        StorageService.savePhotoMessage(image: selectedImageFromPicker, id: imageNameUnicId, onSuccess: { (anyValue) in
+//            print(anyValue)
+//            if let dict = anyValue as? [String: Any] {
+//                self.sendToFirebase(dict: dict)
+//            }
+//        }) { (errorMessage) in
+//
+//        }
+//
+//        self.picker.dismiss(animated: true, completion: nil)
+//    }
     
 }
 
@@ -439,7 +441,8 @@ extension ChatViewController: AVAudioRecorderDelegate {
         audioRecorder.stop()
         
         audioRecorder = nil
-        
+        cutMessageSamples()
+        cutInboxSamples()
         if success {
             // recordButton.setTitle("Tap to Re-record", for: .normal)
             recordButton.tintColor = .lightGray
@@ -451,6 +454,30 @@ extension ChatViewController: AVAudioRecorderDelegate {
         }
         
     }
+    
+    func cutMessageSamples(){
+        let numberOfLines = 13
+        let elementToGet = (self.samples.count / numberOfLines)
+        var cuttedSamples: [CGFloat] = []
+        for item in 0..<self.samples.count where item % elementToGet == 0 {
+            cuttedSamples.append(self.samples[item])
+        }
+        self.cuttedMessageSamples = cuttedSamples
+    }
+    
+    func cutInboxSamples(){
+        let numberOfLines = 25
+        let elementToGet = (self.samples.count / numberOfLines)
+        var cuttedSamples: [CGFloat] = []
+        for item in 0..<self.samples.count where item % elementToGet == 0 {
+            cuttedSamples.append(self.samples[item])
+        }
+//        print("MASS \(cuttedSamples)")
+//        print("MASS COUNT \(cuttedSamples.count)")
+        self.cuttedInboxSamples = cuttedSamples
+    }
+    
+    
     
     //UPLoAD FILE TO FIREBASE STORAGE
     func handleAudioSendWith(url: URL) {

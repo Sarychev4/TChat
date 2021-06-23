@@ -12,8 +12,10 @@ import AVFoundation
 
 class InboxTableViewCell: UITableViewCell {
 
+    
     @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var inboxSoundWaveView: AudioVisualizationView!
+    
+    //@IBOutlet weak var inboxSoundWaveView: AudioVisualizationView!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var messageAvatar: UIImageView!
     @IBOutlet weak var usernameLbl: UILabel!
@@ -25,6 +27,13 @@ class InboxTableViewCell: UITableViewCell {
     
     @IBOutlet weak var containerForSoundWaveLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerForSoundWave: UIView!
+    
+    @IBOutlet weak var soundLinesView: InboxCurves!
+    @IBOutlet weak var soundLinesViewReaded: InboxCurvesReaded!
+    
+    @IBOutlet weak var containerForSoundLinesViewReaded: UIView!
+    @IBOutlet weak var containerForSoundLinesViewReadedRightConstraint: NSLayoutConstraint!
+    
     var user: User!
     
     var inboxChangedOnlineHandle: DatabaseHandle!
@@ -40,6 +49,7 @@ class InboxTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
         avatar.layer.cornerRadius = 30
         avatar.clipsToBounds = true
         messageAvatar.layer.cornerRadius = 11
@@ -59,13 +69,17 @@ class InboxTableViewCell: UITableViewCell {
         if self.player?.rate == 0 {
             self.player!.play()
             let secs = Double(lastMessage.recordLength)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
-            self.inboxSoundWaveView.play(for: secs) //MARK:  -TIMEDURATION
-               // self.soundWaveViewLeft.play(for: secs)
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+//           // self.inboxSoundWaveView.play(for: secs) //MARK:  -TIMEDURATION
+//               // self.soundWaveViewLeft.play(for: secs)
+            UIView.animate(withDuration: secs) {
+                self.containerForSoundLinesViewReadedRightConstraint.constant = 0
+                self.containerForSoundWave.layoutIfNeeded()
+            }
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + secs) {
                     self.updatedLisenedMessage()
                 }
-            }
+//            }
         } else {
             self.player!.pause()
         }
@@ -80,26 +94,15 @@ class InboxTableViewCell: UITableViewCell {
             return
         }
 
-       // player = AVPlayer(url: audioUrl)
         if let url = URL(string: audioUrl){
-            
             player = AVPlayer(url: url)
             playerLayer = AVPlayerLayer(player: player)
-         
         }
-        //chatVC.dialogId = cell.
-       // chatVC.lastMessageId = cell.
-        //Update isRead in inbox
-        
-            
-        
-        
     }
     
     func updatedLisenedMessage(){
         let lastMsgId = self.inbox.lastMessageId
         let dialogId = self.inbox.id
-//            Database.database().reference().child("feedMessages").child(chatId)
         Ref().databaseRoot.child("feedMessages").child(dialogId).child(lastMsgId).child("isRead").setValue(true)
         Ref().databaseInbox.child(dialogId).child("isRead").setValue(true)
     }
@@ -121,14 +124,17 @@ class InboxTableViewCell: UITableViewCell {
         
         
         
-        guard let samples = inbox.lastMessage?.samples else { return }
-        self.inboxSoundWaveView.meteringLevelBarWidth = 4.0
-        self.inboxSoundWaveView.meteringLevelBarInterItem = 4.0
-        self.inboxSoundWaveView.meteringLevelBarCornerRadius = 3.0
-        self.inboxSoundWaveView.gradientStartColor = .systemBlue
-        self.inboxSoundWaveView.gradientEndColor = .white
-        self.inboxSoundWaveView.audioVisualizationMode = .read
-        self.inboxSoundWaveView.meteringLevels = samples
+        guard let samples = inbox.lastMessage?.cuttedInboxSamples else { return }
+        
+        
+       // self.soundLinesView = InboxCurves(frame: CGRect(x: 0, y: 0, width: containerForSoundWave.bounds.width, height: containerForSoundWave.bounds.height))
+        self.soundLinesView.array = samples
+        self.soundLinesView.backgroundColor = .systemRed
+        
+        self.soundLinesViewReaded.array = samples
+        self.containerForSoundLinesViewReaded.clipsToBounds = true
+        self.containerForSoundLinesViewReadedRightConstraint.constant = containerForSoundWave.bounds.width
+ 
         //Не мое - входящее
         //входящее прочитаное
         //входящее непрочитанное
@@ -145,14 +151,14 @@ class InboxTableViewCell: UITableViewCell {
             }
             if inbox.lastMessage?.isRead == false {
                 
-                self.inboxSoundWaveView.gradientStartColor = .systemBlue
+                //self.inboxSoundWaveView.gradientStartColor = .systemBlue
                 self.recordLenthLbl.textColor = .systemBlue
                 self.messageAvatar.isHidden = false
                 print("1111")
                 print("\(inbox.lastMessage?.isRead)")
                 print("\(isReaded)")
             } else {
-                self.inboxSoundWaveView.gradientStartColor = .lightGray
+//                self.inboxSoundWaveView.gradientStartColor = .lightGray
                 self.recordLenthLbl.textColor = .lightGray
                 
                 print("2222")
@@ -171,10 +177,10 @@ class InboxTableViewCell: UITableViewCell {
                 self.playButton.isHidden = true
                 self.messageAvatar.isHidden = true
                 containerForSoundWaveLeftConstraint.constant = 12
-                self.inboxSoundWaveView.gradientStartColor = .lightGray
+
                 self.recordLenthLbl.textColor = .lightGray
                 print("4444")
-               // self.messageAvatar.loadImage(opponent.profileImageUrl)
+               
             }
         }
         
@@ -182,17 +188,7 @@ class InboxTableViewCell: UITableViewCell {
         let date = Date(timeIntervalSince1970: lastMessage.date)
         let dateString = timeAgoSinceDate(date, currentDate: Date(), numericDates: true)
         dateLbl.text = dateString
-        
-        
-        
-//        if !inbox.text.isEmpty {
-//            messageLbl.text = inbox.text
-//        } else {
-//            messageLbl.text = inbox.audioUrl
-//        }
-        
-        //let refInbox = Ref().databaseInboxInfor(from: Api.User.currentUserId, to: inbox.user.uid)
-        
+         
         let refUser = Ref().databaseSpecificUser(uid: opponent.uid)
         if inboxChangedProfileHandle != nil {
             refUser.removeObserver(withHandle: inboxChangedProfileHandle)
@@ -204,7 +200,6 @@ class InboxTableViewCell: UITableViewCell {
                 self.controller.observeInboxes()
             }
         })
-        
         
         let refOnline = Ref().databaseIsOnline(uid: opponent.uid)
         refOnline.observeSingleEvent(of: .value) { (snapshot) in
@@ -226,7 +221,6 @@ class InboxTableViewCell: UITableViewCell {
                 }
             }
         }
-        
     }
     
     override func prepareForReuse() {

@@ -11,16 +11,20 @@ import SoundWave
 
 class MessageTableViewCell: UITableViewCell {
     private struct KeyPath {
-           
-            struct PlayerItem {
-                static let Status = "status"
-            }
+        
+        struct PlayerItem {
+            static let Status = "status"
         }
+    }
     
     @IBOutlet weak var bubbleView: UIView!
     // @IBOutlet weak var soundWaveView: AudioVisualizationView!
     var soundWaveView: AudioVisualizationView!
     var soundWaveViewLeft: AudioVisualizationView!
+    
+    var soundLinesViewRight: MessageCurves!
+    var soundLinesViewLeft: MessageCurves!
+    
     @IBOutlet weak var rightContainerForSoundWaveView: UIView!
     @IBOutlet weak var leftContainerForSoundWaveView: UIView!
     
@@ -28,7 +32,7 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var profileNameLabel: UILabel!
     @IBOutlet weak var timeAndDateLabel: UILabel!
     
-   // @IBOutlet weak var recordLengthLabel: UILabel!
+    // @IBOutlet weak var recordLengthLabel: UILabel!
     
     @IBOutlet weak var profileNameTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var profileNameLeftConstraint: NSLayoutConstraint!
@@ -38,11 +42,8 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var timeAndDateLabelRightConstraint: NSLayoutConstraint!
     
     
-    
-    
     @IBOutlet weak var containerForSoundWaveViewLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerForSoundWaveViewRightConstraint: NSLayoutConstraint!
-
     
     @IBOutlet weak var playButton: UIButton!
     
@@ -54,7 +55,7 @@ class MessageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
-
+    
     //var observation: Any? = nil
     var playerLayer: AVPlayerLayer?
     var player: AVPlayer?
@@ -67,32 +68,18 @@ class MessageTableViewCell: UITableViewCell {
         // Initialization code
         rightContainerForSoundWaveView.clipsToBounds = true
         leftContainerForSoundWaveView.clipsToBounds = true
-        //bubbleView.layer.cornerRadius = 15
         bubbleView.clipsToBounds = true
         bubbleView.layer.borderWidth = 0.4
         profileImageView.layer.cornerRadius = 14
         profileImageView.clipsToBounds = true
         profileImageView.isHidden = false
         activityIndicatorView.isHidden = true
-     activityIndicatorView.stopAnimating()
+        activityIndicatorView.stopAnimating()
         activityIndicatorView.style = .large
-        
-      //  textMessageLabel.numberOfLines = 0
-       // photoMessage.layer.cornerRadius = 15
-       // photoMessage.clipsToBounds = true
-        
-        
-      //  photoMessage.isHidden = true
-        
-        //textMessageLabel.isHidden = true
-        
-        
-       // photoAudio.layer.cornerRadius = 5
-        //photoAudio.clipsToBounds = true
         
     }
     
-   
+    
     //MARK: - AUDIO PLAYER
     func handleAudioPlay(){
         
@@ -100,152 +87,128 @@ class MessageTableViewCell: UITableViewCell {
         if audioUrl.isEmpty{
             return
         }
-
+        
         if let url = URL(string: audioUrl) {
             player?.currentItem?.removeObserver(self, forKeyPath: KeyPath.PlayerItem.Status)
             let playerItem = AVPlayerItem(url: url)
             player = AVPlayer(playerItem: playerItem)
             playerItem.addObserver(self, forKeyPath: KeyPath.PlayerItem.Status, options: [.initial, .new], context: nil)
-
+            
             playerLayer = AVPlayerLayer(player: player)
-           print(" Начинаю ")
+            print(" Начинаю ")
         }
         
     }
     
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-            // Player Item Observers
-
-            if keyPath == KeyPath.PlayerItem.Status {
-                if let statusInt = change?[.newKey] as? Int, let status = AVPlayerItem.Status(rawValue: statusInt) {
-                    switch status {
-                    case .unknown:
-                        break
-                    case .readyToPlay:
-                        if self.player?.rate == 0 {
-                            self.player!.play()
-                            let secs = Double(self.message.recordLength)
-                           // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                            self.soundWaveView.play(for: secs) //MARK:  -TIMEDURATION
-                               // self.soundWaveViewLeft.play(for: secs)
-                           // }
-                        } else {
-                            self.player!.pause()
-                        }
-                    case .failed:
-                        break
-                    @unknown default:
-                        break
+        // Player Item Observers
+        
+        if keyPath == KeyPath.PlayerItem.Status {
+            if let statusInt = change?[.newKey] as? Int, let status = AVPlayerItem.Status(rawValue: statusInt) {
+                switch status {
+                case .unknown:
+                    break
+                case .readyToPlay:
+                    if self.player?.rate == 0 {
+                        self.player!.play()
+                        let secs = Double(self.message.recordLength)
+                        // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                       // self.soundWaveView.play(for: secs) //MARK:  -TIMEDURATION
+                        // self.soundWaveViewLeft.play(for: secs)
+                        // }
+                    } else {
+                        self.player!.pause()
                     }
+                case .failed:
+                    break
+                @unknown default:
+                    break
                 }
             }
+        }
     }
-
     
-    
-//    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-
         
         //profileImageView.isHidden = true
         //player?.currentItem?.removeObserver(self, forKeyPath: KeyPath.PlayerItem.Status)
         playerLayer?.removeFromSuperlayer()
         player?.pause()
-
+        
         activityIndicatorView.isHidden = true
         activityIndicatorView.stopAnimating()
     }
-
-//    func stopObservers(){
-//        player?.removeObserver(self, forKeyPath: "status")
-//        observation = nil
-//    }
+    
+    //    func stopObservers(){
+    //        player?.removeObserver(self, forKeyPath: "status")
+    //        observation = nil
+    //    }
     
     @objc func handleTap() {
         handleAudioPlay()
-//        if self.player?.rate == 0 {
-//            self.player!.play()
-//            let secs = Double(self.message.recordLength)
-//           // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-//            self.soundWaveView.play(for: secs) //MARK:  -TIMEDURATION
-//            self.soundWaveViewLeft.play(for: secs)
-//          //  }
-//        } else {
-//            self.player!.pause()
-//        }
+        //        if self.player?.rate == 0 {
+        //            self.player!.play()
+        //            let secs = Double(self.message.recordLength)
+        //           // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+        //            self.soundWaveView.play(for: secs) //MARK:  -TIMEDURATION
+        //            self.soundWaveViewLeft.play(for: secs)
+        //          //  }
+        //        } else {
+        //            self.player!.pause()
+        //        }
     }
     
     func configureCell(uid: String, message: Message, image: UIImage?, partnerName: String?, partnerImageUrl: String, currentUserName: String ){
         //stopObservers()
         self.message = message
-//let recordSeconds = message.recordLength
-       // let text = message.text
+        //let recordSeconds = message.recordLength
+        // let text = message.text
         //let audioUrlText = message.audioUrl
-        let samples = message.samples
+        let samples = message.cuttedMessageSamples
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         let tapLeft = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            
-            self.soundWaveView = AudioVisualizationView(frame: CGRect(x: -50, y: 0, width: 135, height: 135))
-          //rightContainerForSoundWaveView.frame.width/2 - 75
-            //rightContainerForSoundWaveView.frame.height/2 - 16
-            self.soundWaveView.meteringLevelBarWidth = 6.0
-            self.soundWaveView.meteringLevelBarInterItem = 6.0
-    //        self.soundWaveView.meteringLevelBarCornerRadius = 0.0
-            self.soundWaveView.gradientStartColor = .blue
-            self.soundWaveView.backgroundColor = .white
-            self.soundWaveView.gradientEndColor = .white
-            self.soundWaveView.audioVisualizationMode = .read
-            self.soundWaveView.addGestureRecognizer(tap)
-            self.soundWaveView.isUserInteractionEnabled = true
-            self.soundWaveView.meteringLevels = samples//[0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3,0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3 ]//samples //Array(meters)
-            self.rightContainerForSoundWaveView.addSubview(self.soundWaveView)
-        //self.leftContainerForSoundWaveView.addSubview(self.soundWaveView)
-            //self.bubbleView.addSubview(self.soundWaveView)
-            self.soundWaveView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2.0)
-//        }
-        
-
-        self.soundWaveViewLeft = AudioVisualizationView(frame: CGRect(x: -50, y: 0, width: 135, height: 135))
-      //rightContainerForSoundWaveView.frame.width/2 - 75
-        //rightContainerForSoundWaveView.frame.height/2 - 16
-        self.soundWaveViewLeft.meteringLevelBarWidth = 6.0
-        self.soundWaveViewLeft.meteringLevelBarInterItem = 6.0
-//        self.soundWaveView.meteringLevelBarCornerRadius = 0.0
-        self.soundWaveViewLeft.gradientStartColor = .blue
-        self.soundWaveViewLeft.backgroundColor = .white
-        self.soundWaveViewLeft.gradientEndColor = .white
-        self.soundWaveViewLeft.audioVisualizationMode = .read
-        self.soundWaveViewLeft.addGestureRecognizer(tapLeft)
-        self.soundWaveViewLeft.isUserInteractionEnabled = true
-        self.soundWaveViewLeft.meteringLevels = samples//[0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3,0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3, 0.9, 0.1, 0.3 ]//samples //Array(meters)
-        
-    self.leftContainerForSoundWaveView.addSubview(self.soundWaveViewLeft)
-        //self.bubbleView.addSubview(self.soundWaveView)
-        self.soundWaveViewLeft.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2.0)
-        
-//        recordLengthLabel.text = "\(message.recordLength)sec"
+        self.soundLinesViewRight = MessageCurves(frame: CGRect(x: 0, y: 0, width: 34, height: self.rightContainerForSoundWaveView.bounds.height))
+        self.soundLinesViewRight.array = samples
+        self.soundLinesViewRight.backgroundColor = .clear
+        self.soundLinesViewRight.addGestureRecognizer(tap)
+        rightContainerForSoundWaveView.addSubview(self.soundLinesViewRight)
         
         
+        self.soundLinesViewLeft = MessageCurves(frame: CGRect(x: 0, y: 0, width: 34, height: self.rightContainerForSoundWaveView.bounds.height))
+        self.soundLinesViewLeft.array = samples
+        self.soundLinesViewLeft.backgroundColor = .clear
+        self.soundLinesViewLeft.addGestureRecognizer(tapLeft)
+        leftContainerForSoundWaveView.addSubview(self.soundLinesViewLeft)
         
-//        var numbersFromMin = samples.sorted(by: <).prefix(7)
-//        var numbersFromMax = samples.sorted(by: >).prefix(6)
-//        var meters = numbersFromMin + numbersFromMax
+//        self.soundWaveView = AudioVisualizationView(frame: CGRect(x: -50, y: 0, width: 135, height: 135))
+//        self.soundWaveView.meteringLevelBarWidth = 6.0
+//        self.soundWaveView.meteringLevelBarInterItem = 6.0
+//        self.soundWaveView.gradientStartColor = .blue
+//        self.soundWaveView.backgroundColor = .white
+//        self.soundWaveView.gradientEndColor = .white
+//        self.soundWaveView.audioVisualizationMode = .read
+//        self.soundWaveView.addGestureRecognizer(tap)
+//        self.soundWaveView.isUserInteractionEnabled = true
+//        self.soundWaveView.meteringLevels = samples
+//        self.rightContainerForSoundWaveView.addSubview(self.soundWaveView)
+//        self.soundWaveView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2.0)
         
-        //let imageAudio = UIImage(named: "Audio_line")
-//            photoAudio.audioURL =  URL(string: audioUrlText)
-     //   soundWaveView.image = imageAudio
-     //   profileNameLabel.text = partnerName
-    //soundWaveView.isHidden = false
-       // self.soundWaveView.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2.0)
         
-        
-        
-        
-        
+//        self.soundWaveViewLeft = AudioVisualizationView(frame: CGRect(x: -50, y: 0, width: 135, height: 135))
+//        self.soundWaveViewLeft.meteringLevelBarWidth = 6.0
+//        self.soundWaveViewLeft.meteringLevelBarInterItem = 6.0
+//        self.soundWaveViewLeft.gradientStartColor = .blue
+//        self.soundWaveViewLeft.backgroundColor = .white
+//        self.soundWaveViewLeft.gradientEndColor = .white
+//        self.soundWaveViewLeft.audioVisualizationMode = .read
+//        self.soundWaveViewLeft.addGestureRecognizer(tapLeft)
+//        self.soundWaveViewLeft.isUserInteractionEnabled = true
+//        self.soundWaveViewLeft.meteringLevels = samples
+//        self.leftContainerForSoundWaveView.addSubview(self.soundWaveViewLeft)
+//        self.soundWaveViewLeft.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2.0)
         
         if uid == message.senderId { //my
             if let currentUserImg = image {
@@ -255,74 +218,53 @@ class MessageTableViewCell: UITableViewCell {
             rightContainerForSoundWaveView.isHidden = false
             profileImageView.isHidden = false
             profileNameLabel.text = currentUserName
-
+            
             profileNameTopConstraint.constant = 32
             profileNameLeftConstraint.constant = 0
             profileNameRightConstraint.constant = 50
-
+            
             profileNameLabel.textAlignment = .right
-
+            
             bubbleLeftConstraint.constant = 54
             bubbleRightConstraint.constant = 16
-
-          //  soundWaveLeftConstraint.constant = 99
-          //  soundWaveRightConstraint.constant = 0
-
+            
             timeAndDateLabelRightConstraint.constant = 50
-           // dateLabelLeftConstraint.constant = 0
-
             timeAndDateLabel.textAlignment = .right
-           // dateLabel.backgroundColor = .red
-//
-//            containerForSoundWaveViewLeftConstraint.constant = bubbleView.frame.width - 34
-           // containerForSoundWaveViewRightConstraint.constant = 0
+            
         }else{
-//
+            
             leftContainerForSoundWaveView.isHidden = false
             rightContainerForSoundWaveView.isHidden = true
             profileImageView.kf.setImage(with: URL(string: partnerImageUrl))
             profileImageView.isHidden = true
-
+            
             profileNameLabel.text = partnerName
-
+            
             profileNameTopConstraint.constant = 0
             profileNameLeftConstraint.constant = 50
             profileNameRightConstraint.constant = 0
             profileNameLabel.textAlignment = .left
-
+            
             bubbleLeftConstraint.constant = 16
             bubbleRightConstraint.constant = 50
-
-
-
+            
             timeAndDateLabelLeftConstraint.constant = 50
-
-
             timeAndDateLabel.textAlignment = .left
-//
-//            containerForSoundWaveViewLeftConstraint.constant = 0
-            //containerForSoundWaveViewRightConstraint.constant = bubbleView.frame.width - 34
-//
+            
         }
-       
-        
-        
-        
         
         bubbleView.layer.borderColor = UIColor.clear.cgColor
         let date = Date(timeIntervalSince1970: message.date)
         let dateString = timeAgoSinceDate(date, currentDate: Date(), numericDates: true)
         timeAndDateLabel.text = "\(message.recordLength)sec · \(dateString)"
-        //        recordLengthLabel.text = "\(message.recordLength)sec"
-//
-
+        
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }
 
 

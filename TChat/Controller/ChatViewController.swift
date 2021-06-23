@@ -30,6 +30,9 @@ class ChatViewController: UIViewController {
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var samples: [CGFloat] = []
+    var cuttedInboxSamples: [CGFloat] = []
+    var cuttedMessageSamples: [CGFloat] = []
+    
     var link: CADisplayLink?
     
     var timer = Timer()
@@ -41,7 +44,7 @@ class ChatViewController: UIViewController {
     var fractions = 0
     var recordLength = 0 //sec
     
-    @IBOutlet weak var leftCancelLabel: UILabel!
+   // @IBOutlet weak var leftCancelLabel: UILabel!
     
     var currentUserImage: UIImage? 
     var avatarImageView: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 36, height: 36))
@@ -76,7 +79,7 @@ class ChatViewController: UIViewController {
       
         
         
-        leftCancelLabel.isHidden = true
+      //  leftCancelLabel.isHidden = true
         
         //Users permission for audio
         
@@ -114,85 +117,85 @@ class ChatViewController: UIViewController {
         
         
         
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(panButton(pan:)))
-        recordButton.addGestureRecognizer(pan)
+//        let pan = UIPanGestureRecognizer(target: self, action: #selector(panButton(pan:)))
+//        recordButton.addGestureRecognizer(pan)
     }
     
-    @objc func panButton(pan: UIPanGestureRecognizer){
-
-        if pan.state == .began{
-            buttonCenter = recordButton.center //store old btn center
-            buttonY = recordButton.frame.origin.y
-            buttonX = recordButton.frame.origin.x
-
-        } else if pan.state == .ended || pan.state == .failed || pan.state == .cancelled {
-
-            recordButton.center = buttonCenter
-
+//    @objc func panButton(pan: UIPanGestureRecognizer){
+//
+//        if pan.state == .began{
+//            buttonCenter = recordButton.center //store old btn center
+//            buttonY = recordButton.frame.origin.y
+//            buttonX = recordButton.frame.origin.x
+//
+//        } else if pan.state == .ended || pan.state == .failed || pan.state == .cancelled {
+//
+//            recordButton.center = buttonCenter
+//
+////            if let pulseBtn = self.pulse {
+////                stopAnimation(pulseAnimation: pulseBtn)
+////            }
+//
+//            finishRecording(success: true)
+//            let gg = getAudioFileURL()
+//            handleAudioSendWith(url: gg)
 //            if let pulseBtn = self.pulse {
 //                stopAnimation(pulseAnimation: pulseBtn)
 //            }
-
-            finishRecording(success: true)
-            let gg = getAudioFileURL()
-            handleAudioSendWith(url: gg)
-            if let pulseBtn = self.pulse {
-                stopAnimation(pulseAnimation: pulseBtn)
-            }
-            timer.invalidate()
-            timer2.invalidate()
-            timerLabel.textColor = UIColor(hexString: "BFBFBF")
-            timerLabel.text = "Send your voice message"
-            leftCancelLabel.isHidden = true
-            recordLength = seconds
-            (minutes, seconds, fractions) = (0, 0, 0)
-
-            leftCancelLabel.isHidden = true
-
-
-            UIView.animate(withDuration: 0.1) {
-                let micImg = UIImage(named: "microPhone")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-                self.recordButton.setImage(micImg, for: .normal)
-                self.recordButton.backgroundColor = .blue
-            }
-        } else {
-
-            leftCancelLabel.isHidden = true
-
-            if let pulseBtn = self.pulse {
-                stopAnimation(pulseAnimation: pulseBtn)
-            }
-            self.location = pan.location(in: bottomPanelView)
-            recordButton.center = location
-            recordButton.frame.origin.y = buttonY
-
-            print(recordButton.frame.origin.x)
-            if recordButton.frame.origin.x < 250 {
-
-                UIView.animate(withDuration: 0.1) {
-                    let micImg = UIImage(named: "Trash")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-                    self.recordButton.setImage(micImg, for: .normal)
-                    self.recordButton.backgroundColor = .red
-                }
-
-            }else{
-                UIView.animate(withDuration: 0.1) {
-                    let micImg = UIImage(named: "microPhone")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-                    self.recordButton.setImage(micImg, for: .normal)
-                   // self.recordButton.backgroundColor = .blue
-                }
-            }
-
-            if recordButton.frame.origin.x < bottomPanelView.bounds.width/2 - recordButton.frame.width/2 {
-                recordButton.frame.origin.x = bottomPanelView.bounds.width/2 - recordButton.frame.width/2
-            }
-
-            if recordButton.frame.origin.x > buttonX{
-                recordButton.frame.origin.x = buttonX
-            }
-
-        }
-    }
+//            timer.invalidate()
+//            timer2.invalidate()
+//            timerLabel.textColor = UIColor(hexString: "BFBFBF")
+//            timerLabel.text = "Send your voice message"
+//         //   leftCancelLabel.isHidden = true
+//            recordLength = seconds
+//            (minutes, seconds, fractions) = (0, 0, 0)
+//
+//           // leftCancelLabel.isHidden = true
+//
+//
+//            UIView.animate(withDuration: 0.1) {
+//                let micImg = UIImage(named: "microPhone")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+//                self.recordButton.setImage(micImg, for: .normal)
+//                self.recordButton.backgroundColor = .blue
+//            }
+//        } else {
+//
+//          //  leftCancelLabel.isHidden = true
+//
+//            if let pulseBtn = self.pulse {
+//                stopAnimation(pulseAnimation: pulseBtn)
+//            }
+//            self.location = pan.location(in: bottomPanelView)
+//            recordButton.center = location
+//            recordButton.frame.origin.y = buttonY
+//
+//            print(recordButton.frame.origin.x)
+//            if recordButton.frame.origin.x < 250 {
+//
+//                UIView.animate(withDuration: 0.1) {
+//                    let micImg = UIImage(named: "Trash")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+//                    self.recordButton.setImage(micImg, for: .normal)
+//                    self.recordButton.backgroundColor = .red
+//                }
+//
+//            }else{
+//                UIView.animate(withDuration: 0.1) {
+//                    let micImg = UIImage(named: "microPhone")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+//                    self.recordButton.setImage(micImg, for: .normal)
+//                   // self.recordButton.backgroundColor = .blue
+//                }
+//            }
+//
+//            if recordButton.frame.origin.x < bottomPanelView.bounds.width/2 - recordButton.frame.width/2 {
+//                recordButton.frame.origin.x = bottomPanelView.bounds.width/2 - recordButton.frame.width/2
+//            }
+//
+//            if recordButton.frame.origin.x > buttonX{
+//                recordButton.frame.origin.x = buttonX
+//            }
+//
+//        }
+//    }
     
     @IBAction func recordButtonTouchDownDidTapped(_ sender: UIButton) {
         startRecording()
@@ -200,7 +203,7 @@ class ChatViewController: UIViewController {
                 timer2 = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
         //
                 timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(UpdateTimer), userInfo: nil, repeats: true)
-                leftCancelLabel.isHidden = false
+            //    leftCancelLabel.isHidden = false
     }
     
         @IBAction func recordButtonTouchUpInsideDidTapped(_ sender: UIButton) {
@@ -214,7 +217,7 @@ class ChatViewController: UIViewController {
             timer2.invalidate()
             timerLabel.textColor = UIColor(hexString: "BFBFBF")
             timerLabel.text = "Send your voice message"
-            leftCancelLabel.isHidden = true
+           // leftCancelLabel.isHidden = true
             recordLength = seconds
             (minutes, seconds, fractions) = (0, 0, 0)
         }
@@ -231,7 +234,7 @@ class ChatViewController: UIViewController {
             timer2.invalidate()
             timerLabel.textColor = UIColor(hexString: "BFBFBF")
             timerLabel.text = "Send your voice message"
-            leftCancelLabel.isHidden = true
+           // leftCancelLabel.isHidden = true
             recordLength = seconds
             (minutes, seconds, fractions) = (0, 0, 0)
         }
@@ -239,22 +242,23 @@ class ChatViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
+ 
+        if let lastMsgId = self.lastMessageId, let dialogId = self.dialogId {
+                    Ref().databaseRoot.child("feedMessages").child(dialogId).child(lastMsgId).child("isRead").setValue(true)
+                    Ref().databaseInbox.child(dialogId).child("isRead").setValue(true)
         
-        //Update isRead in inbox
-        
-            if let lastMsgId = self.lastMessageId, let dialogId = self.dialogId {
-    //            Database.database().reference().child("feedMessages").child(chatId)
-                Ref().databaseRoot.child("feedMessages").child(dialogId).child(lastMsgId).child("isRead").setValue(true)
-                Ref().databaseInbox.child(dialogId).child("isRead").setValue(true)
-                
-            }
-        
-        
+                }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
+        
+//        if let lastMsgId = self.lastMessageId, let dialogId = self.dialogId {
+//            Ref().databaseRoot.child("feedMessages").child(dialogId).child(lastMsgId).child("isRead").setValue(true)
+//            Ref().databaseInbox.child(dialogId).child("isRead").setValue(true)
+//
+//        }
     }
     //MARK: -TIMER
     @objc func UpdateTimer() {
@@ -297,50 +301,50 @@ class ChatViewController: UIViewController {
     //        }
     //    }
     
-    @IBAction func mediaButtonDidTapped(_ sender: Any) {
-        let alert = UIAlertController(title: "TChat", message: "Select source", preferredStyle: UIAlertController.Style.actionSheet)
+//    @IBAction func mediaButtonDidTapped(_ sender: Any) {
+//        let alert = UIAlertController(title: "TChat", message: "Select source", preferredStyle: UIAlertController.Style.actionSheet)
+//
+//        let camera = UIAlertAction(title: "Take a picture", style: UIAlertAction.Style.default) { (_) in
+//            if  UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera){
+//                self.picker.sourceType = .camera
+//                self.present(self.picker, animated: true, completion: nil)
+//            } else {
+//                print("Unavailable")
+//            }
+//        }
+//
+//        let library = UIAlertAction(title: "Choose an Image or Video", style: UIAlertAction.Style.default) { (_) in
+//            if  UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+//                self.picker.sourceType = .photoLibrary
+//                self.picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+//                // self.picker.mediaTypes = [String(kUTTypeImage)]//, String(kUTTypeMovie)]
+//                self.present(self.picker, animated: true, completion: nil)
+//            } else {
+//                print("Unavailable")
+//            }
+//        }
+//
+//        let videoCamera = UIAlertAction(title: "Take a video", style: UIAlertAction.Style.default) { (_) in
+//            if  UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera){
+//                self.picker.sourceType = .camera
+//                self.picker.mediaTypes = [String(kUTTypeMovie)] //MobileCoreServices
+//                self.picker.videoExportPreset = AVAssetExportPresetPassthrough //AVFoundation
+//                self.picker.videoMaximumDuration = 30
+//                self.present(self.picker, animated: true, completion: nil)
+//            } else {
+//                print("Unavailable")
+//            }
+//        }
         
-        let camera = UIAlertAction(title: "Take a picture", style: UIAlertAction.Style.default) { (_) in
-            if  UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera){
-                self.picker.sourceType = .camera
-                self.present(self.picker, animated: true, completion: nil)
-            } else {
-                print("Unavailable")
-            }
-        }
-        
-        let library = UIAlertAction(title: "Choose an Image or Video", style: UIAlertAction.Style.default) { (_) in
-            if  UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
-                self.picker.sourceType = .photoLibrary
-                self.picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
-                // self.picker.mediaTypes = [String(kUTTypeImage)]//, String(kUTTypeMovie)]
-                self.present(self.picker, animated: true, completion: nil)
-            } else {
-                print("Unavailable")
-            }
-        }
-        
-        let videoCamera = UIAlertAction(title: "Take a video", style: UIAlertAction.Style.default) { (_) in
-            if  UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera){
-                self.picker.sourceType = .camera
-                self.picker.mediaTypes = [String(kUTTypeMovie)] //MobileCoreServices
-                self.picker.videoExportPreset = AVAssetExportPresetPassthrough //AVFoundation
-                self.picker.videoMaximumDuration = 30
-                self.present(self.picker, animated: true, completion: nil)
-            } else {
-                print("Unavailable")
-            }
-        }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
-        
-        alert.addAction(camera)
-        alert.addAction(library)
-        alert.addAction(cancel)
-        alert.addAction(videoCamera)
-        
-        present(alert, animated: true, completion: nil)
-    }
+//        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
+//
+//        alert.addAction(camera)
+//        alert.addAction(library)
+//        alert.addAction(cancel)
+//        alert.addAction(videoCamera)
+//
+//        present(alert, animated: true, completion: nil)
+//    }
     
     
     /*
