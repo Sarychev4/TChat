@@ -8,15 +8,14 @@
 import Foundation
 import UIKit
 
-class MessageCurves: UIView {
+class MessageCurvesReaded: UIView {
 
-    var array: [Float] = []//[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.2, 0.1, 0.2, 0.3]
+    var array: [Float] = []//[][0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.2, 0.1, 0.2, 0.3]
     var startX: CGFloat = 0
     var startY: CGFloat = 3
     
     var endX: CGFloat = 0
     var endY: CGFloat = 3
-   
     
     var line1 = UIBezierPath()
     var line2 = UIBezierPath()
@@ -39,8 +38,8 @@ class MessageCurves: UIView {
         pathVariable.move(to: CGPoint(x: startX, y: startY))
         pathVariable.addLine(to: CGPoint(x:endX , y: endY))
         pathVariable.close()
-        UIColor.systemBlue.setFill()
-        UIColor.systemBlue.setStroke()
+        UIColor.lightGray.setFill()
+        UIColor.lightGray.setStroke()
         
         pathVariable.lineWidth = 6.0
         pathVariable.lineJoinStyle = .round

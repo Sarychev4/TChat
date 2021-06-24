@@ -22,8 +22,21 @@ class MessageTableViewCell: UITableViewCell {
     var soundWaveView: AudioVisualizationView!
     var soundWaveViewLeft: AudioVisualizationView!
     
-    var soundLinesViewRight: MessageCurves!
-    var soundLinesViewLeft: MessageCurves!
+    
+    
+    @IBOutlet weak var soundLinesViewRight: MessageCurves!
+    @IBOutlet weak var soundLinesViewLeft: MessageCurves!
+    
+    @IBOutlet weak var soundLinesViewRightReaded: MessageCurvesReaded!
+    @IBOutlet weak var soundLinesViewLeftReaded: MessageCurvesReaded!
+    
+    
+    @IBOutlet weak var containerForSoundLinesViewRightReaded: UIView!
+    
+    @IBOutlet weak var containerForSoundLinesViewLeftReaded: UIView!
+    //var soundLinesViewRight: MessageCurves!
+   // var soundLinesViewLeft: MessageCurves!
+    @IBOutlet weak var containerForSoundLinesViewRightReadedBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var rightContainerForSoundWaveView: UIView!
     @IBOutlet weak var leftContainerForSoundWaveView: UIView!
@@ -147,6 +160,12 @@ class MessageTableViewCell: UITableViewCell {
     //    }
     
     @objc func handleTap() {
+        print("PLAY SOUND")
+        UIView.animate(withDuration: Double(self.message.recordLength)) {
+            self.containerForSoundLinesViewRightReadedBottomConstraint.constant = 0
+            self.rightContainerForSoundWaveView.layoutIfNeeded()
+        }
+       
         handleAudioPlay()
         //        if self.player?.rate == 0 {
         //            self.player!.play()
@@ -167,21 +186,31 @@ class MessageTableViewCell: UITableViewCell {
         // let text = message.text
         //let audioUrlText = message.audioUrl
         let samples = message.cuttedMessageSamples
+        containerForSoundLinesViewRightReadedBottomConstraint.constant = containerForSoundLinesViewRightReaded.bounds.height
+        containerForSoundLinesViewRightReaded.clipsToBounds = true
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         let tapLeft = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         
-        self.soundLinesViewRight = MessageCurves(frame: CGRect(x: 0, y: 0, width: 34, height: self.rightContainerForSoundWaveView.bounds.height))
+        //self.soundLinesViewRight = MessageCurves(frame: CGRect(x: 0, y: 0, width: 34, height: self.rightContainerForSoundWaveView.bounds.height))
         self.soundLinesViewRight.array = samples
         self.soundLinesViewRight.backgroundColor = .clear
-        self.soundLinesViewRight.addGestureRecognizer(tap)
-        rightContainerForSoundWaveView.addSubview(self.soundLinesViewRight)
+        
+        self.soundLinesViewRightReaded.array = samples
+        self.soundLinesViewRightReaded.backgroundColor = .clear
+        self.rightContainerForSoundWaveView.addGestureRecognizer(tap)
+        //rightContainerForSoundWaveView.addSubview(self.soundLinesViewRight)
         
         
-        self.soundLinesViewLeft = MessageCurves(frame: CGRect(x: 0, y: 0, width: 34, height: self.rightContainerForSoundWaveView.bounds.height))
+        //self.soundLinesViewLeft = MessageCurves(frame: CGRect(x: 0, y: 0, width: 34, height: self.rightContainerForSoundWaveView.bounds.height))
+        
         self.soundLinesViewLeft.array = samples
         self.soundLinesViewLeft.backgroundColor = .clear
-        self.soundLinesViewLeft.addGestureRecognizer(tapLeft)
-        leftContainerForSoundWaveView.addSubview(self.soundLinesViewLeft)
+        
+        self.soundLinesViewLeftReaded.array = samples
+        self.soundLinesViewLeftReaded.backgroundColor = .clear
+        self.leftContainerForSoundWaveView.addGestureRecognizer(tapLeft)
+       // leftContainerForSoundWaveView.addSubview(self.soundLinesViewLeft)
         
 //        self.soundWaveView = AudioVisualizationView(frame: CGRect(x: -50, y: 0, width: 135, height: 135))
 //        self.soundWaveView.meteringLevelBarWidth = 6.0

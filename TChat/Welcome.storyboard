@@ -213,13 +213,60 @@
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dqt-lD-qHG">
                                                             <rect key="frame" x="298" y="0.0" width="34" height="150"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXh-xU-b0H" customClass="MessageCurves" customModule="TChat" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="34" height="150"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4aj-8g-ULW">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="34" height="150"/>
+                                                                    <subviews>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zfa-yL-5dd" customClass="MessageCurvesReaded" customModule="TChat" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="34" height="150"/>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        </view>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                            </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="zfa-yL-5dd" secondAttribute="trailing" id="0C8-If-IXQ"/>
+                                                                <constraint firstItem="4aj-8g-ULW" firstAttribute="leading" secondItem="Dqt-lD-qHG" secondAttribute="leading" id="0i6-Sx-Z0U"/>
+                                                                <constraint firstItem="zfa-yL-5dd" firstAttribute="top" secondItem="Dqt-lD-qHG" secondAttribute="top" id="44d-fv-yJy"/>
+                                                                <constraint firstAttribute="trailing" secondItem="DXh-xU-b0H" secondAttribute="trailing" id="7od-Kv-jPj"/>
+                                                                <constraint firstItem="DXh-xU-b0H" firstAttribute="leading" secondItem="Dqt-lD-qHG" secondAttribute="leading" id="Ejd-fd-wPI"/>
+                                                                <constraint firstItem="DXh-xU-b0H" firstAttribute="top" secondItem="Dqt-lD-qHG" secondAttribute="top" id="HH7-Ai-XHt"/>
+                                                                <constraint firstItem="zfa-yL-5dd" firstAttribute="leading" secondItem="Dqt-lD-qHG" secondAttribute="leading" id="HHk-JS-EaX"/>
+                                                                <constraint firstAttribute="bottom" secondItem="4aj-8g-ULW" secondAttribute="bottom" id="N3l-Rm-yFk"/>
+                                                                <constraint firstItem="4aj-8g-ULW" firstAttribute="top" secondItem="Dqt-lD-qHG" secondAttribute="top" id="Sg1-Ti-yLs"/>
+                                                                <constraint firstAttribute="trailing" secondItem="4aj-8g-ULW" secondAttribute="trailing" id="Sla-iO-N8Q"/>
                                                                 <constraint firstAttribute="width" constant="34" id="e9b-1e-fjg"/>
+                                                                <constraint firstAttribute="bottom" secondItem="zfa-yL-5dd" secondAttribute="bottom" id="f56-17-uEA"/>
+                                                                <constraint firstAttribute="bottom" secondItem="DXh-xU-b0H" secondAttribute="bottom" id="sEZ-CX-Veb"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jR8-cJ-hhp">
                                                             <rect key="frame" x="0.0" y="0.0" width="34" height="150"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXQ-JQ-TE1" customClass="MessageCurves" customModule="TChat" customModuleProvider="target">
+                                                                    <rect key="frame" x="-103" y="11" width="240" height="128"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wPY-ak-6TO">
+                                                                    <rect key="frame" x="-103" y="11" width="240" height="128"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <subviews>
+                                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9zj-uP-LmC" customClass="MessageCurvesReaded" customModule="TChat" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        </view>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                            </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="34" id="8WV-lE-Ksg"/>
@@ -261,6 +308,9 @@
                                             <outlet property="bubbleLeftConstraint" destination="f6s-nj-6AJ" id="fd3-PK-baN"/>
                                             <outlet property="bubbleRightConstraint" destination="IN4-fO-Syv" id="zLX-me-yKA"/>
                                             <outlet property="bubbleView" destination="AHK-PN-Nv4" id="KTl-KK-ubS"/>
+                                            <outlet property="containerForSoundLinesViewLeftReaded" destination="wPY-ak-6TO" id="req-UR-k0B"/>
+                                            <outlet property="containerForSoundLinesViewRightReaded" destination="4aj-8g-ULW" id="D4a-0V-Ibg"/>
+                                            <outlet property="containerForSoundLinesViewRightReadedBottomConstraint" destination="N3l-Rm-yFk" id="3Zt-HB-UIl"/>
                                             <outlet property="containerForSoundWaveViewRightConstraint" destination="Kft-Ez-flz" id="qE0-Br-3JN"/>
                                             <outlet property="leftContainerForSoundWaveView" destination="jR8-cJ-hhp" id="pW7-of-1Nw"/>
                                             <outlet property="profileImageView" destination="oaq-Lp-nWi" id="1CC-ag-goF"/>
@@ -269,6 +319,10 @@
                                             <outlet property="profileNameRightConstraint" destination="T47-wm-bJp" id="Jhw-p6-d8c"/>
                                             <outlet property="profileNameTopConstraint" destination="W2c-GU-Fzs" id="egg-Ts-XSe"/>
                                             <outlet property="rightContainerForSoundWaveView" destination="Dqt-lD-qHG" id="gHk-Qu-mNm"/>
+                                            <outlet property="soundLinesViewLeft" destination="kXQ-JQ-TE1" id="uas-hB-6cM"/>
+                                            <outlet property="soundLinesViewLeftReaded" destination="9zj-uP-LmC" id="RyH-yR-Dni"/>
+                                            <outlet property="soundLinesViewRight" destination="DXh-xU-b0H" id="795-fP-68L"/>
+                                            <outlet property="soundLinesViewRightReaded" destination="zfa-yL-5dd" id="89N-bd-fbZ"/>
                                             <outlet property="timeAndDateLabel" destination="aZY-Su-sCP" id="Yyp-L7-dRf"/>
                                             <outlet property="timeAndDateLabelLeftConstraint" destination="czb-qa-bpe" id="lKf-oK-as6"/>
                                             <outlet property="timeAndDateLabelRightConstraint" destination="muh-sA-AwN" id="XqU-KN-axL"/>
