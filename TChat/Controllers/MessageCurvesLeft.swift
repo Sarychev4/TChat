@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MessageCurves: UIView {
+class MessageCurvesLeft: UIView {
 
     var array: [Float] = []//[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.2, 0.1, 0.2, 0.3]
     var startX: CGFloat = 0
@@ -39,9 +39,9 @@ class MessageCurves: UIView {
         pathVariable.move(to: CGPoint(x: startX, y: startY))
         pathVariable.addLine(to: CGPoint(x:endX , y: endY))
         pathVariable.close()
-        UIColor.systemBlue.setFill()
-        UIColor.systemBlue.setStroke()
-        
+//        UIColor.systemBlue.setFill()
+//        UIColor.systemBlue.setStroke()
+        UIColor(hexString: "0584FE").setStroke()
         pathVariable.lineWidth = 6.0
         pathVariable.lineJoinStyle = .round
         pathVariable.stroke()

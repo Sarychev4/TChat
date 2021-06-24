@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class InboxCurvesReaded: UIView {
+class InboxCurves: UIView {
 
     var array: [Float] = []//[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.2, 0.1, 0.2, 0.3]
     var startX: CGFloat = 2
@@ -42,7 +42,11 @@ class InboxCurvesReaded: UIView {
     var line23 = UIBezierPath()
     var line24 = UIBezierPath()
     var line25 = UIBezierPath()
-    
+    var line26 = UIBezierPath()
+    var line27 = UIBezierPath()
+    var line28 = UIBezierPath()
+    var line29 = UIBezierPath()
+    var line30 = UIBezierPath()
     
     var arrayOfVariables: [UIBezierPath] = []
     
@@ -51,8 +55,8 @@ class InboxCurvesReaded: UIView {
         pathVariable.move(to: CGPoint(x: startX, y: startY))
         pathVariable.addLine(to: CGPoint(x:endX , y: endY))
         pathVariable.close()
-        UIColor.lightGray.setFill()
-        UIColor.lightGray.setStroke()
+        UIColor.systemBlue.setFill()
+        UIColor.systemBlue.setStroke()
         pathVariable.lineWidth = 4.0
         pathVariable.lineJoinStyle = .round
         pathVariable.stroke()
@@ -65,7 +69,7 @@ class InboxCurvesReaded: UIView {
        // let centerX: CGFloat = self.bounds.width / 2
         let centerY: CGFloat = self.bounds.height / 2
         
-        arrayOfVariables.append(contentsOf: [line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13, line14, line15, line16, line17, line18, line19, line20, line21, line22, line23, line24, line25])
+        arrayOfVariables.append(contentsOf: [line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13, line14, line15, line16, line17, line18, line19, line20, line21, line22, line23, line24, line25, line26, line27, line28, line29, line30])
         for i in 0..<arrayOfVariables.count{
             //print(i)
             var lineStart: CGFloat = 0//centerX * CGFloat(self.array[i])

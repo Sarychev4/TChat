@@ -466,7 +466,7 @@ extension ChatViewController: AVAudioRecorderDelegate {
     }
     
     func cutInboxSamples(){
-        let numberOfLines = 25
+        let numberOfLines = 30
         let elementToGet = (self.samples.count / numberOfLines)
         var cuttedSamples: [CGFloat] = []
         for item in 0..<self.samples.count where item % elementToGet == 0 {

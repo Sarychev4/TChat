@@ -24,20 +24,22 @@ class MessageTableViewCell: UITableViewCell {
     
     
     
-    @IBOutlet weak var soundLinesViewRight: MessageCurves!
-    @IBOutlet weak var soundLinesViewLeft: MessageCurves!
+    @IBOutlet weak var soundLinesViewRight: MessageCurvesRight!
+    @IBOutlet weak var soundLinesViewLeft: MessageCurvesLeft!
     
     @IBOutlet weak var soundLinesViewRightReaded: MessageCurvesReaded!
     @IBOutlet weak var soundLinesViewLeftReaded: MessageCurvesReaded!
     
     
     @IBOutlet weak var containerForSoundLinesViewRightReaded: UIView!
-    
     @IBOutlet weak var containerForSoundLinesViewLeftReaded: UIView!
+    
+    
     //var soundLinesViewRight: MessageCurves!
    // var soundLinesViewLeft: MessageCurves!
     @IBOutlet weak var containerForSoundLinesViewRightReadedBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var containerForSoundLinesViewLeftReadedBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var rightContainerForSoundWaveView: UIView!
     @IBOutlet weak var leftContainerForSoundWaveView: UIView!
     
@@ -144,7 +146,8 @@ class MessageTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+     //   self.containerForSoundLinesViewRightReadedBottomConstraint.constant = self.containerForSoundLinesViewRightReaded.bounds.height
+      //            self.containerForSoundLinesViewLeftReadedBottomConstraint.constant = self.containerForSoundLinesViewLeftReaded.bounds.height
         //profileImageView.isHidden = true
         //player?.currentItem?.removeObserver(self, forKeyPath: KeyPath.PlayerItem.Status)
         playerLayer?.removeFromSuperlayer()
@@ -161,10 +164,19 @@ class MessageTableViewCell: UITableViewCell {
     
     @objc func handleTap() {
         print("PLAY SOUND")
-        UIView.animate(withDuration: Double(self.message.recordLength)) {
+        UIView.animate(withDuration: Double(self.message.recordLength), animations: {
             self.containerForSoundLinesViewRightReadedBottomConstraint.constant = 0
+            self.containerForSoundLinesViewLeftReadedBottomConstraint.constant = 0
             self.rightContainerForSoundWaveView.layoutIfNeeded()
-        }
+            self.leftContainerForSoundWaveView.layoutIfNeeded()
+        }, completion: { (finished: Bool) in
+//            self.containerForSoundLinesViewRightReadedBottomConstraint.constant = self.containerForSoundLinesViewRightReaded.bounds.height
+//            self.containerForSoundLinesViewLeftReadedBottomConstraint.constant = self.containerForSoundLinesViewLeftReaded.bounds.height
+//
+//            self.rightContainerForSoundWaveView.layoutIfNeeded()
+//            self.leftContainerForSoundWaveView.layoutIfNeeded()
+        })
+
        
         handleAudioPlay()
         //        if self.player?.rate == 0 {
@@ -186,59 +198,31 @@ class MessageTableViewCell: UITableViewCell {
         // let text = message.text
         //let audioUrlText = message.audioUrl
         let samples = message.cuttedMessageSamples
-        containerForSoundLinesViewRightReadedBottomConstraint.constant = containerForSoundLinesViewRightReaded.bounds.height
-        containerForSoundLinesViewRightReaded.clipsToBounds = true
+        
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         let tapLeft = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         
-        //self.soundLinesViewRight = MessageCurves(frame: CGRect(x: 0, y: 0, width: 34, height: self.rightContainerForSoundWaveView.bounds.height))
         self.soundLinesViewRight.array = samples
         self.soundLinesViewRight.backgroundColor = .clear
         
         self.soundLinesViewRightReaded.array = samples
         self.soundLinesViewRightReaded.backgroundColor = .clear
+        
+        containerForSoundLinesViewRightReadedBottomConstraint.constant = containerForSoundLinesViewRightReaded.bounds.height
+        containerForSoundLinesViewRightReaded.clipsToBounds = true
         self.rightContainerForSoundWaveView.addGestureRecognizer(tap)
-        //rightContainerForSoundWaveView.addSubview(self.soundLinesViewRight)
-        
-        
-        //self.soundLinesViewLeft = MessageCurves(frame: CGRect(x: 0, y: 0, width: 34, height: self.rightContainerForSoundWaveView.bounds.height))
         
         self.soundLinesViewLeft.array = samples
         self.soundLinesViewLeft.backgroundColor = .clear
         
         self.soundLinesViewLeftReaded.array = samples
         self.soundLinesViewLeftReaded.backgroundColor = .clear
+        
+        containerForSoundLinesViewLeftReadedBottomConstraint.constant = containerForSoundLinesViewLeftReaded.bounds.height
+        containerForSoundLinesViewLeftReaded.clipsToBounds = true
         self.leftContainerForSoundWaveView.addGestureRecognizer(tapLeft)
-       // leftContainerForSoundWaveView.addSubview(self.soundLinesViewLeft)
-        
-//        self.soundWaveView = AudioVisualizationView(frame: CGRect(x: -50, y: 0, width: 135, height: 135))
-//        self.soundWaveView.meteringLevelBarWidth = 6.0
-//        self.soundWaveView.meteringLevelBarInterItem = 6.0
-//        self.soundWaveView.gradientStartColor = .blue
-//        self.soundWaveView.backgroundColor = .white
-//        self.soundWaveView.gradientEndColor = .white
-//        self.soundWaveView.audioVisualizationMode = .read
-//        self.soundWaveView.addGestureRecognizer(tap)
-//        self.soundWaveView.isUserInteractionEnabled = true
-//        self.soundWaveView.meteringLevels = samples
-//        self.rightContainerForSoundWaveView.addSubview(self.soundWaveView)
-//        self.soundWaveView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2.0)
-        
-        
-//        self.soundWaveViewLeft = AudioVisualizationView(frame: CGRect(x: -50, y: 0, width: 135, height: 135))
-//        self.soundWaveViewLeft.meteringLevelBarWidth = 6.0
-//        self.soundWaveViewLeft.meteringLevelBarInterItem = 6.0
-//        self.soundWaveViewLeft.gradientStartColor = .blue
-//        self.soundWaveViewLeft.backgroundColor = .white
-//        self.soundWaveViewLeft.gradientEndColor = .white
-//        self.soundWaveViewLeft.audioVisualizationMode = .read
-//        self.soundWaveViewLeft.addGestureRecognizer(tapLeft)
-//        self.soundWaveViewLeft.isUserInteractionEnabled = true
-//        self.soundWaveViewLeft.meteringLevels = samples
-//        self.leftContainerForSoundWaveView.addSubview(self.soundWaveViewLeft)
-//        self.soundWaveViewLeft.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2.0)
-        
+
         if uid == message.senderId { //my
             if let currentUserImg = image {
                 profileImageView.image = currentUserImg

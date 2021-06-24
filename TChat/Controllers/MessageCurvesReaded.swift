@@ -38,8 +38,9 @@ class MessageCurvesReaded: UIView {
         pathVariable.move(to: CGPoint(x: startX, y: startY))
         pathVariable.addLine(to: CGPoint(x:endX , y: endY))
         pathVariable.close()
-        UIColor.lightGray.setFill()
-        UIColor.lightGray.setStroke()
+//        UIColor.lightGray.setFill()
+//        UIColor.lightGray.setStroke()
+        UIColor(hexString: "BFBFBF").setStroke()
         
         pathVariable.lineWidth = 6.0
         pathVariable.lineJoinStyle = .round

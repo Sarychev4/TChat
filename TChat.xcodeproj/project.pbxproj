@@ -42,10 +42,11 @@
 		DD90A4292639A65C00EAD20B /* InboxListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD90A4282639A65C00EAD20B /* InboxListTableViewController.swift */; };
 		DDA72F8A2670E91900B1C113 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDA72F892670E91900B1C113 /* SFProDisplay-Regular.ttf */; };
 		DDA7300D267A3E6100B1C113 /* LocalCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA7300C267A3E6100B1C113 /* LocalCacheService.swift */; };
-		DDB60DC8268330F800D75642 /* MessageCurves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB60DC7268330F800D75642 /* MessageCurves.swift */; };
+		DDB60DC8268330F800D75642 /* MessageCurvesRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB60DC7268330F800D75642 /* MessageCurvesRight.swift */; };
 		DDB60DCD26834CB300D75642 /* InboxCurves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB60DCC26834CB300D75642 /* InboxCurves.swift */; };
 		DDB60DD026835EF400D75642 /* InboxCurvesReaded.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB60DCF26835EF400D75642 /* InboxCurvesReaded.swift */; };
 		DDB60DD42683AA7400D75642 /* MessageCurvesReaded.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB60DD32683AA7400D75642 /* MessageCurvesReaded.swift */; };
+		DDB60DDC2684850100D75642 /* MessageCurvesLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB60DDB2684850100D75642 /* MessageCurvesLeft.swift */; };
 		DDDB3043265540C00024FAE8 /* PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB3042265540C00024FAE8 /* PulseAnimation.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,10 +90,11 @@
 		DD90A4282639A65C00EAD20B /* InboxListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxListTableViewController.swift; sourceTree = "<group>"; };
 		DDA72F892670E91900B1C113 /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
 		DDA7300C267A3E6100B1C113 /* LocalCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCacheService.swift; sourceTree = "<group>"; };
-		DDB60DC7268330F800D75642 /* MessageCurves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCurves.swift; sourceTree = "<group>"; };
+		DDB60DC7268330F800D75642 /* MessageCurvesRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCurvesRight.swift; sourceTree = "<group>"; };
 		DDB60DCC26834CB300D75642 /* InboxCurves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxCurves.swift; sourceTree = "<group>"; };
 		DDB60DCF26835EF400D75642 /* InboxCurvesReaded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxCurvesReaded.swift; sourceTree = "<group>"; };
 		DDB60DD32683AA7400D75642 /* MessageCurvesReaded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCurvesReaded.swift; sourceTree = "<group>"; };
+		DDB60DDB2684850100D75642 /* MessageCurvesLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCurvesLeft.swift; sourceTree = "<group>"; };
 		DDDB3042265540C00024FAE8 /* PulseAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,48 +127,45 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DD70B77F264F244200730FDF /* Model */ = {
+		DD70B77F264F244200730FDF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DD70B785264F251800730FDF /* Api */,
 				DD463CAA263B0B4100F37791 /* User.swift */,
 				DD463CDD263CC2D600F37791 /* Message.swift */,
 				DD02D611264183AB00294E5B /* Inbox.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		DD70B781264F24A300730FDF /* Controller */ = {
+		DD70B781264F24A300730FDF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				DD90A3AC2636B82600EAD20B /* Welcome.swift */,
-				DD90A3C126374A4E00EAD20B /* Welcome+UI.swift */,
 				DD4477552645D5840061BB69 /* ProfileTableViewController.swift */,
 				DD90A4282639A65C00EAD20B /* InboxListTableViewController.swift */,
 				DD463CA4263AEAFA00F37791 /* PeopleTableViewController.swift */,
 				DD463CC3263B668C00F37791 /* ChatViewController.swift */,
-				DD02D60E26417F6800294E5B /* ChatViewController+Extension.swift */,
-				DDB60DC7268330F800D75642 /* MessageCurves.swift */,
+				DDB60DC7268330F800D75642 /* MessageCurvesRight.swift */,
+				DDB60DDB2684850100D75642 /* MessageCurvesLeft.swift */,
 				DDB60DD32683AA7400D75642 /* MessageCurvesReaded.swift */,
 				DDB60DCC26834CB300D75642 /* InboxCurves.swift */,
 				DDB60DCF26835EF400D75642 /* InboxCurvesReaded.swift */,
 				DD90A3C426375B4900EAD20B /* SignUpViewController.swift */,
-				DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */,
 				DD90A3CA263770E100EAD20B /* SignInViewController.swift */,
-				DD90A3CE263772A000EAD20B /* SignInViewController+UI.swift */,
 				DD90A3D12637759700EAD20B /* ForgotPasswordViewController.swift */,
-				DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */,
 			);
-			path = Controller;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
-		DD70B783264F24EF00730FDF /* View */ = {
+		DD70B783264F24EF00730FDF /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				DD02D6142641897A00294E5B /* InboxTableViewCell.swift */,
 				DD463CA7263AF10500F37791 /* UserTableViewCell.swift */,
 				DD463CE0263CCEEE00F37791 /* MessageTableViewCell.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		DD70B785264F251800730FDF /* Api */ = {
@@ -207,17 +206,15 @@
 				DD90A3A82636B82600EAD20B /* AppDelegate.swift */,
 				DD90A3AA2636B82600EAD20B /* SceneDelegate.swift */,
 				DD90A3BD2636BE6700EAD20B /* Welcome.storyboard */,
-				DDDB3042265540C00024FAE8 /* PulseAnimation.swift */,
-				DD70B781264F24A300730FDF /* Controller */,
-				DD70B783264F24EF00730FDF /* View */,
-				DD70B785264F251800730FDF /* Api */,
-				DD70B77F264F244200730FDF /* Model */,
+				DDB60DE02684945900D75642 /* Resources */,
+				DD70B781264F24A300730FDF /* Controllers */,
+				DD70B783264F24EF00730FDF /* Views */,
+				DD70B77F264F244200730FDF /* Models */,
+				DDB60DE22684950400D75642 /* Extensions */,
 				DD90A3B12636B82800EAD20B /* Assets.xcassets */,
-				DD463CC0263B361800F37791 /* Extension.swift */,
 				DD90A3B32636B82800EAD20B /* LaunchScreen.storyboard */,
 				DD90A3D826377FAA00EAD20B /* GoogleService-Info.plist */,
 				DD90A3B62636B82800EAD20B /* Info.plist */,
-				DDA72F882670E8EC00B1C113 /* Fonts */,
 			);
 			path = TChat;
 			sourceTree = "<group>";
@@ -228,6 +225,44 @@
 				DDA72F892670E91900B1C113 /* SFProDisplay-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		DDB60DE02684945900D75642 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DDB60DE5268495B500D75642 /* Files */,
+				DDB60DE1268494DA00D75642 /* Animations */,
+				DDA72F882670E8EC00B1C113 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DDB60DE1268494DA00D75642 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				DDDB3042265540C00024FAE8 /* PulseAnimation.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		DDB60DE22684950400D75642 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DD463CC0263B361800F37791 /* Extension.swift */,
+				DD90A3C126374A4E00EAD20B /* Welcome+UI.swift */,
+				DD02D60E26417F6800294E5B /* ChatViewController+Extension.swift */,
+				DD90A3C7263765DF00EAD20B /* SignUpViewController+UI.swift */,
+				DD90A3CE263772A000EAD20B /* SignInViewController+UI.swift */,
+				DD90A3D4263775A600EAD20B /* ForgotPasswordViewController+UI.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DDB60DE5268495B500D75642 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Files;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,6 +406,7 @@
 				DD90A3D22637759700EAD20B /* ForgotPasswordViewController.swift in Sources */,
 				DD90A4292639A65C00EAD20B /* InboxListTableViewController.swift in Sources */,
 				DD90A3C226374A4E00EAD20B /* Welcome+UI.swift in Sources */,
+				DDB60DDC2684850100D75642 /* MessageCurvesLeft.swift in Sources */,
 				DD463CC1263B361800F37791 /* Extension.swift in Sources */,
 				DD90A40E26384D4700EAD20B /* UserApi.swift in Sources */,
 				DDB60DD026835EF400D75642 /* InboxCurvesReaded.swift in Sources */,
@@ -378,7 +414,7 @@
 				DDA7300D267A3E6100B1C113 /* LocalCacheService.swift in Sources */,
 				DD02D612264183AB00294E5B /* Inbox.swift in Sources */,
 				DD463CDE263CC2D600F37791 /* Message.swift in Sources */,
-				DDB60DC8268330F800D75642 /* MessageCurves.swift in Sources */,
+				DDB60DC8268330F800D75642 /* MessageCurvesRight.swift in Sources */,
 				DD90A3AB2636B82600EAD20B /* SceneDelegate.swift in Sources */,
 				DD463CE1263CCEEE00F37791 /* MessageTableViewCell.swift in Sources */,
 				DD463CA8263AF10500F37791 /* UserTableViewCell.swift in Sources */,

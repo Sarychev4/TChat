@@ -214,7 +214,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dqt-lD-qHG">
                                                             <rect key="frame" x="298" y="0.0" width="34" height="150"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXh-xU-b0H" customClass="MessageCurves" customModule="TChat" customModuleProvider="target">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXh-xU-b0H" customClass="MessageCurvesRight" customModule="TChat" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="34" height="150"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
@@ -249,18 +249,15 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jR8-cJ-hhp">
                                                             <rect key="frame" x="0.0" y="0.0" width="34" height="150"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXQ-JQ-TE1" customClass="MessageCurves" customModule="TChat" customModuleProvider="target">
-                                                                    <rect key="frame" x="-103" y="11" width="240" height="128"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kXQ-JQ-TE1" customClass="MessageCurvesLeft" customModule="TChat" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="34" height="150"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wPY-ak-6TO">
-                                                                    <rect key="frame" x="-103" y="11" width="240" height="128"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wPY-ak-6TO">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="34" height="150"/>
                                                                     <subviews>
-                                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9zj-uP-LmC" customClass="MessageCurvesReaded" customModule="TChat" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9zj-uP-LmC" customClass="MessageCurvesReaded" customModule="TChat" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="34" height="150"/>
                                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         </view>
                                                                     </subviews>
@@ -269,8 +266,20 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="kXQ-JQ-TE1" secondAttribute="trailing" id="0RZ-W2-Q1l"/>
+                                                                <constraint firstItem="kXQ-JQ-TE1" firstAttribute="leading" secondItem="jR8-cJ-hhp" secondAttribute="leading" id="0y9-KZ-ZwL"/>
+                                                                <constraint firstItem="9zj-uP-LmC" firstAttribute="top" secondItem="jR8-cJ-hhp" secondAttribute="top" id="1Ci-Fd-yZH"/>
                                                                 <constraint firstAttribute="width" constant="34" id="8WV-lE-Ksg"/>
+                                                                <constraint firstItem="9zj-uP-LmC" firstAttribute="leading" secondItem="jR8-cJ-hhp" secondAttribute="leading" id="HmC-DZ-Wbx"/>
+                                                                <constraint firstAttribute="bottom" secondItem="wPY-ak-6TO" secondAttribute="bottom" id="Okf-1X-Pa0"/>
+                                                                <constraint firstItem="kXQ-JQ-TE1" firstAttribute="top" secondItem="jR8-cJ-hhp" secondAttribute="top" id="QKN-oB-V9P"/>
                                                                 <constraint firstAttribute="height" constant="150" id="VZd-4y-DJd"/>
+                                                                <constraint firstAttribute="bottom" secondItem="9zj-uP-LmC" secondAttribute="bottom" id="ZXZ-Qr-aKP"/>
+                                                                <constraint firstItem="wPY-ak-6TO" firstAttribute="leading" secondItem="jR8-cJ-hhp" secondAttribute="leading" id="dIm-mt-Kqz"/>
+                                                                <constraint firstItem="wPY-ak-6TO" firstAttribute="top" secondItem="jR8-cJ-hhp" secondAttribute="top" id="dZP-3t-lZf"/>
+                                                                <constraint firstAttribute="trailing" secondItem="wPY-ak-6TO" secondAttribute="trailing" id="rxt-0T-Hoc"/>
+                                                                <constraint firstAttribute="bottom" secondItem="kXQ-JQ-TE1" secondAttribute="bottom" id="tBp-UO-kVr"/>
+                                                                <constraint firstAttribute="trailing" secondItem="9zj-uP-LmC" secondAttribute="trailing" id="vVF-Cl-6q6"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -309,6 +318,7 @@
                                             <outlet property="bubbleRightConstraint" destination="IN4-fO-Syv" id="zLX-me-yKA"/>
                                             <outlet property="bubbleView" destination="AHK-PN-Nv4" id="KTl-KK-ubS"/>
                                             <outlet property="containerForSoundLinesViewLeftReaded" destination="wPY-ak-6TO" id="req-UR-k0B"/>
+                                            <outlet property="containerForSoundLinesViewLeftReadedBottomConstraint" destination="Okf-1X-Pa0" id="09e-PW-Kpv"/>
                                             <outlet property="containerForSoundLinesViewRightReaded" destination="4aj-8g-ULW" id="D4a-0V-Ibg"/>
                                             <outlet property="containerForSoundLinesViewRightReadedBottomConstraint" destination="N3l-Rm-yFk" id="3Zt-HB-UIl"/>
                                             <outlet property="containerForSoundWaveViewRightConstraint" destination="Kft-Ez-flz" id="qE0-Br-3JN"/>
@@ -319,7 +329,7 @@
                                             <outlet property="profileNameRightConstraint" destination="T47-wm-bJp" id="Jhw-p6-d8c"/>
                                             <outlet property="profileNameTopConstraint" destination="W2c-GU-Fzs" id="egg-Ts-XSe"/>
                                             <outlet property="rightContainerForSoundWaveView" destination="Dqt-lD-qHG" id="gHk-Qu-mNm"/>
-                                            <outlet property="soundLinesViewLeft" destination="kXQ-JQ-TE1" id="uas-hB-6cM"/>
+                                            <outlet property="soundLinesViewLeft" destination="kXQ-JQ-TE1" id="DR6-Pp-320"/>
                                             <outlet property="soundLinesViewLeftReaded" destination="9zj-uP-LmC" id="RyH-yR-Dni"/>
                                             <outlet property="soundLinesViewRight" destination="DXh-xU-b0H" id="795-fP-68L"/>
                                             <outlet property="soundLinesViewRightReaded" destination="zfa-yL-5dd" id="89N-bd-fbZ"/>
