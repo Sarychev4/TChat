@@ -18,11 +18,9 @@ class MessageTableViewCell: UITableViewCell {
     }
     
     @IBOutlet weak var bubbleView: UIView!
-    // @IBOutlet weak var soundWaveView: AudioVisualizationView!
+    
     var soundWaveView: AudioVisualizationView!
     var soundWaveViewLeft: AudioVisualizationView!
-    
-    
     
     @IBOutlet weak var soundLinesViewRight: MessageCurves!
     @IBOutlet weak var soundLinesViewLeft: MessageCurves!
@@ -30,24 +28,18 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var soundLinesViewRightReaded: MessageCurves!
     @IBOutlet weak var soundLinesViewLeftReaded: MessageCurves!
     
-    
     @IBOutlet weak var containerForSoundLinesViewRightReaded: UIView!
     @IBOutlet weak var containerForSoundLinesViewLeftReaded: UIView!
     
-    
-    //var soundLinesViewRight: MessageCurves!
-   // var soundLinesViewLeft: MessageCurves!
     @IBOutlet weak var containerForSoundLinesViewRightReadedBottomConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var containerForSoundLinesViewLeftReadedBottomConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var rightContainerForSoundWaveView: UIView!
     @IBOutlet weak var leftContainerForSoundWaveView: UIView!
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var profileNameLabel: UILabel!
     @IBOutlet weak var timeAndDateLabel: UILabel!
-    
-    // @IBOutlet weak var recordLengthLabel: UILabel!
     
     @IBOutlet weak var profileNameTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var profileNameLeftConstraint: NSLayoutConstraint!
@@ -56,17 +48,8 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var timeAndDateLabelLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var timeAndDateLabelRightConstraint: NSLayoutConstraint!
     
-    
-    @IBOutlet weak var containerForSoundWaveViewLeftConstraint: NSLayoutConstraint!
-    @IBOutlet weak var containerForSoundWaveViewRightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var playButton: UIButton!
-    
-    @IBOutlet weak var containerForSoundWaveViewWidth: NSLayoutConstraint!
     @IBOutlet weak var bubbleLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var bubbleRightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var bubbleWidthConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     

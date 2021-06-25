@@ -10,17 +10,6 @@ import ProgressHUD
 
 extension SignUpViewController {
     
-    
-    func setupTitleLabel(){
-        
-        let title = "Sign Up"
-        let attributedText = NSMutableAttributedString(string: title, attributes:
-                                                        [NSAttributedString.Key.font : UIFont.init(name: "SFProDisplay-Regular", size: 28)!,
-                                                         NSAttributedString.Key.foregroundColor : UIColor.black])
-        titleTextLabel.attributedText = attributedText
-        
-    }
-    
     func setupAvatar(){
         avatar.image = UIImage(named: "ChoosePhoto")
         avatar.layer.cornerRadius = 38
@@ -38,7 +27,7 @@ extension SignUpViewController {
         self.present(picker, animated: true, completion: nil)
     }
     
-    func setupFullNameTextField(){
+    func setupNameTextField(){
         
         nameContainerView.layer.borderWidth = 1
         nameContainerView.layer.borderColor = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1).cgColor
@@ -49,9 +38,9 @@ extension SignUpViewController {
         nameTextField.borderStyle = .none
         
         let placeholderAttr = NSAttributedString(string: "Name", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1)])
-
+        
         nameTextField.attributedPlaceholder = placeholderAttr
-        nameTextField.textColor = UIColor(red: 99/255, green: 99/255, blue: 99/255, alpha: 1)
+        nameTextField.textColor = UIColor(hexString: "000000")
     }
     
     func setupEmailTextField(){
@@ -67,10 +56,11 @@ extension SignUpViewController {
         let placeholderAttr = NSAttributedString(string: "E-mail", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1)])
         
         emailTextField.attributedPlaceholder = placeholderAttr
-        emailTextField.textColor = UIColor(red: 99/255, green: 99/255, blue: 99/255, alpha: 1)
+        emailTextField.textColor = UIColor(hexString: "000000")
     }
     
     func setupPasswordTextField(){
+        
         passwordContainerView.layer.borderWidth = 1
         passwordContainerView.layer.borderColor = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1).cgColor
         passwordContainerView.layer.cornerRadius = 8
@@ -82,7 +72,7 @@ extension SignUpViewController {
         let placeholderAttr = NSAttributedString(string: "Password (6+ Characters)", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1)])
         
         passwordTextField.attributedPlaceholder = placeholderAttr
-        passwordTextField.textColor = UIColor(red: 99/255, green: 99/255, blue: 99/255, alpha: 1)
+        passwordTextField.textColor = UIColor(hexString: "000000")
         
     }
     
@@ -90,104 +80,79 @@ extension SignUpViewController {
         
         signUpButton.setTitle("Sign Up", for: .normal)
         signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-        signUpButton.backgroundColor = .systemBlue
+        signUpButton.backgroundColor = UIColor(hexString: "0584FE")
         signUpButton.layer.cornerRadius = 8
         signUpButton.clipsToBounds = true
         signUpButton.setTitleColor(.white, for: UIControl.State.normal)
     }
     
     func setupSignInButton(){
+        
         signInButton.setTitle("Sign In", for: .normal)
         signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         signInButton.backgroundColor = .clear
         signInButton.layer.borderWidth = 1.0
-        signInButton.layer.borderColor = UIColor.systemBlue.cgColor
+        signInButton.layer.borderColor = UIColor(hexString: "0584FE").cgColor
         signInButton.layer.cornerRadius = 8
         signInButton.clipsToBounds = true
-        //        let attributedText = NSMutableAttributedString(string: "Already have an account? ", attributes:
-        //                                                                [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16),
-        //                                                                 NSAttributedString.Key.foregroundColor : UIColor(white: 0, alpha: 0.65)])
-        //
-        //        let attributedSubText = NSMutableAttributedString(string: "Sign in", attributes:
-        //                                                                [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18),
-        //                                                                 NSAttributedString.Key.foregroundColor : UIColor.black
-        //                                                                ])
-        //        attributedText.append(attributedSubText)
-        //
-        //        signInButton.setAttributedTitle(attributedText, for: UIControl.State.normal)
     }
+    
     //Dismiss keyboard when user touch view
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
     func validateFields(){
-        guard let selectedImage = self.image else {
+        guard self.image != nil else {
             let alert = UIAlertController(title: "Empty Image", message: ERROR_EMPTY_PHOTO, preferredStyle: UIAlertController.Style.alert)
 
-            // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-            // show the alert
+            
             self.present(alert, animated: true, completion: nil)
-   // ProgressHUD.showError(ERROR_EMPTY_USERNAME)
-    
-    return
+            return
         }
         guard let username = self.nameTextField.text, !username.isEmpty else {
-            // create the alert
-                    let alert = UIAlertController(title: "Empty name", message: ERROR_EMPTY_USERNAME, preferredStyle: UIAlertController.Style.alert)
-
-                    // add an action (button)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-                    // show the alert
-                    self.present(alert, animated: true, completion: nil)
-           // ProgressHUD.showError(ERROR_EMPTY_USERNAME)
             
+            let alert = UIAlertController(title: "Empty name", message: ERROR_EMPTY_USERNAME, preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
             return
         }
         
         guard let email = self.emailTextField.text, !email.isEmpty else {
-            // create the alert
-                    let alert = UIAlertController(title: "Empty e-mail", message: ERROR_EMPTY_EMAIL, preferredStyle: UIAlertController.Style.alert)
 
-                    // add an action (button)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            let alert = UIAlertController(title: "Empty e-mail", message: ERROR_EMPTY_EMAIL, preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-                    // show the alert
-                    self.present(alert, animated: true, completion: nil)
-            //ProgressHUD.showError(ERROR_EMPTY_EMAIL)
+            self.present(alert, animated: true, completion: nil)
             return
         }
         
         guard let password = self.passwordTextField.text, !password.isEmpty else {
-            // create the alert
+
             let alert = UIAlertController(title: "Empty password", message: ERROR_EMPTY_PASSWORD, preferredStyle: UIAlertController.Style.alert)
-
-                    // add an action (button)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-                    // show the alert
-                    self.present(alert, animated: true, completion: nil)
-           // ProgressHUD.showError(ERROR_EMPTY_PASSWORD)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
             return
         }
         
     }
     
     func signUp(onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void){
-        //ProgressHUD.show("Loading...")
+        ProgressHUD.show("Loading...")
         Api.User.signUp(withUsername: self.nameTextField.text!, email: self.emailTextField.text!, password: self.passwordTextField.text!, image: self.image, onSuccess: {
-            //ProgressHUD.dismiss()
+            ProgressHUD.dismiss()
             onSuccess()
         }) {(errorMessage) in
-            
             onError(errorMessage)
-            
         }
-        
     }
+    
 }
 
 //MARK: - Avatar extension

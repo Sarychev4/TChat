@@ -9,10 +9,7 @@ import UIKit
 
 class Welcome: UIViewController {
     
-
-    @IBOutlet weak var signInFacebookButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
-
     @IBOutlet weak var signInButton: UIButton!
     
     override func viewDidLoad() {
@@ -21,11 +18,8 @@ class Welcome: UIViewController {
     }
     
     func setupUI(){
-      
-        //setupFacebookButton()
         setupSignUpButton()
         setupSignInButton()
-          
     }
     
 }

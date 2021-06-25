@@ -63,7 +63,7 @@ class UserApi {
                     EMAIL: authData.user.email ?? "Empty",
                     USERNAME: username,
                     PROFILE_IMAGE_URL: "",
-                    STATUS: "Default status"
+                    TITLE: "New User"
                 ]
                 
                
@@ -145,7 +145,9 @@ class UserApi {
             let userJsons: [[String: Any]] = allObjects.compactMap({ $0.value as? [String: Any] })
             for userJson in userJsons {
                 if let user = User.transformUser(dict: userJson){
-                    self.users.insert(user)
+                    if user.uid != self.currentUserId{
+                        self.users.insert(user)
+                    }
                 }
             }
             onUpdate()
@@ -185,7 +187,6 @@ class UserApi {
         }
     }
     
-    //for recording status
     func recording(from: String, to: String){
         let ref = Ref().databaseIsOnline(uid: from)
         let dict: Dictionary<String, Any> = [

@@ -20,7 +20,7 @@ let PROFILE_IMAGE_URL = "profileImageUrl"
 let UID = "uid"
 let EMAIL = "email"
 let USERNAME = "username"
-let STATUS = "status"
+let TITLE = "title"
 let IS_ONLINE = "isOnline"
 
 let ERROR_EMPTY_PHOTO = "Please choose your profile image"

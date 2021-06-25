@@ -11,15 +11,17 @@ import SoundWave
 import AVFoundation
 
 class InboxTableViewCell: UITableViewCell {
-
+    private struct KeyPath {
+        
+        struct PlayerItem {
+            static let Status = "status"
+        }
+    }
     
     @IBOutlet weak var playButton: UIButton!
-    
-    //@IBOutlet weak var inboxSoundWaveView: AudioVisualizationView!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var messageAvatar: UIImageView!
     @IBOutlet weak var usernameLbl: UILabel!
-    @IBOutlet weak var messageLbl: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
     
     @IBOutlet weak var recordLenthLbl: UILabel!
@@ -35,13 +37,11 @@ class InboxTableViewCell: UITableViewCell {
     @IBOutlet weak var containerForSoundLinesViewReadedRightConstraint: NSLayoutConstraint!
     
     var user: User!
+    var inbox: Inbox!
     
     var inboxChangedOnlineHandle: DatabaseHandle!
     var inboxChangedProfileHandle: DatabaseHandle!
     var controller: InboxListTableViewController!
-    
-    var inbox: Inbox!
-    
     
     var playerLayer: AVPlayerLayer?
     var player: AVPlayer? 
@@ -54,7 +54,7 @@ class InboxTableViewCell: UITableViewCell {
         messageAvatar.layer.cornerRadius = 11
         messageAvatar.clipsToBounds = true
         containerForSoundWave.clipsToBounds = true
-        
+        containerForSoundLinesViewReaded.clipsToBounds = true
         onlineView.backgroundColor = UIColor.gray
         onlineView.layer.borderWidth = 2
         onlineView.layer.borderColor = UIColor.white.cgColor
@@ -63,26 +63,9 @@ class InboxTableViewCell: UITableViewCell {
     }
     
     @IBAction func playButtonDidTapped(_ sender: Any) {
-        guard let lastMessage = inbox.lastMessage else { return }
         handleAudioPlay()
-        if self.player?.rate == 0 {
-            self.player!.play()
-            let secs = Double(lastMessage.recordLength)
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
-//           // self.inboxSoundWaveView.play(for: secs) //MARK:  -TIMEDURATION
-//               // self.soundWaveViewLeft.play(for: secs)
-            UIView.animate(withDuration: secs) {
-                self.containerForSoundLinesViewReadedRightConstraint.constant = 0
-                self.containerForSoundWave.layoutIfNeeded()
-            }
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + secs) {
-                    self.updatedLisenedMessage()
-                }
-//            }
-        } else {
-            self.player!.pause()
-        }
     }
+    
     //MARK: - AUDIO PLAYER
     func handleAudioPlay(){
         
@@ -94,16 +77,46 @@ class InboxTableViewCell: UITableViewCell {
             return
         }
 
-        if let url = URL(string: audioUrl){
-            player = AVPlayer(url: url)
+        if let url = URL(string: audioUrl) {
+            player?.currentItem?.removeObserver(self, forKeyPath: KeyPath.PlayerItem.Status)
+            let playerItem = AVPlayerItem(url: url)
+            player = AVPlayer(playerItem: playerItem)
+            playerItem.addObserver(self, forKeyPath: KeyPath.PlayerItem.Status, options: [.initial, .new], context: nil)
+            
             playerLayer = AVPlayerLayer(player: player)
         }
+    }
+    
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        
-        
-        
-        
-        
+        if keyPath == KeyPath.PlayerItem.Status {
+            if let statusInt = change?[.newKey] as? Int, let status = AVPlayerItem.Status(rawValue: statusInt) {
+                switch status {
+                case .unknown:
+                    break
+                case .readyToPlay:
+                    guard let lastMessage = inbox.lastMessage else { return }
+                    print(">>>>>> Ready to play")
+                    if self.player?.rate == 0 {
+                    
+                        UIView.animate(withDuration: lastMessage.recordLength + 0.5, animations: {
+                            self.containerForSoundLinesViewReadedRightConstraint.constant = 0
+                            self.containerForSoundWave.layoutIfNeeded()
+                        }, completion: { (finished: Bool) in
+                            self.updatedLisenedMessage()
+                        })
+                        self.player!.play()
+                      
+                    } else {
+                        self.player!.pause()
+                    }
+                case .failed:
+                    break
+                @unknown default:
+                    break
+                }
+            }
+        }
     }
     
     func updatedLisenedMessage(){
@@ -123,57 +136,47 @@ class InboxTableViewCell: UITableViewCell {
         
         self.soundLinesView.samples = samples
         self.soundLinesViewReaded.samples = samples
-       
         self.containerForSoundLinesViewReaded.clipsToBounds = true
         
-        self.containerForSoundLinesViewReaded.tintColor = .black
-        avatar.loadImage(opponent.profileImageUrl)
+        self.avatar.kf.setImage(with: URL(string: opponent.profileImageUrl)!)
         self.messageAvatar.isHidden = false
-        var isLastMessageMine = lastMessage.senderId == uid
+        let isLastMessageMine = lastMessage.senderId == uid
         
         if isLastMessageMine { //My message
-            print(">>>\(lastMessage.senderId)")
-            print(">>>\(uid)")
-            print(">>>\(lastMessage.senderId == uid)")
-            print(">>>\(lastMessage.recordLength)")
+
             self.playButton.isHidden = true
-            
             containerForSoundWaveLeftConstraint.constant = 42
-            if inbox.lastMessage?.isRead == false { // my message unreaded
+            
+            if inbox.lastMessage?.isRead == false {
                 self.messageAvatar.isHidden = false
                 self.messageAvatar.image = currentImage
                 self.recordLenthLbl.textColor = UIColor(hexString: "BFBFBF")
                 self.soundLinesView.tintColor = UIColor(hexString: "AA75EE")
                 self.containerForSoundLinesViewReadedRightConstraint.constant = containerForSoundWave.bounds.width
-                print(">>>Message Unreaded")
-                
-            } else { //my message readed
+                print(">>>1")
+            } else {
                 self.messageAvatar.isHidden = false
                 self.messageAvatar.image = currentImage
                 self.recordLenthLbl.textColor = UIColor(hexString: "BFBFBF")
                 self.soundLinesView.tintColor = UIColor(hexString: "BFBFBF")
                 self.containerForSoundLinesViewReadedRightConstraint.constant = 0
-                print(">>>Message was readed")
+                print(">>>2")
             }
-           
-            
-        } else { //not my message
+        } else {
             if inbox.lastMessage?.isRead == false { //unreaded
                 self.playButton.isHidden = false
                 self.messageAvatar.image = UIImage(named: "Counter")
                 containerForSoundWaveLeftConstraint.constant = 42
                 self.containerForSoundLinesViewReadedRightConstraint.constant = containerForSoundWave.bounds.width
                 self.recordLenthLbl.textColor = UIColor(hexString: "0584FE")
-                print(">>>3333")
+                print(">>>3")
             } else {
-                
                 self.playButton.isHidden = true
                 self.messageAvatar.isHidden = true
                 containerForSoundWaveLeftConstraint.constant = 12
                 self.containerForSoundLinesViewReadedRightConstraint.constant = 0
                 self.recordLenthLbl.textColor = UIColor(hexString: "BFBFBF")
-                print(">>>4444")
-               
+                print(">>>4")
             }
         }
         
@@ -225,7 +228,6 @@ class InboxTableViewCell: UITableViewCell {
             }
         }
         
-        
     }
     
     override func prepareForReuse() {
@@ -235,7 +237,6 @@ class InboxTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
 }

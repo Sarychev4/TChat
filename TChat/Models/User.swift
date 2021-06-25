@@ -20,15 +20,15 @@ class User: Hashable, Equatable {
     var username: String
     var email: String
     var profileImageUrl: String
-    var status: String
+    var title: String
     var inboxes: [String] = []
     
-    init(uid: String, username: String, email: String, profileImageUrl: String, status: String, inboxes: [String]) {
+    init(uid: String, username: String, email: String, profileImageUrl: String, title: String, inboxes: [String]) {
         self.uid = uid
         self.username = username
         self.email = email
         self.profileImageUrl = profileImageUrl
-        self.status = status
+        self.title = title
         self.inboxes = inboxes
     }
     
@@ -38,12 +38,12 @@ class User: Hashable, Equatable {
               let username = dict["username"] as? String,
               let email = dict["email"] as? String,
               let profileImageUrl = dict["profileImageUrl"] as? String,
-              let status = dict["status"] as? String
+              let title = dict["title"] as? String
         else {
             return nil
         }
         let inboxes = dict["inboxes"] as? [String] ?? []
-        let user = User(uid: uid, username: username, email: email, profileImageUrl: profileImageUrl, status: status, inboxes: inboxes)
+        let user = User(uid: uid, username: username, email: email, profileImageUrl: profileImageUrl, title: title, inboxes: inboxes)
         return user
     }
     
@@ -52,7 +52,7 @@ class User: Hashable, Equatable {
         case "username": self.username = value as? String ?? ""
         case "email": self.email = value as? String ?? ""
         case "profileImageUrl": self.profileImageUrl = value as? String ?? ""
-        case "status": self.status = value as? String ?? ""
+        case "title": self.title = value as? String ?? ""
         case "inboxes": self.inboxes = value as? [String] ?? []
         default:
             break

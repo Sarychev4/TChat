@@ -14,7 +14,7 @@ class UserTableViewCell: UITableViewCell {
     
     @IBOutlet weak var usernameLbl: UILabel!
     
-    @IBOutlet weak var statusLbl: UILabel!
+    @IBOutlet weak var titleLbl: UILabel!
     
     @IBOutlet weak var onlineView: UIView!
     
@@ -41,13 +41,13 @@ class UserTableViewCell: UITableViewCell {
     func loadData(_ user: User, currentUserImage: UIImage?){ //
         
         self.user = user
-        self.avatar.loadImage(user.profileImageUrl)
+        self.avatar.kf.setImage(with: URL(string: user.profileImageUrl)!)
         if let currentUserImg = currentUserImage {
             self.currentUserImage = currentUserImg
         }
         
         self.usernameLbl.text = user.username
-        self.statusLbl.text = user.status
+        self.titleLbl.text = user.title
         
         let refOnline = Ref().databaseIsOnline(uid: user.uid)
         refOnline.observeSingleEvent(of: .value) { (snapshot) in
@@ -98,7 +98,6 @@ class UserTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
 }

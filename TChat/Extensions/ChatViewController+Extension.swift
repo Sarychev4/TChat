@@ -13,7 +13,7 @@ import Kingfisher
 extension ChatViewController {
     
     func observeMessages(){
-        print("receiveMessage(from")
+        
         Api.Message.receiveMessage(from: Api.User.currentUserId, to: partnerId) { (message) in
             DispatchQueue.main.async {
                 self.messages.append(message)

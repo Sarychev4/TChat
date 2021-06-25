@@ -68,11 +68,9 @@ class MessageCurves: UIView {
                 lineStart = centerX * CGFloat(self.samples[i])
             }
             drawLine(pathVariable: arrayOfVariables[i], startX: centerX - lineStart + 1, startY: self.startY, endX: centerX + lineStart - 1)
-            
             self.startY += (spacing + lineWidth)
-            
-        
         }
     }
+    
 }
 

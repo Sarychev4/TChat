@@ -26,7 +26,6 @@ class InboxCurves: UIView {
         
         pathVariable.move(to: CGPoint(x: startX, y: startY))
         pathVariable.addLine(to: CGPoint(x:startX , y: endY))
-       //print(">>>> x: \(startX)")
         pathVariable.close()
         self.tintColor.setStroke()
         pathVariable.lineWidth = lineWidth
@@ -39,7 +38,6 @@ class InboxCurves: UIView {
         super.layoutSubviews()
             previousWidth = bounds.width
             drawLines()
-
     }
     
     override func draw(_ rect: CGRect) {
@@ -63,7 +61,6 @@ class InboxCurves: UIView {
         
         let spacing = (self.bounds.width / 25) - lineWidth
         for i in 0..<arrayOfVariables.count{
-            //print(i)
             var lineStart: CGFloat = 0//centerX * CGFloat(self.array[i])
             if CGFloat(self.samples[i]) > 0.9{
                 lineStart = centerY * 0.9
@@ -71,10 +68,9 @@ class InboxCurves: UIView {
                 lineStart = centerY * CGFloat(self.samples[i])
             }
             drawLine(pathVariable: arrayOfVariables[i], startX: self.startX, startY: centerY - lineStart + 1, endY: centerY + lineStart - 1)
-            
             self.startX += (spacing + lineWidth)
-        
         }
     }
+    
 }
 

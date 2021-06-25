@@ -36,7 +36,8 @@ class PulseAnimation: CALayer {
         
         DispatchQueue.global(qos: .default).async {
             self.setupAnimationGroup()
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 self.add(self.animationGroup, forKey: "pulse")
            }
         }

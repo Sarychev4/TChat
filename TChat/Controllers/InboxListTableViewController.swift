@@ -23,28 +23,20 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
         setupNavigationBar()
         setupTableView()
         observeInboxes()
-        
     }
     
     func setupNavigationBar(){
-        //navigationItem.backButtonTitle = "" //Hide back title in ChatVC
-        //navigationController?.navigationBar.backgroundColor = UIColor.blue
         navigationItem.title = "Voices"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
         Api.User.getUserInforSingleEvent(uid: Api.User.currentUserId) { (user) in
-            //avatarImageView.kf.setImage(with: URL(string: partnerUser.profileImageUrl)!)
-            //self.avatarImageView.loadImage(user.profileImageUrl)
             self.avatarImageView.kf.setImage(with: URL(string: user.profileImageUrl)!)
         }
-     
         NotificationCenter.default.addObserver(self, selector: #selector(updateProfile), name: NSNotification.Name("updateProfileImage"), object: nil)
-        //
     }
     
     @objc func updateProfile() {
         if let currentUser = Auth.auth().currentUser, let photoUrl = currentUser.photoURL {
-            avatarImageView.loadImage(photoUrl.absoluteString)
+            self.avatarImageView.kf.setImage(with: URL(string: photoUrl.absoluteString)!)
         }
     }
     
@@ -59,21 +51,17 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func loadMore() {
-//        let lastInboxDate = inboxArray.first?.lastMessageDate
-//        Api.Inbox.loadMore(start: lastInboxDate, controller: self, from: Api.User.currentUserId) { (inbox) in
-//            self.inboxArray.append(inbox)
-//            self.tableView.reloadData()
-//        }
+        let lastInboxDate = inboxArray.first?.lastMessageDate
+        Api.Inbox.loadMore(start: lastInboxDate, controller: self, from: Api.User.currentUserId) { (inbox) in
+            self.inboxArray.append(inbox)
+            self.tableView.reloadData()
+        }
     }
     
     func setupTableView(){
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
     }
-    
-    //    @IBAction func logoutAction(_ sender: Any) {
-    //        Api.User.logOut()
-    //    }
     
     // MARK: - Table view data source
     
@@ -109,6 +97,8 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
             chatVC.partnerUser = cell.user
             chatVC.dialogId = cell.inbox.id
             chatVC.lastMessageId = cell.inbox.lastMessageId
+            chatVC.inboxSenderId = cell.inbox.inboxSenderId
+            
             self.navigationController?.pushViewController(chatVC, animated: true)
         }
     }
@@ -133,49 +123,5 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.spinner.stopAnimating()
     }
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

@@ -26,6 +26,7 @@ class MessageApi {
                 dict["user2"] = chatId.components(separatedBy:"_").last!
                 dict["lastMessageDate"] = value["date"] as? Double ?? Date().timeIntervalSince1970
                 dict["isRead"] = false
+                dict["inboxSenderId"] = Api.User.currentUserId
                 let refFromInbox = Database.database().reference().child(REF_INBOX).child(chatId)
                 refFromInbox.updateChildValues(dict)
             }

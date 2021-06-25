@@ -22,33 +22,6 @@ class InboxApi {
     }
     
     func loadMore(start timestamp: Double?, controller: InboxListTableViewController, from: String, onSuccess: @escaping(InboxCompletion)) {
-//        guard let timestamp = timestamp else { return }
-//        let ref = Database.database().reference().child(REF_INBOX).queryOrdered(byChild: "date").queryEnding(atValue: timestamp - 1).queryLimited(toLast: 30)
-//        ref.observeSingleEvent(of: .value) { (snapshot) in
-//            guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else {
-//                return
-//            }
-//            if allObjects.isEmpty {
-//                controller.tableView.tableFooterView = UIView()
-//            }
-//            let dispatchGroup = DispatchGroup()
-//            var result: [Inbox] = []
-//            allObjects.forEach({ (object) in
-//                if let response = snapshot.value as? [String: Any], let dict = response.values.first as? [String: Any] {
-//                    let channelId = response.keys.first ?? ""
-//                    dispatchGroup.enter()
-////                    Api.User.getUserInfor(uid: partnerId, onSuccess: { (user) in
-////                        dispatchGroup.leave()
-////                        if let inbox = Inbox.setup(withJson: dict, channel: channelId, user: user) {
-////                            onSuccess(inbox)
-////                        }
-////                    })
-//                }
-//            })
-//            dispatchGroup.notify(queue: .main) {
-//
-//            }
-//        }
     }
     
     func observeInboxes(onUpdate: @escaping(() -> Void)) {
@@ -56,16 +29,13 @@ class InboxApi {
         
         let userId = Api.User.currentUserId
         ref.queryOrdered(byChild: "user1").queryEqual(toValue: userId).observe(.value) { snapshot in
-            print("user1: \(snapshot.value)")
             self.processInboxSnapshot(snapshot, onUpdate: onUpdate)
         }
         
         ref.queryOrdered(byChild: "user2").queryEqual(toValue: userId).observe(.value) { snapshot in
-            print("user2: \(snapshot.value)")
             self.processInboxSnapshot(snapshot, onUpdate: onUpdate)
         }
-            
-//            .observe(.value)
+
     }
     
     func processInboxSnapshot(_ snapshot: DataSnapshot, onUpdate: @escaping(() -> Void)) {

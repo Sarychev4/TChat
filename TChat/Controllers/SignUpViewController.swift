@@ -32,49 +32,33 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
     }
     
     func setupUI(){
-        
-        setupTitleLabel()
         setupAvatar()
-        setupFullNameTextField()
+        setupNameTextField()
         setupEmailTextField()
         setupPasswordTextField()
         setupSignUpButton()
         setupSignInButton()
-        
     }
-    
-//    @IBAction func dissmissAction(_ sender: Any) {
-//        navigationController?.popViewController(animated: true)
-//    }
-    
-    
     
     //MARK: - Auth with FireBase
     @IBAction func signUpButtonDidTapped(_ sender: Any) {
-        
         //Dismiss keyboard when user touch view
         self.view.endEditing(true)
         
         self.validateFields()
         self.signUp(onSuccess: {
             Api.User.isOnline(bool: true)
-            //switch view
-            //(UIApplication.shared.delegate as! SceneDelegate).configureInitialViewController()
-             (UIApplication.shared.connectedScenes
-                 .first!.delegate as! SceneDelegate).configureInitialViewController()
+            (UIApplication.shared.connectedScenes
+                .first!.delegate as! SceneDelegate).configureInitialViewController()
         }) { (errorMessage) in
-           //alert
             let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)
+            
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-            // show the alert
+            
             self.present(alert, animated: true, completion: nil)
         }
     }
