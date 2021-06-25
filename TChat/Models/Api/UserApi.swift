@@ -53,7 +53,7 @@ class UserApi {
         }
         Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
             if error != nil {
-                ProgressHUD.showError(error!.localizedDescription)
+                onError(error!.localizedDescription)
                 return
             }
             if let authData = authDataResult {

@@ -67,7 +67,7 @@ class ProfileTableViewController: UITableViewController {
     }
     
     @IBAction func saveBtnDidTapped(_ sender: Any) {
-        ProgressHUD.show("Loading...")
+        //ProgressHUD.show("Loading...")
         
         
         var dict = Dictionary<String, Any>()

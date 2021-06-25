@@ -78,22 +78,6 @@ extension ChatViewController {
         }
     }
     
-//    func setupInputContainer(){
-////        let mediaImg = UIImage(named: "attachment_icon")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-////        mediaButton.setImage(mediaImg, for: .normal)
-////        mediaButton.tintColor = .lightGray
-//        
-//        //        let micImg = UIImage(named: "mic")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-//        //        recordButton.setImage(micImg, for: .normal)
-//        //        recordButton.tintColor = .lightGray
-//        
-//        setupInputTextView()
-//        
-//        //KeyBoard
-//        let notificationCenter = NotificationCenter.default
-//        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-//    }
     
     @objc func adjustForKeyboard(notification: Notification){
         let userInfo = notification.userInfo!
@@ -115,29 +99,7 @@ extension ChatViewController {
         
     }
     
-//    func setupInputTextView(){
-//
-//        inputTextView.delegate = self
-//
-//        placeholderLbl.isHidden = false
-//
-//        let placeholderX: CGFloat = self.view.frame.size.width / 75
-//        let placeholderY: CGFloat = 0
-//        let placeholderWidth: CGFloat = inputTextView.bounds.width - placeholderX
-//        let placeholderHeight: CGFloat = inputTextView.bounds.height
-//
-//        let placeholderFontSize = self.view.frame.size.width / 25
-//
-//        placeholderLbl.frame = CGRect(x: placeholderX, y: placeholderY, width: placeholderWidth, height: placeholderHeight)
-//        placeholderLbl.text = "Write a message"
-//        placeholderLbl.font = UIFont(name: "HelveticaNeue", size: placeholderFontSize)
-//        placeholderLbl.textColor = .lightGray
-//        placeholderLbl.textAlignment = .left
-//
-//        inputTextView.addSubview(placeholderLbl)
-//
-//
-//    }
+
     
     func setupNavigationBar(){
         navigationItem.largeTitleDisplayMode = .never
@@ -249,71 +211,7 @@ extension ChatViewController: UITextViewDelegate {
 
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
-//            let tempUrl = createTemporaryURLforVideoFile(url: videoUrl)
-//            handleVideoSelectedForUrl(tempUrl)
-//            //print(tempUrl.absoluteString)
-//        } else {
-//            handleImageSelectedForInfo(info)
-//        }
-//
-//    }
-    
-//    func handleVideoSelectedForUrl(_ url: URL){
-//        //save video data
-//        let videoNameUnicId = NSUUID().uuidString// + ".mov"
-//
-//        StorageService.saveVideoMessage(url: url, id: videoNameUnicId, onSuccess: { (anyValue) in
-//            if let dict = anyValue as? [String: Any] {
-//                self.sendToFirebase(dict: dict)
-//            }
-//        }) { (errorMessage) in
-//
-//        }
-//        self.picker.dismiss(animated: true, completion: nil)
-//    }
-//    //!!!!!!!!!!!!!
-//    func createTemporaryURLforVideoFile(url: URL) -> URL {
-//        /// Create the temporary directory.
-//        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-//        /// create a temporary file for us to copy the video to.
-//        let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(url.lastPathComponent ?? "")
-//        /// Attempt the copy.
-//        do {
-//            try FileManager().copyItem(at: url.absoluteURL, to: temporaryFileURL)
-//        } catch {
-//            print("There was an error copying the video file to the temporary location.")
-//        }
-//
-//        return temporaryFileURL as URL
-//    }
-    
-    
-//    func handleImageSelectedForInfo(_ info: [UIImagePickerController.InfoKey : Any]){
-//        var selectedImageFromPicker: UIImage?
-//        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
-//            selectedImageFromPicker = imageSelected
-//
-//        }
-//
-//        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-//            selectedImageFromPicker = imageOriginal
-//        }
-//
-//        //save photo data
-//        let imageNameUnicId = NSUUID().uuidString
-//        StorageService.savePhotoMessage(image: selectedImageFromPicker, id: imageNameUnicId, onSuccess: { (anyValue) in
-//            print(anyValue)
-//            if let dict = anyValue as? [String: Any] {
-//                self.sendToFirebase(dict: dict)
-//            }
-//        }) { (errorMessage) in
-//
-//        }
-//
-//        self.picker.dismiss(animated: true, completion: nil)
-//    }
+
     
 }
 
@@ -362,10 +260,7 @@ extension ChatViewController: AVAudioRecorderDelegate {
     func loadRecordingUI() {
         let micImg = UIImage(named: "microPhone")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         recordButton.setImage(micImg, for: .normal)
-//        recordButton.tintColor = .lightGray
-       // recordButton.backgroundColor = .blue
         recordButton.layer.cornerRadius = 24
-       // recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
     }
     
     @objc func recordTapped(){
@@ -410,7 +305,7 @@ extension ChatViewController: AVAudioRecorderDelegate {
         ]
         
         do {
-            //startMetering()
+            startMetering()
             audioRecorder = try AVAudioRecorder(url: audioFileUrl, settings: settings)
             audioRecorder.delegate = self
             audioRecorder.isMeteringEnabled = true
@@ -438,6 +333,7 @@ extension ChatViewController: AVAudioRecorderDelegate {
     
     func finishRecording(success: Bool) {
         print(samples)
+        stopMetering()
         audioRecorder.stop()
         
         audioRecorder = nil
@@ -466,7 +362,7 @@ extension ChatViewController: AVAudioRecorderDelegate {
     }
     
     func cutInboxSamples(){
-        let numberOfLines = 30
+        let numberOfLines = 25
         let elementToGet = (self.samples.count / numberOfLines)
         var cuttedSamples: [CGFloat] = []
         for item in 0..<self.samples.count where item % elementToGet == 0 {

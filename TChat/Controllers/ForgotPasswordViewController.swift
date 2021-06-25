@@ -38,16 +38,39 @@ class ForgotPasswordViewController: UIViewController {
     
     @IBAction func resetPasswordButtonDidTapped(_ sender: Any) {
         guard let email = emailTextField.text, email != "" else {
-            ProgressHUD.showError(ERROR_EMPTY_EMAIL_RESET)
+            let alert = UIAlertController(title: "Empty e-mail", message: ERROR_EMPTY_EMAIL_RESET, preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+            //ProgressHUD.showError(ERROR_EMPTY_EMAIL_RESET)
             return
         }
         
         Api.User.resetPassword(email: email, onSuccess: {
             self.view.endEditing(true)
-            ProgressHUD.showSuccess(SUCCES_EMAIL_RESET)
+            let alert = UIAlertController(title: "E-mail reset", message: SUCCES_EMAIL_RESET, preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+            //ProgressHUD.showError(ERROR_EMPTY_EMAIL_RESET)
+            
+           // ProgressHUD.showSuccess(SUCCES_EMAIL_RESET)
             self.navigationController?.popViewController(animated: true)
         }) { (errorMessage) in
-            ProgressHUD.showError(errorMessage)
+            let alert = UIAlertController(title: "E-mail reset", message: errorMessage, preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+            //ProgressHUD.showError(errorMessage)
         }
         
     }

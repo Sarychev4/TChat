@@ -24,11 +24,11 @@ class MessageTableViewCell: UITableViewCell {
     
     
     
-    @IBOutlet weak var soundLinesViewRight: MessageCurvesRight!
-    @IBOutlet weak var soundLinesViewLeft: MessageCurvesLeft!
+    @IBOutlet weak var soundLinesViewRight: MessageCurves!
+    @IBOutlet weak var soundLinesViewLeft: MessageCurves!
     
-    @IBOutlet weak var soundLinesViewRightReaded: MessageCurvesReaded!
-    @IBOutlet weak var soundLinesViewLeftReaded: MessageCurvesReaded!
+    @IBOutlet weak var soundLinesViewRightReaded: MessageCurves!
+    @IBOutlet weak var soundLinesViewLeftReaded: MessageCurves!
     
     
     @IBOutlet weak var containerForSoundLinesViewRightReaded: UIView!
@@ -109,10 +109,20 @@ class MessageTableViewCell: UITableViewCell {
             player = AVPlayer(playerItem: playerItem)
             playerItem.addObserver(self, forKeyPath: KeyPath.PlayerItem.Status, options: [.initial, .new], context: nil)
             
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player?.currentItem)
+             
             playerLayer = AVPlayerLayer(player: player)
             print(" Начинаю ")
         }
-        
+    }
+    
+    @objc func playerDidFinishPlaying(note: NSNotification){
+        print("Video Finished")
+        self.containerForSoundLinesViewRightReadedBottomConstraint.constant = rightContainerForSoundWaveView.bounds.height
+        self.containerForSoundLinesViewLeftReadedBottomConstraint.constant = leftContainerForSoundWaveView.bounds.height
+        self.rightContainerForSoundWaveView.layoutIfNeeded()
+        self.leftContainerForSoundWaveView.layoutIfNeeded()
     }
     
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -124,13 +134,21 @@ class MessageTableViewCell: UITableViewCell {
                 case .unknown:
                     break
                 case .readyToPlay:
+                    print(">>>>>> Ready to play")
                     if self.player?.rate == 0 {
+                       
+                        let duration: Double = Double(self.message.recordLength)
+
+                        UIView.animate(withDuration: duration + 0.5, animations: {
+                            self.containerForSoundLinesViewRightReadedBottomConstraint.constant = 0
+                            self.containerForSoundLinesViewLeftReadedBottomConstraint.constant = 0
+                            self.rightContainerForSoundWaveView.layoutIfNeeded()
+                            self.leftContainerForSoundWaveView.layoutIfNeeded()
+                        }, completion: { (finished: Bool) in
+               
+                        })
                         self.player!.play()
-                        let secs = Double(self.message.recordLength)
-                        // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                       // self.soundWaveView.play(for: secs) //MARK:  -TIMEDURATION
-                        // self.soundWaveViewLeft.play(for: secs)
-                        // }
+                      
                     } else {
                         self.player!.pause()
                     }
@@ -146,10 +164,7 @@ class MessageTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-     //   self.containerForSoundLinesViewRightReadedBottomConstraint.constant = self.containerForSoundLinesViewRightReaded.bounds.height
-      //            self.containerForSoundLinesViewLeftReadedBottomConstraint.constant = self.containerForSoundLinesViewLeftReaded.bounds.height
-        //profileImageView.isHidden = true
-        //player?.currentItem?.removeObserver(self, forKeyPath: KeyPath.PlayerItem.Status)
+     
         playerLayer?.removeFromSuperlayer()
         player?.pause()
         
@@ -164,19 +179,6 @@ class MessageTableViewCell: UITableViewCell {
     
     @objc func handleTap() {
         print("PLAY SOUND")
-        UIView.animate(withDuration: Double(self.message.recordLength), animations: {
-            self.containerForSoundLinesViewRightReadedBottomConstraint.constant = 0
-            self.containerForSoundLinesViewLeftReadedBottomConstraint.constant = 0
-            self.rightContainerForSoundWaveView.layoutIfNeeded()
-            self.leftContainerForSoundWaveView.layoutIfNeeded()
-        }, completion: { (finished: Bool) in
-//            self.containerForSoundLinesViewRightReadedBottomConstraint.constant = self.containerForSoundLinesViewRightReaded.bounds.height
-//            self.containerForSoundLinesViewLeftReadedBottomConstraint.constant = self.containerForSoundLinesViewLeftReaded.bounds.height
-//
-//            self.rightContainerForSoundWaveView.layoutIfNeeded()
-//            self.leftContainerForSoundWaveView.layoutIfNeeded()
-        })
-
        
         handleAudioPlay()
         //        if self.player?.rate == 0 {
@@ -203,23 +205,23 @@ class MessageTableViewCell: UITableViewCell {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         let tapLeft = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         
-        self.soundLinesViewRight.array = samples
+        self.soundLinesViewRight.samples = samples
         self.soundLinesViewRight.backgroundColor = .clear
         
-        self.soundLinesViewRightReaded.array = samples
+        self.soundLinesViewRightReaded.samples = samples
         self.soundLinesViewRightReaded.backgroundColor = .clear
         
-        containerForSoundLinesViewRightReadedBottomConstraint.constant = containerForSoundLinesViewRightReaded.bounds.height
+        containerForSoundLinesViewRightReadedBottomConstraint.constant = rightContainerForSoundWaveView.bounds.height
         containerForSoundLinesViewRightReaded.clipsToBounds = true
         self.rightContainerForSoundWaveView.addGestureRecognizer(tap)
         
-        self.soundLinesViewLeft.array = samples
+        self.soundLinesViewLeft.samples = samples
         self.soundLinesViewLeft.backgroundColor = .clear
         
-        self.soundLinesViewLeftReaded.array = samples
+        self.soundLinesViewLeftReaded.samples = samples
         self.soundLinesViewLeftReaded.backgroundColor = .clear
         
-        containerForSoundLinesViewLeftReadedBottomConstraint.constant = containerForSoundLinesViewLeftReaded.bounds.height
+        containerForSoundLinesViewLeftReadedBottomConstraint.constant = leftContainerForSoundWaveView.bounds.height
         containerForSoundLinesViewLeftReaded.clipsToBounds = true
         self.leftContainerForSoundWaveView.addGestureRecognizer(tapLeft)
 
@@ -229,6 +231,7 @@ class MessageTableViewCell: UITableViewCell {
             }
             leftContainerForSoundWaveView.isHidden = true
             rightContainerForSoundWaveView.isHidden = false
+            
             profileImageView.isHidden = false
             profileNameLabel.text = currentUserName
             
@@ -248,6 +251,7 @@ class MessageTableViewCell: UITableViewCell {
             
             leftContainerForSoundWaveView.isHidden = false
             rightContainerForSoundWaveView.isHidden = true
+            
             profileImageView.kf.setImage(with: URL(string: partnerImageUrl))
             profileImageView.isHidden = true
             
@@ -269,7 +273,7 @@ class MessageTableViewCell: UITableViewCell {
         bubbleView.layer.borderColor = UIColor.clear.cgColor
         let date = Date(timeIntervalSince1970: message.date)
         let dateString = timeAgoSinceDate(date, currentDate: Date(), numericDates: true)
-        timeAndDateLabel.text = "\(message.recordLength)sec · \(dateString)"
+        timeAndDateLabel.text = "\(String(format: "%.0f", message.recordLength))sec · \(dateString)"
         
     }
     override func setSelected(_ selected: Bool, animated: Bool) {

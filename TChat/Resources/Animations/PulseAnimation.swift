@@ -10,7 +10,7 @@ import UIKit
 class PulseAnimation: CALayer {
 
     var animationGroup = CAAnimationGroup()
-    var animationDuration: TimeInterval = 1.5
+    var animationDuration: TimeInterval = 1.0
     var radius: CGFloat = 200
     var numebrOfPulse: Float = Float.infinity
     

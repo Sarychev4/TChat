@@ -67,9 +67,15 @@ class SignUpViewController: UIViewController {
             //(UIApplication.shared.delegate as! SceneDelegate).configureInitialViewController()
              (UIApplication.shared.connectedScenes
                  .first!.delegate as! SceneDelegate).configureInitialViewController()
-        }) {
-            (errorMessage) in
-            ProgressHUD.showError(errorMessage)
+        }) { (errorMessage) in
+           //alert
+            let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
         }
     }
     

@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import Kingfisher
 
 class InboxListTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -30,24 +31,13 @@ class InboxListTableViewController: UIViewController, UITableViewDataSource, UIT
         //navigationController?.navigationBar.backgroundColor = UIColor.blue
         navigationItem.title = "Voices"
         navigationController?.navigationBar.prefersLargeTitles = true
-        //  navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 5/255, green: 132/255, blue: 254/255, alpha: 1.0)]
-        //
-        
-        //  let leftBarButtonItem = UIBarButtonItem(customView: containerView)
-        // self.navigationItem.leftItemsSupplementBackButton = true //not allow to overriding the natural back button
-        //  self.navigationItem.leftBarButtonItem = leftBarButtonItem
         
         Api.User.getUserInforSingleEvent(uid: Api.User.currentUserId) { (user) in
-            //            self.usernameTextField.text = user.username
-            //            self.emailTextField.text = user.email
-            //            self.statusTextField.text = user.status
-            self.avatarImageView.loadImage(user.profileImageUrl)
+            //avatarImageView.kf.setImage(with: URL(string: partnerUser.profileImageUrl)!)
+            //self.avatarImageView.loadImage(user.profileImageUrl)
+            self.avatarImageView.kf.setImage(with: URL(string: user.profileImageUrl)!)
         }
-        
-        //        if let currentUser = Auth.auth().currentUser, let photoUrl = currentUser.photoURL {
-        //            avatarImageView.loadImage(photoUrl.absoluteString)
-        //        }
-        
+     
         NotificationCenter.default.addObserver(self, selector: #selector(updateProfile), name: NSNotification.Name("updateProfileImage"), object: nil)
         //
     }

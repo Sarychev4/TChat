@@ -22,12 +22,12 @@ class Message {
     var cuttedInboxSamples: [Float]
     var cuttedMessageSamples: [Float]
     
-    var recordLength: Int
+    var recordLength: Double
     var isRead: Bool
     
     
     
-    init(id: String, senderId: String, date: Double, text: String, imageUrl: String, height: Double, width: Double, videoUrl: String, audioUrl: String, cuttedInboxSamples: [Float], cuttedMessageSamples: [Float], recordLength: Int, isRead: Bool) { //samples: [Float]
+    init(id: String, senderId: String, date: Double, text: String, imageUrl: String, height: Double, width: Double, videoUrl: String, audioUrl: String, cuttedInboxSamples: [Float], cuttedMessageSamples: [Float], recordLength: Double, isRead: Bool) { //samples: [Float]
         self.id = id
         self.senderId = senderId
         self.date = date
@@ -69,7 +69,7 @@ class Message {
         
         let cuttedMessageSamples = (dict["cuttedMessageSamples"] as? [CGFloat]) == nil ? [0] : (dict["cuttedMessageSamples"]! as! [CGFloat])
         
-        let recordLength = (dict["recordLength"] as? Int) == nil ? 0 : (dict["recordLength"]! as! Int)
+        let recordLength = (dict["recordLength"] as? Double) == nil ? 0 : (dict["recordLength"]! as! Double)
         
         let isRead = (dict["isRead"] as? Bool) ?? true
         

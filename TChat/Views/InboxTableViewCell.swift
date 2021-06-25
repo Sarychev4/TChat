@@ -29,7 +29,7 @@ class InboxTableViewCell: UITableViewCell {
     @IBOutlet weak var containerForSoundWave: UIView!
     
     @IBOutlet weak var soundLinesView: InboxCurves!
-    @IBOutlet weak var soundLinesViewReaded: InboxCurvesReaded!
+    @IBOutlet weak var soundLinesViewReaded: InboxCurves!
     
     @IBOutlet weak var containerForSoundLinesViewReaded: UIView!
     @IBOutlet weak var containerForSoundLinesViewReadedRightConstraint: NSLayoutConstraint!
@@ -49,7 +49,6 @@ class InboxTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
         avatar.layer.cornerRadius = 30
         avatar.clipsToBounds = true
         messageAvatar.layer.cornerRadius = 11
@@ -89,6 +88,7 @@ class InboxTableViewCell: UITableViewCell {
         
         guard let lastMessage = inbox.lastMessage else { return }
         self.playButton.isHidden = true
+        
         let audioUrl = lastMessage.audioUrl
         if audioUrl.isEmpty{
             return
@@ -98,6 +98,12 @@ class InboxTableViewCell: UITableViewCell {
             player = AVPlayer(url: url)
             playerLayer = AVPlayerLayer(player: player)
         }
+        
+        
+        
+        
+        
+        
     }
     
     func updatedLisenedMessage(){
@@ -113,73 +119,60 @@ class InboxTableViewCell: UITableViewCell {
         self.user = opponent
         self.inbox = inbox
         
-        if lastMessage.recordLength < 9 {
-            self.recordLenthLbl.text = "00:0\(lastMessage.recordLength)"
-        } else if lastMessage.recordLength > 9 && lastMessage.recordLength < 60 {
-            self.recordLenthLbl.text = "00:\(lastMessage.recordLength)"
-        } else if lastMessage.recordLength > 60 {
-            let secs = lastMessage.recordLength - 60
-            self.recordLenthLbl.text = "01:\(secs)"
-        }
-        
-        
-        
         guard let samples = inbox.lastMessage?.cuttedInboxSamples else { return }
         
-        
-       // self.soundLinesView = InboxCurves(frame: CGRect(x: 0, y: 0, width: containerForSoundWave.bounds.width, height: containerForSoundWave.bounds.height))
-        self.soundLinesView.array = samples
-        self.soundLinesView.backgroundColor = .systemRed
-        
-        self.soundLinesViewReaded.array = samples
+        self.soundLinesView.samples = samples
+        self.soundLinesViewReaded.samples = samples
+       
         self.containerForSoundLinesViewReaded.clipsToBounds = true
-        self.containerForSoundLinesViewReadedRightConstraint.constant = containerForSoundWave.bounds.width
- 
-        //Не мое - входящее
-        //входящее прочитаное
-        //входящее непрочитанное
-        //мое - отправленное
-        //отправленное прочитанное
-        //отправленное непрочитанное
+        
+        self.containerForSoundLinesViewReaded.tintColor = .black
         avatar.loadImage(opponent.profileImageUrl)
         self.messageAvatar.isHidden = false
-        let isLastMessageMine = lastMessage.senderId == uid
-        if isLastMessageMine {
+        var isLastMessageMine = lastMessage.senderId == uid
+        
+        if isLastMessageMine { //My message
+            print(">>>\(lastMessage.senderId)")
+            print(">>>\(uid)")
+            print(">>>\(lastMessage.senderId == uid)")
+            print(">>>\(lastMessage.recordLength)")
             self.playButton.isHidden = true
-            guard let isReaded = inbox.lastMessage?.isRead else {
-                return
-            }
-            if inbox.lastMessage?.isRead == false {
-                
-                //self.inboxSoundWaveView.gradientStartColor = .systemBlue
-                self.recordLenthLbl.textColor = .systemBlue
-                self.messageAvatar.isHidden = false
-                print("1111")
-                print("\(inbox.lastMessage?.isRead)")
-                print("\(isReaded)")
-            } else {
-//                self.inboxSoundWaveView.gradientStartColor = .lightGray
-                self.recordLenthLbl.textColor = .lightGray
-                
-                print("2222")
-            }
-            self.messageAvatar.image = currentImage
-            containerForSoundWaveLeftConstraint.constant = 42
             
-        } else {
-            if inbox.lastMessage?.isRead == false {
+            containerForSoundWaveLeftConstraint.constant = 42
+            if inbox.lastMessage?.isRead == false { // my message unreaded
+                self.messageAvatar.isHidden = false
+                self.messageAvatar.image = currentImage
+                self.recordLenthLbl.textColor = UIColor(hexString: "BFBFBF")
+                self.soundLinesView.tintColor = UIColor(hexString: "AA75EE")
+                self.containerForSoundLinesViewReadedRightConstraint.constant = containerForSoundWave.bounds.width
+                print(">>>Message Unreaded")
+                
+            } else { //my message readed
+                self.messageAvatar.isHidden = false
+                self.messageAvatar.image = currentImage
+                self.recordLenthLbl.textColor = UIColor(hexString: "BFBFBF")
+                self.soundLinesView.tintColor = UIColor(hexString: "BFBFBF")
+                self.containerForSoundLinesViewReadedRightConstraint.constant = 0
+                print(">>>Message was readed")
+            }
+           
+            
+        } else { //not my message
+            if inbox.lastMessage?.isRead == false { //unreaded
                 self.playButton.isHidden = false
                 self.messageAvatar.image = UIImage(named: "Counter")
                 containerForSoundWaveLeftConstraint.constant = 42
-                self.recordLenthLbl.textColor = .systemBlue
-                print("3333")
+                self.containerForSoundLinesViewReadedRightConstraint.constant = containerForSoundWave.bounds.width
+                self.recordLenthLbl.textColor = UIColor(hexString: "0584FE")
+                print(">>>3333")
             } else {
+                
                 self.playButton.isHidden = true
                 self.messageAvatar.isHidden = true
                 containerForSoundWaveLeftConstraint.constant = 12
-
-                self.recordLenthLbl.textColor = .lightGray
-                print("4444")
+                self.containerForSoundLinesViewReadedRightConstraint.constant = 0
+                self.recordLenthLbl.textColor = UIColor(hexString: "BFBFBF")
+                print(">>>4444")
                
             }
         }
@@ -188,6 +181,16 @@ class InboxTableViewCell: UITableViewCell {
         let date = Date(timeIntervalSince1970: lastMessage.date)
         let dateString = timeAgoSinceDate(date, currentDate: Date(), numericDates: true)
         dateLbl.text = dateString
+        
+        if lastMessage.recordLength < 9 {
+            self.recordLenthLbl.text = "00:0\(String(format: "%.0f", lastMessage.recordLength))"
+        } else if lastMessage.recordLength > 9 && lastMessage.recordLength < 60 {
+            self.recordLenthLbl.text = "00:\(String(format: "%.0f", lastMessage.recordLength))"
+        } else if lastMessage.recordLength > 60 {
+            let secs = lastMessage.recordLength - 60
+            self.recordLenthLbl.text = "01:\(String(format: "%.0f", secs))"//"01:\(secs)"
+            //String(format: "%.1f", counter)
+        }
          
         let refUser = Ref().databaseSpecificUser(uid: opponent.uid)
         if inboxChangedProfileHandle != nil {
@@ -221,6 +224,8 @@ class InboxTableViewCell: UITableViewCell {
                 }
             }
         }
+        
+        
     }
     
     override func prepareForReuse() {
