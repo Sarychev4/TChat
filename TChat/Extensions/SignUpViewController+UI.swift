@@ -150,6 +150,7 @@ extension SignUpViewController {
             onSuccess()
         }) {(errorMessage) in
             onError(errorMessage)
+            ProgressHUD.dismiss()
         }
     }
     

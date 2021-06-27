@@ -81,6 +81,7 @@ class ProfileViewController: UIViewController {
                 }
             } else {
                 ProgressHUD.showSuccess()
+                
             }
             
         }) { (errorMessage) in
