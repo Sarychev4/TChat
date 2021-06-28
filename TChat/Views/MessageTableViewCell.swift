@@ -7,7 +7,6 @@
 
 import UIKit
 import AVFoundation
-import SoundWave
 
 class MessageTableViewCell: UITableViewCell {
     private struct KeyPath {
@@ -18,9 +17,6 @@ class MessageTableViewCell: UITableViewCell {
     }
     
     @IBOutlet weak var bubbleView: UIView!
-    
-    var soundWaveView: AudioVisualizationView!
-    var soundWaveViewLeft: AudioVisualizationView!
     
     @IBOutlet weak var soundLinesViewRight: MessageCurves!
     @IBOutlet weak var soundLinesViewLeft: MessageCurves!

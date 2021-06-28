@@ -1,14 +1,4 @@
 PODS:
-  - FBSDKCoreKit (9.3.0):
-    - FBSDKCoreKit/Basics (= 9.3.0)
-    - FBSDKCoreKit/Core (= 9.3.0)
-  - FBSDKCoreKit/Basics (9.3.0)
-  - FBSDKCoreKit/Core (9.3.0):
-    - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (9.3.0):
-    - FBSDKLoginKit/Login (= 9.3.0)
-  - FBSDKLoginKit/Login (9.3.0):
-    - FBSDKCoreKit (~> 9.3.0)
   - Firebase/Analytics (7.11.0):
     - Firebase/Core
   - Firebase/Auth (7.11.0):
@@ -119,10 +109,8 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
-  - SoundWave (0.1.4)
 
 DEPENDENCIES:
-  - FBSDKLoginKit
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Database
@@ -130,12 +118,9 @@ DEPENDENCIES:
   - Kingfisher
   - ProgressHUD
   - SDWebImage
-  - SoundWave
 
 SPEC REPOS:
   trunk:
-    - FBSDKCoreKit
-    - FBSDKLoginKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -154,11 +139,8 @@ SPEC REPOS:
     - ProgressHUD
     - PromisesObjC
     - SDWebImage
-    - SoundWave
 
 SPEC CHECKSUMS:
-  FBSDKCoreKit: 0d1ae58388a458b8222f72025804cdc84eb5d0c3
-  FBSDKLoginKit: aea68df6121c5e165ccae2fabfdc83c4644ee40f
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
   FirebaseAnalytics: cd3bd84d722a24a8923918af8af8e5236f615d77
   FirebaseAuth: 5fe4585c2ed847319f0ea68bd1d82c77e49ff9a0
@@ -177,8 +159,7 @@ SPEC CHECKSUMS:
   ProgressHUD: 4bdaa0d2ddf676b23324b199f9facffb5c3a1620
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
-  SoundWave: d98ffaa863570b29d991da32a09b7ce1b4aaf2d4
 
-PODFILE CHECKSUM: 1b594311e0594ba7c7ab6ecf3338e457ab737de4
+PODFILE CHECKSUM: e8af71e108cb22158fc44373f56eb5281c08cc03
 
 COCOAPODS: 1.10.1

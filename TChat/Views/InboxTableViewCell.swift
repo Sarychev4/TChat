@@ -7,7 +7,6 @@
 
 import UIKit
 import Firebase
-import SoundWave
 import AVFoundation
 
 class InboxTableViewCell: UITableViewCell {

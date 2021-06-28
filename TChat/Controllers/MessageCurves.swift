@@ -59,8 +59,7 @@ class MessageCurves: UIView {
         }
         
         let spacing = (self.bounds.height / 13) - lineWidth
-        for i in 0..<arrayOfVariables.count{
-            
+        for i in 0..<arrayOfVariables.count{  
             var lineStart: CGFloat = 0//centerX * CGFloat(self.array[i])
             if CGFloat(self.samples[i]) > 0.9{
                 lineStart = centerX * 0.9
