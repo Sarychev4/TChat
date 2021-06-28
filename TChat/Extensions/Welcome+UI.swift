@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FBSDKCoreKit
-import FBSDKLoginKit
 import ProgressHUD
 import Firebase
 

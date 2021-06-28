@@ -7,7 +7,6 @@
 
 import UIKit
 import ProgressHUD
-import FBSDKLoginKit
 
 class ProfileViewController: UIViewController {
     

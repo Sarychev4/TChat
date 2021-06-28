@@ -184,8 +184,6 @@ class ChatViewController: UIViewController {
         pulse!.animationDuration = 1.0
         pulse!.backgroundColor = #colorLiteral(red: 0.05282949957, green: 0.5737867104, blue: 1, alpha: 1)
         bottomPanelView.layer.insertSublayer(pulse!, below: below)
-        print("showAnimation")
-        print(postion)
     }
     
     func stopAnimation(pulseAnimation: PulseAnimation){

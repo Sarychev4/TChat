@@ -96,12 +96,10 @@ class MessageTableViewCell: UITableViewCell {
             NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player?.currentItem)
              
             playerLayer = AVPlayerLayer(player: player)
-            print(" Начинаю ")
         }
     }
     
     @objc func playerDidFinishPlaying(note: NSNotification){
-        print("Video Finished")
         self.containerForSoundLinesViewRightReadedBottomConstraint.constant = rightContainerForSoundWaveView.bounds.height
         self.containerForSoundLinesViewLeftReadedBottomConstraint.constant = leftContainerForSoundWaveView.bounds.height
         self.rightContainerForSoundWaveView.layoutIfNeeded()
@@ -117,7 +115,6 @@ class MessageTableViewCell: UITableViewCell {
                 case .unknown:
                     break
                 case .readyToPlay:
-                    print(">>>>>> Ready to play")
                     if self.player?.rate == 0 {
                        
                         let duration: Double = Double(self.message.recordLength)
@@ -161,19 +158,7 @@ class MessageTableViewCell: UITableViewCell {
     //    }
     
     @objc func handleTap() {
-        print("PLAY SOUND")
-       
         handleAudioPlay()
-        //        if self.player?.rate == 0 {
-        //            self.player!.play()
-        //            let secs = Double(self.message.recordLength)
-        //           // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-        //            self.soundWaveView.play(for: secs) //MARK:  -TIMEDURATION
-        //            self.soundWaveViewLeft.play(for: secs)
-        //          //  }
-        //        } else {
-        //            self.player!.pause()
-        //        }
     }
     
     func configureCell(uid: String, message: Message, image: UIImage?, partnerName: String?, partnerImageUrl: String, currentUserName: String ){

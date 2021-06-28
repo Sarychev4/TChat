@@ -96,7 +96,6 @@ class InboxTableViewCell: UITableViewCell {
                     break
                 case .readyToPlay:
                     guard let lastMessage = inbox.lastMessage else { return }
-                    print(">>>>>> Ready to play")
                     if self.player?.rate == 0 {
                     
                         UIView.animate(withDuration: lastMessage.recordLength + 0.5, animations: {
@@ -153,14 +152,12 @@ class InboxTableViewCell: UITableViewCell {
                 self.recordLenthLbl.textColor = UIColor(hexString: "BFBFBF")
                 self.soundLinesView.tintColor = UIColor(hexString: "AA75EE")
                 self.containerForSoundLinesViewReadedRightConstraint.constant = containerForSoundWave.bounds.width
-                print(">>>1")
             } else {
                 self.messageAvatar.isHidden = false
                 self.messageAvatar.image = currentImage
                 self.recordLenthLbl.textColor = UIColor(hexString: "BFBFBF")
                 self.soundLinesView.tintColor = UIColor(hexString: "BFBFBF")
                 self.containerForSoundLinesViewReadedRightConstraint.constant = 0
-                print(">>>2")
             }
         } else {
             if inbox.lastMessage?.isRead == false { //unreaded
@@ -169,14 +166,12 @@ class InboxTableViewCell: UITableViewCell {
                 containerForSoundWaveLeftConstraint.constant = 42
                 self.containerForSoundLinesViewReadedRightConstraint.constant = containerForSoundWave.bounds.width
                 self.recordLenthLbl.textColor = UIColor(hexString: "0584FE")
-                print(">>>3")
             } else {
                 self.playButton.isHidden = true
                 self.messageAvatar.isHidden = true
                 containerForSoundWaveLeftConstraint.constant = 12
                 self.containerForSoundLinesViewReadedRightConstraint.constant = 0
                 self.recordLenthLbl.textColor = UIColor(hexString: "BFBFBF")
-                print(">>>4")
             }
         }
         

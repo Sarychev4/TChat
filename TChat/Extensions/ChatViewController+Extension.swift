@@ -136,7 +136,7 @@ extension ChatViewController {
         topLabel.textAlignment = .center
         topLabel.numberOfLines = 0
         
-        let attributed = NSMutableAttributedString(string: partnerUsername + "\n", attributes: [.font : UIFont.systemFont(ofSize: 17), .foregroundColor : UIColor.black])
+        let attributed = NSMutableAttributedString(string: partnerUsername + "\n", attributes: [.font : UIFont.boldSystemFont(ofSize: 18), .foregroundColor : UIColor.black, ])
         
         attributed.append(NSAttributedString(string: status, attributes: [.font : UIFont.systemFont(ofSize: 13), .foregroundColor : UIColor.lightGray]))
         topLabel.attributedText = attributed
@@ -362,7 +362,15 @@ extension ChatViewController: AVAudioRecorderDelegate {
     }
     
     func cutInboxSamples(){
+        
         let numberOfLines = 25
+        if self.samples.count < numberOfLines {
+            self.samples = []
+            for _ in 0..<25 {
+                let elem = CGFloat(0.1)
+                self.samples.append(elem)
+            }
+        }
         let elementToGet = (self.samples.count / numberOfLines)
         var cuttedSamples: [CGFloat] = []
         for item in 0..<self.samples.count where item % elementToGet == 0 {

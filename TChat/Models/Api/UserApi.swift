@@ -11,20 +11,13 @@ import Firebase
 import ProgressHUD
 import FirebaseStorage
 import FirebaseDatabase
-import FBSDKLoginKit
-import FBSDKCoreKit
 
 class UserApi {
     
     var users: Set<User> = []
     
     var currentUserId: String {
-//        if Auth.auth().currentUser != nil {
-//            return Auth.auth().currentUser!.uid
-//        } else {
-//            return ""
-//        }
-        
+
         return Auth.auth().currentUser != nil ? Auth.auth().currentUser!.uid : ""
     }
     
@@ -40,7 +33,6 @@ class UserApi {
                 onError(error!.localizedDescription)
                 return
             }
-            print(authData?.user.uid)
             onSuccess()
         }
     }
@@ -48,7 +40,7 @@ class UserApi {
     func signUp(withUsername username: String, email: String, password: String, image: UIImage?, onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void){
         
         guard let imageSelected = image else {
-            //ProgressHUD.showError(ERROR_EMPTY_PHOTO)
+           
             return
         }
         Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
@@ -110,20 +102,6 @@ class UserApi {
     func logOut(){
         do {
             Api.User.isOnline(bool: false)
-            if let providerData = Auth.auth().currentUser?.providerData {
-                let userInfo = providerData[0]
-                
-                switch userInfo.providerID {
-                case "facebook.com":
-                    LoginManager().logOut()
-                    print("LOGOUT")
-                    AccessToken.current = nil
-                    Profile.current = nil
-
-                default:
-                    break
-                }
-            }
             try Auth.auth().signOut()
             
             
@@ -145,9 +123,7 @@ class UserApi {
             let userJsons: [[String: Any]] = allObjects.compactMap({ $0.value as? [String: Any] })
             for userJson in userJsons {
                 if let user = User.transformUser(dict: userJson){
-                    if user.uid != self.currentUserId{
                         self.users.insert(user)
-                    }
                 }
             }
             onUpdate()
@@ -194,9 +170,6 @@ class UserApi {
         ]
         ref.updateChildValues(dict)
     }
-    
-    
-   
     
 }
 

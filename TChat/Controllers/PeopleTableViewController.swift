@@ -51,7 +51,8 @@ class PeopleTableViewController: UITableViewController, UISearchResultsUpdating 
     func observeUsers(){
         Api.User.observeUsers { [weak self] in
             guard let self = self else { return }
-            self.users = Array(Api.User.users)
+            let filteredUsers = Array(Api.User.users).filter{ $0.uid != Api.User.currentUserId}
+            self.users = filteredUsers
             self.tableView.reloadData()
         }
     }
