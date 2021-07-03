@@ -37,6 +37,7 @@ class SignInViewController: UIViewController {
     @IBAction func signInButtonDidTapped(_ sender: Any) {
         //Dismiss keyboard when user touch view
         self.view.endEditing(true)
+        
         self.validateFields()
         
         self.signIn(onSuccess: {

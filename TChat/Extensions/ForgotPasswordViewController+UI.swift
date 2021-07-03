@@ -24,6 +24,11 @@ extension ForgotPasswordViewController {
         emailTextField.textColor = UIColor(hexString: "000000")
     }
     
+    //Dismiss keyboard when user touch view
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func setupResetButton(){
         resetButton.setTitle("Reset my password", for: .normal)
         resetButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)

@@ -10,6 +10,11 @@ import ProgressHUD
 
 extension SignInViewController {
     
+    //Dismiss keyboard when user touch view
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func setupEmailTextField(){
         
         emailContainerView.layer.borderWidth = 1
